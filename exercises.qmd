@@ -4,7 +4,7 @@ execute:
   eval: false
 ---
 
-Download this [`quarto`](https://github.com/melinscribe/Workshop/blob/main/exercises/exercises_R.qmd) file with exercises. Solutions are on the [Solutions](solutions.html) page (released after the session).
+Download this [`quarto`](https://github.com/melinscribe/Workshop/blob/main/exercises/exercises_R.qmd) file with exercises. Solutions are on the [Solutions](solutions.html) page .
 
 ```{r}
 library(ggplot2)

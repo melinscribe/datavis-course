@@ -7,7 +7,7 @@ code-fold: true
 ---
 
 ::: {.callout-note}
-Try the exercises yourself before opening the folded code. These are *possible* solutions — in visualization there is rarely a single correct answer, only better and worse justified choices.
+Try the exercises yourself before opening the folded code. These are *possible* solutions in visualization, though there is rarely a single correct answer, only better and worse justified choices.
 :::
 
 ```{r}
@@ -34,7 +34,7 @@ gap2007 %>%
   theme_classic()
 ```
 
-A highlight doesn't need two saturated complementary colors — one saturated color against grey is usually stronger. If you did use orange/blue: those are complementary *and* colorblind-safe, which is why they are so common.
+A highlight doesn't need two saturated complementary colors. One saturated color against grey is usually stronger. If you did use orange/blue: those are complementary *and* colorblind-safe, which is why they are so common.
 
 **1.2** Under deuteranopia, red/green highlights fail. The fix without changing colors: add a redundant channel, e.g. `aes(shape = group)` or larger point size for the highlighted group.
 
@@ -75,7 +75,7 @@ ggplot(gap2007, aes(x = gdpPercap)) +
   theme_classic()
 ```
 
-Caveat for the reader: on a log axis, equal distances mean equal *ratios*, not equal differences — the visual symmetry is a property of the transformed scale.
+Caveat for the reader: on a log axis, equal distances mean equal *ratios*, not equal differences. The visual symmetry is a property of the transformed scale.
 
 **3.2**
 
@@ -130,7 +130,7 @@ ggplot(gap2007, aes(x = gdpPercap, y = lifeExp, size = pop, color = continent)) 
   scale_size(range = c(2, 20), guide = "none") +
   scale_color_viridis_d(option = "D", end = 0.95) +
   labs(
-    title = "Richer countries live longer — but population size plays no role",
+    title = "Richer countries live longer, but population size plays no role",
     subtitle = "142 countries, 2007. Bubble size = population.",
     caption = "Data: Gapminder",
     x = "GDP per Capita (log scale)", y = "Life Expectancy", color = "Continent"
@@ -138,7 +138,7 @@ ggplot(gap2007, aes(x = gdpPercap, y = lifeExp, size = pop, color = continent)) 
   theme_minimal()
 ```
 
-The substantive point most students find: income predicts life expectancy strongly (with diminishing returns — hence the log scale), while population size is essentially unrelated to it.
+The substantive point most students find: income predicts life expectancy strongly (with diminishing returns, hence the log scale), while population size is essentially unrelated to it.
 
 ## 🔧 Redesign Gallery
 
@@ -173,7 +173,7 @@ ggplot(gap2007, aes(x = continent, y = lifeExp)) +
   theme_classic()
 ```
 
-**4.3** Truncating a bar chart's axis breaks the proportionality between bar length and value (Tufte's first principle) — a 2-point difference can look like a 3-fold one. For *line* charts, the position encoding is the line's vertical location, not a length from zero, so a non-zero axis is often fine and sometimes necessary — but mark it clearly.
+**4.3** Truncating a bar chart's axis breaks the proportionality between bar length and value (Tufte's first principle) a 2-point difference can look like a 3-fold one. For *line* charts, the position encoding is the line's vertical location, not a length from zero, so a non-zero axis is often fine and sometimes necessary but mark it clearly.
 
 ## 🗺️ Bonus: Spatial
 
