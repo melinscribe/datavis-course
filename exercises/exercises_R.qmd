@@ -1,0 +1,132 @@
+---
+title: "Advanced Graphics Exercises"
+---
+
+```{r, echo=F, output=F}
+
+library(gapminder)
+library(ggplot2)
+library(dplyr)
+library(vdemdata)
+library(viridis)
+library(countrycode)
+library(patchwork)
+library(rnaturalearth)
+
+```
+
+# ✍️  Exercises
+
+The following exercises help you explore real-world development data using `ggplot2`, `gapminder` and `V-Dem`.
+
+------------------------------------------------------------------------
+
+## 🧠 Challenge Exercise: Explore a Development Pattern
+
+Before seeing any example plots, try to visualize the following:
+
+> **How does a country's population size relate to life expectancy and income level?**
+
+**Your task**: Create a visualization using the `gapminder` dataset for the year **2007** that captures the relationship between: - `lifeExp`: Life expectancy - `gdpPercap`: GDP per capita - `pop`: Population
+
+You may use any type of plot or mapping of variables (e.g., x-axis, color, size), but **aim to show all three variables clearly**.
+
+⬇️ Fill in the code below. Afterward, we'll compare approaches and interpretations.
+
+```{r}
+# ✏️ Add here your own code!
+
+```
+
+##  Exercise 1: Create two Histograms of GDP per Capita 
+
+Use the 2007 data to create two **histogram** that shows how `gdpPercap` and logged `gdpPercap` is distributed across all countries.
+Arrange the plots side by side. 
+
+
+**Hint**: Use `ggplot() + geom_histogram()` and consider `scale_x_log10()`.
+
+⬇️ Fill in your code below:
+
+```{r}
+# ✏️ Add here your own code!
+
+```
+
+
+------------------------------------------------------------------------
+
+
+
+## Exercise 2: Faceted Trend Comparison
+
+**Goal:** Compare how GDP per capita and life expectancy evolved over time in three world regions.
+
+**Task:**
+
+- Filter the Gapminder dataset to include only the years 1977, 1987, 1997, and 2007.
+- Create a scatterplot of **GDP per capita vs life expectancy**.
+- Use **bubble size for population**, **color for continent**, and **facet by year**.
+
+```{r}
+# Student solution space here
+
+
+```
+
+---
+
+##  Exercise 3: Democracy and Freedom of Assocation (V-Dem)
+
+**Goal:** Explore the relationship between democracy and perceived corruption.
+
+**Task:**
+
+- Use V-Dem variables:
+  - `v2x_frassoc_thick` (freedom of assocation)
+  - `v2x_libdem` (liberal democracy index)
+- Visualize their relationship using a **smooth line** or **scatterplot**, and split the plot by **region** using facets.
+
+```{r}
+# Student solution space here
+
+```
+
+---
+
+## Exercise 4: Visualizing Interaction Effects
+
+**Goal:** Create an interaction plot for the effect of Legislative Constraints and regime type on Freedom of Expression (V-Dem).
+
+**Task:**
+
+- Build a plot using `ggplot()` with `geom_line()` or `geom_point()`.
+- Show the interaction of `v2x_freexp` and a binary democracy variable on GDP (`v2xlg_legcon`).
+- Use color or linetype to distinguish regime type.
+
+```{r}
+# Student solution space here
+
+```
+
+---
+
+## Exercise 4: Mapping Democracy
+
+**Goal:** Map the latest available democracy index globally using a choropleth map.
+
+**Task:**
+- Use the latest year in the V-Dem data.
+- Use a spatial join or merge with a world shapefile (e.g., from `rnaturalearth`).
+- Plot a map using `geom_sf()` and fill countries by `v2x_libdem`.
+- Use `scale_fill_viridis_c()` for color.
+
+```{r}
+# Student solution space here
+
+
+```
+
+---
+
+

@@ -1,0 +1,69 @@
+---
+title: "Advanced Graphics"
+subtitle: "Workshop on Information Visualization for Social Scientists"
+author:
+  - name: Melanie Sauter
+    email: melanie.sauter@uni-mannheim.de
+---
+
+Welcome to this workshop on information visualization and advanced graphics in R.
+
+Information visualization, the art of representing data in a way that it is easy to understand and to manipulate, can help us make sense of information and thus make it useful in our lives. There's a huge need for data to be presented so that it is understood by experts and non-experts alike.
+
+Some of the most famous information visualizations are maps of Underground/Subway systems. The geography above ground is very different to the way it is shown on the underground map. However, it enables pretty much anyone to quickly understand how to get from one point in the city to any other using the underground system.
+
+Information visualization is designed to help us make sense out of data. It can be used to explore relationships between data, to confirm ideas we hold about data or to explain data in easy to digest manners. It may also be used, rightly or wrongly, to help persuade someone with data.
+
+This workshop is an introduction to the principles and techniques for visualizing data. The course first and foremost is aimed at making researchers aware of "good" and "bad" visualizations. Participants learn the principles of how to visualize complex matters into readable charts and graphs.
+
+## Course Overview
+
+| Block | Topic | Pages |
+|---|---|---|
+| 1 | Design foundations | [Colors](colors.html), [Fonts](fonts.html), [Technicalities](technicalities.html) |
+| 2 | Principles & chart choice | [Data Visualization](visualization.html) |
+| 3 | ggplot2 in practice | [Applied Examples](regressions.html), [Tables](tables.html) |
+| 4 | Communicating results | [Annotation](annotation.html), [Uncertainty](uncertainty.html), [Accessibility](accessibility.html) |
+| 5 | Beyond the static plot | [Interactive Graphics](interactive.html), [Exporting](exporting.html) |
+| — | Practice | [Exercises](exercises.html), [Solutions](solutions.html) |
+
+<!-- Add dates/rooms here for the current iteration of the workshop -->
+
+## Prerequisites
+
+Basic familiarity with R (loading data, running functions) and some exposure to regression analysis. You do not need prior ggplot2 experience — but skim the [ggplot2 introduction](regressions.html#introduction-to-ggplot2) beforehand if it is new to you.
+
+## Setup: before the first session
+
+Please bring a laptop with a recent [R](https://cran.r-project.org/) (≥ 4.3) and [RStudio](https://posit.co/download/rstudio-desktop/) installed, and run the following once:
+
+```{r}
+#| eval: false
+install.packages(c(
+  # core
+  "ggplot2", "dplyr", "tidyr", "broom", "patchwork",
+  # colors & themes
+  "viridis", "ggthemes", "colorspace", "cowplot",
+  # annotation & uncertainty
+  "ggrepel", "gghighlight", "ggdist", "ggeffects", "marginaleffects",
+  # tables
+  "gt", "modelsummary",
+  # interactive
+  "plotly", "ggiraph", "gganimate", "leaflet", "mapview",
+  # spatial
+  "sf", "terra", "rnaturalearth", "rnaturalearthdata", "osmdata",
+  # export & data
+  "ragg", "svglite", "scales", "gapminder"
+))
+
+# From GitHub (needs the 'remotes' package)
+install.packages("remotes")
+remotes::install_github("clauswilke/colorblindr")
+remotes::install_github("vdeminstitute/vdemdata")
+```
+
+If `sf` or `terra` fail to install, see the [sf installation notes](https://r-spatial.github.io/sf/#installing) for your operating system — and ask before the session, not during it.
+
+## Questions?
+
+Contact me at [melanie.sauter@uni-mannheim.de](mailto:melanie.sauter@uni-mannheim.de).

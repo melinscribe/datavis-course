@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Advanced Graphics - Publication Tables</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Advanced Graphics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./colors.html" rel="" target="">
+ <span class="menu-text">Colors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./fonts.html" rel="" target="">
+ <span class="menu-text">Fonts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./technicalities.html" rel="" target="">
+ <span class="menu-text">Technicalities</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./exporting.html" rel="" target="">
+ <span class="menu-text">Exporting</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./visualization.html" rel="" target="">
+ <span class="menu-text">Data Visualization</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./regressions.html" rel="" target="">
+ <span class="menu-text">Applied Examples</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./tables.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Tables</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-communicating" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Communicating</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-communicating">    
+        <li>
+    <a class="dropdown-item" href="./annotation.html" rel="" target="">
+ <span class="dropdown-text">Annotation &amp; Storytelling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./uncertainty.html" rel="" target="">
+ <span class="dropdown-text">Visualizing Uncertainty</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./accessibility.html" rel="" target="">
+ <span class="dropdown-text">Accessibility</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./interactive.html" rel="" target="">
+ <span class="menu-text">Interactive</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./exercises.html" rel="" target="">
+ <span class="menu-text">Exercises</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./resources.html" rel="" target="">
+ <span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#descriptive-tables-with-gt" id="toc-descriptive-tables-with-gt" class="nav-link active" data-scroll-target="#descriptive-tables-with-gt">Descriptive tables with <code>gt</code></a></li>
+  <li><a href="#regression-tables-with-modelsummary" id="toc-regression-tables-with-modelsummary" class="nav-link" data-scroll-target="#regression-tables-with-modelsummary">Regression tables with <code>modelsummary</code></a></li>
+  <li><a href="#coefficient-plot-or-regression-table" id="toc-coefficient-plot-or-regression-table" class="nav-link" data-scroll-target="#coefficient-plot-or-regression-table">Coefficient plot or regression table?</a></li>
+  <li><a href="#further-tools" id="toc-further-tools" class="nav-link" data-scroll-target="#further-tools">Further tools</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Publication Tables</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>The Data Visualization page covers <em>when</em> tables beat graphs (roughly: 20 numbers or fewer, or many localized comparisons) and <em>how</em> to design them (sort by values, not alphabetically; shade; round a lot). This page shows how to actually build such tables in R, reproducibly.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="descriptive-tables-with-gt" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-tables-with-gt">Descriptive tables with <code>gt</code></h2>
+<p><a href="https://gt.rstudio.com/"><code>gt</code></a> is to tables what ggplot2 is to graphs: a grammar. You pipe a data frame in and add layers of formatting.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(gdpPercap),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Population =</span> <span class="fu">sum</span>(pop)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>)) <span class="sc">%&gt;%</span>     <span class="co"># sort by values, not alphabet</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>, <span class="at">decimals =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_currency</span>(<span class="at">columns =</span> <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>, <span class="at">decimals =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> Population, <span class="at">suffixing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span>  <span class="co"># 1.2B not 1200000000</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_color</span>(<span class="at">columns =</span> <span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>, <span class="at">palette =</span> <span class="st">"viridis"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"The World in 2007, by Continent"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(<span class="st">"Data: Gapminder"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div id="nlrcyhkdwt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nlrcyhkdwt table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#nlrcyhkdwt thead, #nlrcyhkdwt tbody, #nlrcyhkdwt tfoot, #nlrcyhkdwt tr, #nlrcyhkdwt td, #nlrcyhkdwt th {
+  border-style: none;
+}
+
+#nlrcyhkdwt p {
+  margin: 0;
+  padding: 0;
+}
+
+#nlrcyhkdwt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#nlrcyhkdwt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nlrcyhkdwt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nlrcyhkdwt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nlrcyhkdwt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nlrcyhkdwt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nlrcyhkdwt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nlrcyhkdwt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nlrcyhkdwt .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#nlrcyhkdwt .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#nlrcyhkdwt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nlrcyhkdwt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nlrcyhkdwt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nlrcyhkdwt .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nlrcyhkdwt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nlrcyhkdwt .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nlrcyhkdwt .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nlrcyhkdwt .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#nlrcyhkdwt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nlrcyhkdwt .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nlrcyhkdwt .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nlrcyhkdwt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nlrcyhkdwt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nlrcyhkdwt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nlrcyhkdwt .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nlrcyhkdwt .gt_left {
+  text-align: left;
+}
+
+#nlrcyhkdwt .gt_center {
+  text-align: center;
+}
+
+#nlrcyhkdwt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nlrcyhkdwt .gt_font_normal {
+  font-weight: normal;
+}
+
+#nlrcyhkdwt .gt_font_bold {
+  font-weight: bold;
+}
+
+#nlrcyhkdwt .gt_font_italic {
+  font-style: italic;
+}
+
+#nlrcyhkdwt .gt_super {
+  font-size: 65%;
+}
+
+#nlrcyhkdwt .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#nlrcyhkdwt .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nlrcyhkdwt .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#nlrcyhkdwt .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#nlrcyhkdwt .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#nlrcyhkdwt .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#nlrcyhkdwt .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#nlrcyhkdwt .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#nlrcyhkdwt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">The World in 2007, by Continent</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="continent">continent</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Countries">Countries</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Life-Expectancy">Life Expectancy</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="GDP-per-Capita">GDP per Capita</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Population">Population</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="continent" class="gt_row gt_center">Oceania</td>
+<td headers="Countries" class="gt_row gt_right">2</td>
+<td headers="Life Expectancy" class="gt_row gt_right" style="background-color: #FDE725; color: #000000;">80.7</td>
+<td headers="GDP per Capita" class="gt_row gt_right">$29,810</td>
+<td headers="Population" class="gt_row gt_right">24.55M</td></tr>
+    <tr><td headers="continent" class="gt_row gt_center">Europe</td>
+<td headers="Countries" class="gt_row gt_right">30</td>
+<td headers="Life Expectancy" class="gt_row gt_right" style="background-color: #AFDD2F; color: #000000;">77.6</td>
+<td headers="GDP per Capita" class="gt_row gt_right">$25,054</td>
+<td headers="Population" class="gt_row gt_right">586.10M</td></tr>
+    <tr><td headers="continent" class="gt_row gt_center">Americas</td>
+<td headers="Countries" class="gt_row gt_right">25</td>
+<td headers="Life Expectancy" class="gt_row gt_right" style="background-color: #50C46A; color: #000000;">73.6</td>
+<td headers="GDP per Capita" class="gt_row gt_right">$11,003</td>
+<td headers="Population" class="gt_row gt_right">898.87M</td></tr>
+    <tr><td headers="continent" class="gt_row gt_center">Asia</td>
+<td headers="Countries" class="gt_row gt_right">33</td>
+<td headers="Life Expectancy" class="gt_row gt_right" style="background-color: #25AC82; color: #FFFFFF;">70.7</td>
+<td headers="GDP per Capita" class="gt_row gt_right">$12,473</td>
+<td headers="Population" class="gt_row gt_right">3.81B</td></tr>
+    <tr><td headers="continent" class="gt_row gt_center">Africa</td>
+<td headers="Countries" class="gt_row gt_right">52</td>
+<td headers="Life Expectancy" class="gt_row gt_right" style="background-color: #440154; color: #FFFFFF;">54.8</td>
+<td headers="GDP per Capita" class="gt_row gt_right">$3,089</td>
+<td headers="Population" class="gt_row gt_right">929.54M</td></tr>
+  </tbody>
+  <tfoot>
+    <tr class="gt_sourcenotes">
+      <td class="gt_sourcenote" colspan="5">Data: Gapminder</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+</div>
+<p>Note how the design rules from the visualization page appear as code: <code>arrange()</code> sorts by the substantively interesting column, <code>fmt_number(decimals = 1)</code> rounds a lot, <code>data_color()</code> shades cells by value so patterns are visible.</p>
+</section>
+<section id="regression-tables-with-modelsummary" class="level2">
+<h2 class="anchored" data-anchor-id="regression-tables-with-modelsummary">Regression tables with <code>modelsummary</code></h2>
+<p>Hand-copying coefficients into Word tables is the leading cause of avoidable errors in submitted papers. <a href="https://modelsummary.com/"><code>modelsummary</code></a> builds the table straight from the model objects.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap), <span class="at">data =</span> gap2007)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> continent, <span class="at">data =</span> gap2007)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="st">"Bivariate"</span> <span class="ot">=</span> m1, <span class="st">"+ Continent"</span> <span class="ot">=</span> m2),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"log(gdpPercap)"</span> <span class="ot">=</span> <span class="st">"Log GDP per Capita"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"continentAmericas"</span> <span class="ot">=</span> <span class="st">"Americas"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"continentAsia"</span> <span class="ot">=</span> <span class="st">"Asia"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"continentEurope"</span> <span class="ot">=</span> <span class="st">"Europe"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"continentOceania"</span> <span class="ot">=</span> <span class="st">"Oceania"</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">stars =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">notes =</span> <span class="st">"Reference category: Africa. OLS estimates, standard errors in parentheses."</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_qde3payn1e5fmp0zo896 = TinyTable.createTableFunctions("tinytable_qde3payn1e5fmp0zo896");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '14', j: 2 }, { i: '14', j: 3 } ], css_id: 'tinytable_css_49rqzgg6v28njqijbbuq',}, 
+          { positions: [ { i: '12', j: 2 }, { i: '12', j: 3 } ], css_id: 'tinytable_css_v5w072qpes4l720gpo1v',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '13', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '13', j: 3 } ], css_id: 'tinytable_css_x9f1hk1ivatfvakygz3h',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_kmjlqvs5ae5wqxmkaheb',}, 
+          { positions: [ { i: '14', j: 1 } ], css_id: 'tinytable_css_24zntfvalm3n7c53ibhx',}, 
+          { positions: [ { i: '12', j: 1 } ], css_id: 'tinytable_css_h9m4axlq1wnhe4q3j1cq',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '13', j: 1 } ], css_id: 'tinytable_css_6xa31v7fv23s6qhibjj3',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_vah7o78qq4m2kyf0z4wp',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_qde3payn1e5fmp0zo896.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_49rqzgg6v28njqijbbuq, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_49rqzgg6v28njqijbbuq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_v5w072qpes4l720gpo1v, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_v5w072qpes4l720gpo1v {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_x9f1hk1ivatfvakygz3h, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_x9f1hk1ivatfvakygz3h { text-align: center }
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_kmjlqvs5ae5wqxmkaheb, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_kmjlqvs5ae5wqxmkaheb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_24zntfvalm3n7c53ibhx, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_24zntfvalm3n7c53ibhx {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_h9m4axlq1wnhe4q3j1cq, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_h9m4axlq1wnhe4q3j1cq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_6xa31v7fv23s6qhibjj3, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_6xa31v7fv23s6qhibjj3 { text-align: left }
+    #tinytable_qde3payn1e5fmp0zo896 td.tinytable_css_vah7o78qq4m2kyf0z4wp, #tinytable_qde3payn1e5fmp0zo896 th.tinytable_css_vah7o78qq4m2kyf0z4wp {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_qde3payn1e5fmp0zo896" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">Bivariate</th>
+                <th scope="col" data-row="0" data-col="3">+ Continent</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="3">Reference category: Africa. OLS estimates, standard errors in parentheses.</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">4.950</td>
+                  <td data-row="1" data-col="3">20.138***</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(3.858)</td>
+                  <td data-row="2" data-col="3">(4.033)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">Log GDP per Capita</td>
+                  <td data-row="3" data-col="2">7.203***</td>
+                  <td data-row="3" data-col="3">4.631***</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.442)</td>
+                  <td data-row="4" data-col="3">(0.527)</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">Americas</td>
+                  <td data-row="5" data-col="2"></td>
+                  <td data-row="5" data-col="3">11.694***</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2"></td>
+                  <td data-row="6" data-col="3">(1.655)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">Asia</td>
+                  <td data-row="7" data-col="2"></td>
+                  <td data-row="7" data-col="3">10.114***</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2"></td>
+                  <td data-row="8" data-col="3">(1.476)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">Europe</td>
+                  <td data-row="9" data-col="2"></td>
+                  <td data-row="9" data-col="3">11.268***</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2"></td>
+                  <td data-row="10" data-col="3">(1.894)</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">Oceania</td>
+                  <td data-row="11" data-col="2"></td>
+                  <td data-row="11" data-col="3">12.929**</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2"></td>
+                  <td data-row="12" data-col="3">(4.521)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">Num.Obs.</td>
+                  <td data-row="13" data-col="2">142</td>
+                  <td data-row="13" data-col="3">142</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">R2</td>
+                  <td data-row="14" data-col="2">0.654</td>
+                  <td data-row="14" data-col="3">0.767</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+<p><code>modelsummary()</code> outputs to HTML, LaTeX, and Word depending on your output format — one code chunk serves the website and the paper. Its sibling <code>datasummary_skim()</code> gives a one-line descriptive overview of a whole dataset:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(gap2007 <span class="sc">%&gt;%</span> <span class="fu">select</span>(lifeExp, gdpPercap, pop))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_kbkhdijll6pv0vl73sgu = TinyTable.createTableFunctions("tinytable_kbkhdijll6pv0vl73sgu");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '3', j: 1 }, { i: '3', j: 2 }, { i: '3', j: 3 }, { i: '3', j: 4 }, { i: '3', j: 5 }, { i: '3', j: 6 }, { i: '3', j: 7 }, { i: '3', j: 8 }, { i: '3', j: 9 } ], css_id: 'tinytable_css_srz2y0i8n5nv4w7a1005',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '1', j: 5 }, { i: '2', j: 5 }, { i: '1', j: 6 }, { i: '2', j: 6 }, { i: '1', j: 7 }, { i: '2', j: 7 }, { i: '1', j: 8 }, { i: '2', j: 8 }, { i: '1', j: 9 }, { i: '2', j: 9 } ], css_id: 'tinytable_css_tidwx27h60zm1juihq2r',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 }, { i: '0', j: 7 }, { i: '0', j: 8 }, { i: '0', j: 9 } ], css_id: 'tinytable_css_3vclxvqwhe7ueir04t8a',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_kbkhdijll6pv0vl73sgu.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_kbkhdijll6pv0vl73sgu td.tinytable_css_srz2y0i8n5nv4w7a1005, #tinytable_kbkhdijll6pv0vl73sgu th.tinytable_css_srz2y0i8n5nv4w7a1005 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_kbkhdijll6pv0vl73sgu td.tinytable_css_tidwx27h60zm1juihq2r, #tinytable_kbkhdijll6pv0vl73sgu th.tinytable_css_tidwx27h60zm1juihq2r { text-align: left }
+    #tinytable_kbkhdijll6pv0vl73sgu td.tinytable_css_3vclxvqwhe7ueir04t8a, #tinytable_kbkhdijll6pv0vl73sgu th.tinytable_css_3vclxvqwhe7ueir04t8a {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_kbkhdijll6pv0vl73sgu" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">Unique</th>
+                <th scope="col" data-row="0" data-col="3">Missing Pct.</th>
+                <th scope="col" data-row="0" data-col="4">Mean</th>
+                <th scope="col" data-row="0" data-col="5">SD</th>
+                <th scope="col" data-row="0" data-col="6">Min</th>
+                <th scope="col" data-row="0" data-col="7">Median</th>
+                <th scope="col" data-row="0" data-col="8">Max</th>
+                <th scope="col" data-row="0" data-col="9">Histogram</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">lifeExp</td>
+                  <td data-row="1" data-col="2">142</td>
+                  <td data-row="1" data-col="3">0</td>
+                  <td data-row="1" data-col="4">67.0</td>
+                  <td data-row="1" data-col="5">12.1</td>
+                  <td data-row="1" data-col="6">39.6</td>
+                  <td data-row="1" data-col="7">71.9</td>
+                  <td data-row="1" data-col="8">82.6</td>
+                  <td data-row="1" data-col="9"><img src="data:image/png;base64, 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gePj4/bqq6+2999/P2ymQbUFFn/90B3XJnA9AQIECBAgQIAAAQKZBb766qt27ty5dvny5cxnlN19b2+v3b9/v+z9mQ9/5ZVX2vfff5/5BLsnEvBbCBOFZVUCBAgQIECAAAECBAgQIDAXgdXKb+qaSxYV9lBgVUjZjQQIECBAgAABAgQIECBAgACBxAIKrMThWZ0AAQIECBAgQIAAAQIECBAgUEFAgVUhZTcSIECAAAECBAgQIECAAAECBBILKLASh2d1AgQIECBAgAABAgQIECBAgEAFAQVWhZTdSIAAAQIECBAgQIAAAQIECBBILKDAShye1QkQIECAAAECBAgQIECAAAECFQQUWBVSdiMBAgQIECBAgAABAgQIECBAILGAAitxeFYnQIAAAQIECBAgQIAAAQIECFQQUGBVSNmNBAgQIECAAAECBAgQIECAAIHEAgqsxOFZnQABAgQIECBAgAABAgQIECBQQUCBVSFlNxIgQIAAAQIECBAgQIAAAQIEEgsosBKHZ3UCBAgQIECAAAECBAgQIECAQAUBBVaFlN1IgAABAgQIECBAgAABAgQIEEgsoMBKHJ7VCRAgQIAAAQIECBAgQIAAAQIVBBRYFVJ2IwECBAgQIECAAAECBAgQIEAgsYACK3F4VidAgAABAgQIECBAgAABAgQIVBBQYFVI2Y0ECBAgQIAAAQIECBAgQIAAgcQCCqzE4VmdAAECBAgQIECAAAECBAgQIFBBQIFVIWU3EiBAgAABAgQIECBAgAABAgQSCyiwEodndQIECBAgQIAAAQIECBAgQIBABQEFVoWU3UiAAAECBAgQIECAAAECBAgQSCygwEocntUJECBAgAABAgQIECBAgAABAhUEFFgVUnYjAQIECBAgQIAAAQIECBAgQCCxgAIrcXhWJ0CAAAECBAgQIECAAAECBAhUEFBgVUjZjQQIECBAgAABAgQIECBAgACBxAIKrMThWZ0AAQIECBAgQIAAAQIECBAgUEFAgVUhZTcSIECAAAECBAgQIECAAAECBBILKLASh2d1AgQIECBAgAABAgQIECBAgEAFAQVWhZTdSIAAAQIECBAgQIAAAQIECBBILKDAShye1QkQIECAAAECBAgQIECAAAECFQQUWBVSdiMBAgQIECBAgAABAgQIECBAILGAAitxeFYnQIAAAQIECBAgQIAAAQIECFQQUGBVSNmNBAgQIECAAAECBAgQIECAAIHEAgqsxOFZnQABAgQIECBAgAABAgQIECBQQUCBVSFlNxIgQIAAAQIECBAgQIAAAQIEEgsosBKHZ3UCBAgQIECAAAECBAgQIECAQAUBBVaFlN1IgAABAgQIECBAgAABAgQIEEgsoMBKHJ7VCRAgQIAAAQIECBAgQIAAAQIVBBRYFVJ2IwECBAgQIECAAAECBAgQIEAgsYACK3F4VidAgAABAgQIECBAgAABAgQIVBBQYFVI2Y0ECBAgQIAAAQIECBAgQIAAgcQCCqzE4VmdAAECBAgQIECAAAECBAgQIFBBQIFVIWU3EiBAgAABAgQIECBAgAABAgQSCyiwEodndQIECBAgQIAAAQIECBAgQIBABQEFVoWU3UiAAAECBAgQIECAAAECBAgQSCygwEocntUJECBAgAABAgQIECBAgAABAhUEFFgVUnYjAQIECBAgQIAAAQIECBAgQCCxgAIrcXhWJ0CAAAECBAgQIECAAAECBAhUEFBgVUjZjQQIECBAgAABAgQIECBAgACBxAIKrMThWZ0AAQIECBAgQIAAAQIECBAgUEFAgVUhZTcSIECAAAECBAgQIECAAAECBBILKLASh2d1AgQIECBAgAABAgQIECBAgEAFAQVWhZTdSIAAAQIECBAgQIAAAQIECBBILKDAShye1QkQIECAAAECBAgQIECAAAECFQQUWBVSdiMBAgQIECBAgAABAgQIECBAILGAAitxeFYnQIAAAQIECBAgQIAAAQIECFQQUGBVSNmNBAgQIECAAAECBAgQIECAAIHEAgqsxOFZnQABAgQIECBAgAABAgQIECBQQUCBVSFlNxIgQIAAAQIECBAgQIAAAQIEEgsosBKHZ3UCBAgQIECAAAECBAgQIECAQAUBBVaFlN1IgAABAgQIECBAgAABAgQIEEgsoMBKHJ7VCRAgQIAAAQIECBAgQIAAAQIVBBRYFVJ2IwECBAgQIECAAAECBAgQIEAgsYACK3F4VidAgAABAgQIECBAgAABAgQIVBBQYFVI2Y0ECBAgQIAAAQIECBAgQIAAgcQCCqzE4VmdAAECBAgQIECAAAECBAgQIFBBQIFVIWU3EiBAgAABAgQIECBAgAABAgQSCyiwEodndQIECBAgQIAAAQIECBAgQIBABQEFVoWU3UiAAAECBAgQIECAAAECBAgQSCygwEocntUJECBAgAABAgQIECBAgAABAhUEFFgVUnYjAQIECBAgQIAAAQIECBAgQCCxgAIrcXhWJ0CAAAECBAgQIECAAAECBAhUEFBgVUjZjQQIECBAgAABAgQIECBAgACBxAIKrMThWZ0AAQIECBAgQIAAAQIECBAgUEFAgVUhZTcSIECAAAECBAgQIECAAAECBBILKLASh2d1AgQIECBAgAABAgQIECBAgEAFAQVWhZTdSIAAAQIECBAgQIAAAQIECBBILKDAShye1QkQIECAAAECBAgQIECAAAECFQQUWBVSdiMBAgQIECBAgAABAgQIECBAILGAAitxeFYnQIAAAQIECBAgQIAAAQIECFQQUGBVSNmNBAgQIECAAAECBAgQIECAAIHEAgqsxOFZnQABAgQIECBAgAABAgQIECBQQUCBVSFlNxIgQIAAAQIECBAgQIAAAQIEEgsosBKHZ3UCBAgQIECAAAECBAgQIECAQAUBBVaFlN1IgAABAgQIECBAgAABAgQIEEgsoMBKHJ7VCRAgQIAAAQIECBAgQIAAAQIVBBRYFVJ2IwECBAgQIECAAAECBAgQIEAgsYACK3F4VidAgAABAgQIECBAgAABAgQIVBBQYFVI2Y0ECBAgQIAAAQIECBAgQIAAgcQCCqzE4VmdAAECBAgQIECAAAECBAgQIFBBQIFVIWU3EiBAgAABAgQIECBAgAABAgQSCyiwEodndQIECBAgQIAAAQIECBAgQIBABQEFVoWU3UiAAAECBAgQIECAAAECBAgQSCygwEocntUJECBAgAABAgQIECBAgAABAhUEFFgVUnYjAQIECBAgQIAAAQIECBAgQCCxgAIrcXhWJ0CAAAECBAgQIECAAAECBAhUEFBgVUjZjQQIECBAgAABAgQIECBAgACBxAIKrMThWZ0AAQIECBAgQIAAAQIECBAgUEFAgVUhZTcSIECAAAECBAgQIECAAAECBBILKLASh2d1AgQIECBAgAABAgQIECBAgEAFAQVWhZTdSIAAAQIECBAgQIAAAQIECBBILKDAShye1QkQIECAAAECBAgQIECAAAECFQQUWBVSdiMBAgQIECBAgAABAgQIECBAILGAAitxeFYnQIAAAQIECBAgQIAAAQIECFQQUGBVSNmNBAgQIECAAAECBAgQIECAAIHEAgqsxOFZnQABAgQIECBAgAABAgQIECBQQUCBVSFlNxIgQIAAAQIECBAgQIAAAQIEEgsosBKHZ3UCBAgQIECAAAECBAgQIECAQAUBBVaFlN1IgAABAgQIECBAgAABAgQIEEgsoMBKHJ7VCRAgQIAAAQIECBAgQIAAAQIVBBRYFVJ2IwECBAgQIECAAAECBAgQIEAgsYACK3F4VidAgAABAgQIECBAgAABAgQIVBBQYFVI2Y0ECBAgQIAAAQIECBAgQIAAgcQCCqzE4VmdAAECBAgQIECAAAECBAgQIFBBQIFVIWU3EiBAgAABAgQIECBAgAABAgQSCyiwEodndQIECBAgQIAAAQIECBAgQIBABQEFVoWU3UiAAAECBAgQIECAAAECBAgQSCygwEocntUJECBAgAABAgQIECBAgAABAhUEFFgVUnYjAQIECBAgQIAAAQIECBAgQCCxgAIrcXhWJ0CAAAECBAgQIECAAAECBAhUEFBgVUjZjQQIECBAgAABAgQIECBAgACBxAIKrMThWZ0AAQIECBAgQIAAAQIECBAgUEFAgVUhZTcSIECAAAECBAgQIECAAAECBBILKLASh2d1AgQIECBAgAABAgQIECBAgEAFAQVWhZTdSIAAAQIECBAgQIAAAQIECBBILKDAShye1QkQIECAAAECBAgQIECAAAECFQQUWBVSdiMBAgQIECBAgAABAgQIECBAILGAAitxeFYnQIAAAQIECBAgQIAAAQIECFQQUGBVSNmNBAgQIECAAAECBAgQIECAAIHEAgqsxOFZnQABAgQIECBAgAABAgQIECBQQUCBVSFlNxIgQIAAAQIECBAgQIAAAQIEEgsosBKHZ3UCBAgQIECAAAECBAgQIECAQAUBBVaFlN1IgAABAgQIECBAgAABAgQIEEgsoMBKHJ7VCRAgQIAAAQIECBAgQIAAAQIVBBRYFVJ2IwECBAgQIECAAAECBAgQIEAgsYACK3F4VidAgAABAgQIECBAgAABAgQIVBBQYFVI2Y0ECBAgQIAAAQIECBAgQIAAgcQCCqzE4VmdAAECBAgQIECAAAECBAgQIFBBQIFVIWU3EiBAgAABAgQIECBAgAABAgQSCyiwEodndQIECBAgQIAAAQIECBAgQIBABQEFVoWU3UiAAAECBAgQIECAAAECBAgQSCygwEocntUJECBAgAABAgQIECBAgAABAhUEFFgVUnYjAQIECBAgQIAAAQIECBAgQCCxgAIrcXhWJ0CAAAECBAgQIECAAAECBAhUEFBgVUjZjQQIECBAgAABAgQIECBAgACBxAIKrMThWZ0AAQIECBAgQIAAAQIECBAgUEFAgVUhZTcSIECAAAECBAgQIECAAAECBBILKLASh2d1AgQIECBAgAABAgQIECBAgEAFAQVWhZTdSIAAAQIECBAgQIAAAQIECBBILKDAShye1QkQIECAAAECBAgQIECAAAECFQQUWBVSdiMBAgQIECBAgAABAgQIECBAILGAAitxeFYnQIAAAQIECBAgQIAAAQIECFQQUGBVSNmNBAgQIECAAAECBAgQIECAAIHEAgqsxOFZnQABAgQIECBAgAABAgQIECBQQUCBVSFlNxIgQIAAAQIECBAgQIAAAQIEEgsosBKHZ3UCBAgQIECAAAECBAgQIECAQAUBBVaFlN1IgAABAgQIECBAgAABAgQIEEgsoMBKHJ7VCRAgQIAAAQIECBAgQIAAAQIVBBRYFVJ2IwECBAgQIECAAAECBAgQIEAgsYACK3F4VidAgAABAgQIECBAgAABAgQIVBBQYFVI2Y0ECBAgQIAAAQIECBAgQIAAgcQCCqzE4VmdAAECBAgQIECAAAECBAgQIFBBQIFVIWU3EiBAgAABAgQIECBAgAABAgQSCyiwEodndQIECBAgQIAAAQIECBAgQIBABQEFVoWU3UiAAAECBAgQIECAAAECBAgQSCygwEocntUJECBAgAABAgQIECBAgAABAhUEFFgVUnYjAQIECBAgQIAAAQIECBAgQCCxgAIrcXhWJ0CAAAECBAgQIECAAAECBAhUEFhVONKNBAgQIECAAAECBAgQIECAwG4FLl++3M6dO7fbD/VpIQIvvvhi+/jjj0Nm7WqIAmtXkj6HAAECBAgQIECAAAECBAgUErhz50774osvCl18ck596aWX0hVYfgvhyfn5cwkBAgQIECBAgAABAgQIEAgTWCwWYbMM2q3AqVOndvuBAZ+mwApANoIAAQIECBAgQIAAAQIECBAgQGBcQIE1buclAQIECBAgQIAAAQIECBAgQIBAgIACKwDZCAIECBAgQIAAAQIECBAgQIAAgXEBBda4nZcECBAgQIAAAQIECBAgQIAAAQIBAgqsAGQjCBAgQIAAAQIECBAgQIAAAQIExgUUWON2XhIgQIAAAQIECBAgQIAAAQIECAQIrAJmGEGAAAECEwncvXu3fffddxNNN3YbgeVy2R48eLDNR3g7ocBrr7024XSjCRAgQIAAAQInT0CBdfIydREBAgQeC1y4cKF99tln7cknn3z8a77IIXBwcNBWq1U7e/ZsjoVt+Vjgl19+aRcvXmxvvvnm41/zBQECBAgQIECAwHYCCqzt/LwmQIDArAXu37/fbt68+ejPWS9quX8J7O3ttcPDw0d//utf9AuzF7h27drsd7QgAQIECBAgQCCTgP8PrExp2ZUAAQIECBAgQIAAAQIECBAgUFBAgVUwdCcTIECAAAECBAgQIECAAAECBDIJKLAypWVXAgQIECBAgAABAgQIECBAgEBBAQVWwdCdTIAAAQIECBAgQIAAAQIECBDIJKDAypSWXQkQIECAAAECBAgQIECAAAECBQUUWAVDdzIBAgQIECBAgAABAgQIECBAIJOAAitTWnYlQIAAAQIECBAgQIAAAQIECBQUUGAVDN3JBAgQIECAAAECBAgQIECAAIFMAgqsTGnZlQABAgQIECBAgAABAgQIECBQUECBVTB0JxMgQIAAAQIECBAgQIAAAQIEMgkosDKlZVcCBAgQIECAAAECBAgQIECAQEEBBVbB0J1MgAABAgQIECBAgAABAgQIEMgkoMDKlJZdCRAgQIAAAQIECBAgQIAAAQIFBRRYBUN3MgECBAgQIECAAAECBAgQIEAgk4ACK1NadiVAgAABAgQIECBAgAABAgQIFBRQYBUM3ckECBAgQIAAAQIECBAgQIAAgUwCq0zL2pUAgWkEbty40fb396cZbupWArdu3drqvccECBAgQIAAAQIECBCYg4ACaw4p2IHAzAXefvvt9u2337bTp0/PfFPr/VPg4ODgn7/knxMgQIAAAQIECBAgQCCdgAIrXWQWJhAvsFgsmiIk3n0XE8+cOdN+//33XXyUzyBAgAABAgQIECBAgMBkAv4/sCajN5gAAQIECBAgQIAAAQIECBAgQGATAQXWJkq+hwABAgQIECBAgAABAgQIECBAYDIBBdZk9AYTIECAAAECBAgQIECAAAECBAhsIqDA2kTJ9xAgQIAAAQIECBAgQIAAAQIECEwmoMCajN5gAgQIECBAgAABAgQIECBAgACBTQQUWJso+R4CBAgQIECAAAECBAgQIECAAIHJBBRYk9EbTIAAAQIECBAgQIAAAQIECBAgsInAapNv8j0ECBAgQIAAAQKbC3z44Yft4sWLmz/wnbMQuH37dvvoo4/a66+/Pot9LEGAAAECBAisBRRYawtfESBAgAABAgR2IvDDDz+0h3/6I5/A559/rsDKF5uNCRAgQKCAgN9CWCBkJxIgQIAAAQIECGwmsFgsNvtG30WAAAECBAiECiiwQrkNI0CAAAECBAgQIECAAAECBAgQ6BVQYPWK+X4CBAgQIECAAAECBAgQIECAAIFQAQVWKLdhBAgQIECAAAECBAgQIECAAAECvQIKrF4x30+AAAECBAgQIECAAAECBAgQIBAqoMAK5TaMAAECBAgQIECAAAECBAgQIECgV0CB1Svm+wkQIECAAAECBAgQIECAAAECBEIFVqHTDCstcOXKlfbTTz+VNsh6/OHhYdbV7U2AAAECBAgQIECAAAECJ0BAgXUCQsxywhtvvNHu3LnTlkv/w78smf295/Xr1//+0j8SIECAAAECBAgQIECAAIFwAQVWOHndgU888US7evVqXYDEl+/t7bWjo6PEF1idAAECBAgQIECAAAECBDIL+J/CZE7P7gQIECBAgAABAgQIECBAgACBAgIKrAIhO5EAAQIECBAgQIAAAQIECBAgkFlAgZU5PbsTIECAAAECBAgQIECAAAECBAoIKLAKhOxEAgQIECBAgAABAgQIECBAgEBmAQVW5vTsToAAAQIECBAgQIAAAQIECBAoIKDAKhCyEwkQIECAAAECBAgQIECAAAECmQUUWJnTszsBAgQIECBAgAABAgQIECBAoIDAqsCNTiRAgAABAgQIECCwkcAnn3zSvv76642+1zfNR+DKlSvt3r1781nIJgQIECCwcwEF1s5JfSABAgQIECBAgEBWgYdFyKVLl7KuX3rvM2fOlL7f8QQIEDjpAn4L4UlP2H0ECBAgQIAAAQIbCywWi42/1zcSIECAAAECcQIKrDhrkwgQIECAAAECBAgQIECAAAECBAYEFFgDaJ4QIECAAAECBAgQIECAAAECBAjECSiw4qxNIkCAAAECBAgQIECAAAECBAgQGBBQYA2geUKAAAECBAgQIECAAAECBAgQIBAnoMCKszaJAAECBAgQIECAAAECBAgQIEBgQECBNYDmCQECBAgQIECAAAECBAgQIECAQJyAAivO2iQCBAgQIECAAAECBAgQIECAAIEBAQXWAJonBAgQIECAAAECBAgQIECAAAECcQIKrDhrkwgQIECAAAECBAgQIECAAAECBAYEFFgDaJ4QIECAAAECBAgQIECAAAECBAjECSiw4qxNIkCAAAECBAgQIECAAAECBAgQGBBQYA2geUKAAAECBAgQIECAAAECBAgQIBAnoMCKszaJAAECBAgQIECAAAECBAgQIEBgQECBNYDmCQECBAgQIECAAAECBAgQIECAQJyAAivO2iQCBAgQIECAAAECBAgQIECAAIEBAQXWAJonBAgQIECAAAECBAgQIECAAAECcQIKrDhrkwgQIECAAAECBAgQIECAAAECBAYEFFgDaJ4QIECAAAECBAgQIECAAAECBAjECSiw4qxNIkCAAAECBAgQIECAAAECBAgQGBBQYA2geUKAAAECBAgQIECAAAECBAgQIBAnoMCKszaJAAECBAgQIECAAAECBAgQIEBgQECBNYDmCQECBAgQIECAAAECBAgQIECAQJyAAivO2iQCBAgQIECAAAECBAgQIECAAIEBAQXWAJonBAgQIECAAAECBAgQIECAAAECcQIKrDhrkwgQIECAAAECBAgQIECAAAECBAYEFFgDaJ4QIECAAAECBAgQIECAAAECBAjECSiw4qxNIkCAAAECBAgQIECAAAECBAgQGBBQYA2geUKAAAECBAgQIECAAAECBAgQIBAnoMCKszaJAAECBAgQIECAAAECBAgQIEBgQECBNYDmCQECBAgQIECAAAECBAgQIECAQJyAAivO2iQCBAgQIECAAAECBAgQIECAAIEBAQXWAJonBAgQIECAAAECBAgQIECAAAECcQIKrDhrkwgQIECAAAECBAgQIECAAAECBAYEFFgDaJ4QIECAAAECBAgQIECAAAECBAjECSiw4qxNIkCAAAECBAgQIECAAAECBAgQGBBQYA2geUKAAAECBAgQIECAAAECBAgQIBAnoMCKszaJAAECBAgQIECAAAECBAgQIEBgQECBNYDmCQECBAgQIECAAAECBAgQIECAQJyAAivO2iQCBAgQIECAAAECBAgQIECAAIEBAQXWAJonBAgQIECAAAECBAgQIECAAAECcQIKrDhrkwgQIECAAAECBAgQIECAAAECBAYEFFgDaJ4QIECAAAECBAgQIECAAAECBAjECSiw4qxNIkCAAAECBAgQIECAAAECBAgQGBBQYA2geUKAAAECBAgQIECAAAECBAgQIBAnoMCKszaJAAECBAgQIECAAAECBAgQIEBgQECBNYDmCQECBAgQIECAAAECBAgQIECAQJyAAivO2iQCBAgQIECAAAECBAgQIECAAIEBAQXWAJonBAgQIECAAAECBAgQIECAAAECcQIKrDhrkwgQIECAAAECBAgQIECAAAECBAYEFFgDaJ4QIECAAAECBAgQIECAAAECBAjECSiw4qxNIkCAAAECBAgQIECAAAECBAgQGBBQYA2geUKAAAECBAgQIECAAAECBAgQIBAnoMCKszaJAAECBAgQIECAAAECBAgQIEBgQECBNYDmCQECBAgQIECAAAECBAgQIECAQJzAKm7Ubia9++677eeff97Nh/mUUAG5hXIbRoAAAQIECBAgQIAAAQIEToxAugLryy+/bJcuXToxAVQ65PTp05XOdSsBAgQIECBAgAABAgQIECCwI4F0v4VwuUy38o6i8jEECBAgQIAAAQIECBAgQIAAgZoC2qCaubuaAAECBAgQIECAAAECBAgQIJBGQIGVJiqLEiBAgAABAgQIECBAgAABAgRqCiiwaubuagIECBAgQIAAAQIECBAgQIBAGgEFVpqoLEqAAAECBAgQIECAAAECBAgQqCmgwKqZu6sJECBAgAABAgQIECBAgAABAmkEFFhporIoAQIECBAgQIAAAQIECBAgQKCmQLoC648//qiZ1Am4WnZ5Q5Rd3uyOjo7yLl98c3/dFf8BcP5kAg8ePJhstsHbCRwfH2/3AV5PJuCvu8notx7s369sTTjZB9y6dWuy2aODV6MPp3r33nvvtR9//HGq8eZuIXDt2rX2wgsvtMViscWneDqFwMHBQXv66afb3t7eFOPN3ELgxo0bj3J76qmntvgUT6cQeJjdcrlsZ8+enWK8mVsIPPx75sM/nn/++S0+xdMpBH799dd2eHjYnn322SnGm7mFwG+//dbu3r3bnnnmmS0+xdMpBB4WIDdv3mzPPffcFOPN3FLg+vXrj/4z3pYf4/kEAi+//PIEU7cbufjrv6nwX1VsZ+g1AQIECBAgQIAAAQIECBAgQIDA/yiQ7rcQ/o8WPpoAAQIECBAgQIAAAQIECBAgQGCGAgqsGYZiJQIECBAgQIAAAQIECBAgQIAAgbWAAmtt4SsCBAgQIECAAAECBAgQIECAAIEZCiiwZhiKlQgQIECAAAECBAgQIECAAAECBNYCCqy1ha8IECBAgAABAgQIECBAgAABAgRmKKDAmmEoViJAgAABAgQIECBAgAABAgQIEFgLKLDWFr4iQIAAAQIECBAgQIAAAQIECBCYoYACa4ahWIkAAQIECBAgQIAAAQIECBAgQGAtoMBaW/iKAAECBAgQIECAAAECBAgQIEBghgIKrBmGYiUCBAgQIECAAAECBAgQIECAAIG1gAJrbeErAgQIECBAgAABAgQIECBAgACBGQoosGYYipUIECBAgAABAgQIECBAgAABAgTWAgqstYWvCBAgQIAAAQIECBAgQIAAAQIEZijwJ6esB7tc3MZHAAAAAElFTkSuQmCC" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">gdpPercap</td>
+                  <td data-row="2" data-col="2">142</td>
+                  <td data-row="2" data-col="3">0</td>
+                  <td data-row="2" data-col="4">11680.1</td>
+                  <td data-row="2" data-col="5">12859.9</td>
+                  <td data-row="2" data-col="6">277.6</td>
+                  <td data-row="2" data-col="7">6124.4</td>
+                  <td data-row="2" data-col="8">49357.2</td>
+                  <td data-row="2" data-col="9"><img src="data:image/png;base64, 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gaKAAKsIpYwAAQIECBAgQIAAAQIECBAgQCAjIMDKuOtKgAABAgQIECBAgAABAgQIECBQFBBgFaGUESBAgAABAgQIECBAgAABAgQIZAQEWBl3XQkQIECAAAECBAgQIECAAAECBIoCAqwilDICBAgQIECAAAECBAgQIECAAIGMgAAr464rAQIECBAgQIAAAQIECBAgQIBAUUCAVYRSRoAAAQIECBAgQIAAAQIECBAgkBEQYGXcdSVAgAABAgQIECBAgAABAgQIECgKCLCKUMoIECBAgAABAgQIECBAgAABAgQyAgKsjLuuBAgQIECAAAECBAgQIECAAAECRQEBVhFKGQECBAgQIECAAAECBAgQIECAQEZAgJVx15UAAQIECBAgQIAAAQIECBAgQKAoIMAqQikjQIAAAQIECBAgQIAAAQIECBDICAiwMu66EiBAgAABAgQIECBAgAABAgQIFAUEWEUoZQQIECBAgAABAgQIECBAgAABAhkBAVbGXVcCBAgQIECAAAECBAgQIECAAIGigACrCKWMAAECBAgQIECAAAECBAgQIEAgIyDAyrjrSoAAAQIECBAgQIAAAQIECBAgUBQQYBWhlBEgQIAAAQIECBAgQIAAAQIECGQEBFgZd10JECBAgAABAgQIECBAgAABAgSKAgKsIpQyAgQIECBAgAABAgQIECBAgACBjIAAK+OuKwECBAgQIECAAAECBAgQIECAQFFAgFWEUkaAAAECBAgQIECAAAECBAgQIJAREGBl3HUlQIAAAQIECBAgQIAAAQIECBAoCgiwilDKCBAgQIAAAQIECBAgQIAAAQIEMgICrIy7rgQIECBAgAABAgQIECBAgAABAkUBAVYRShkBAgQIECBAgAABAgQIECBAgEBGQICVcdeVAAECBAgQIECAAAECBAgQIECgKCDAKkIpI0CAAAECBAgQIECAAAECBAgQyAgIsDLuuhIgQIAAAQIECBAgQIAAAQIECBQFBFhFKGUECBAgQIAAAQIECBAgQIAAAQIZAQFWxl1XAgQIECBAgAABAgQIECBAgACBooAAqwiljAABAgQIECBAgAABAgQIECBAICMgwMq460qAAAECBAgQIECAAAECBAgQIFAUEGAVoZQRIECAAAECBAgQIECAAAECBAhkBARYGXddCRAgQIAAAQIECBAgQIAAAQIEigICrCKUMgIECBAgQIAAAQIECBAgQIAAgYyAACvjrisBAgQIECBAgAABAgQIECBAgEBRQIBVhFJGgAABAgQIECBAgAABAgQIECCQERBgZdx1JUCAAAECBAgQIECAAAECBAgQKAoIsIpQyggQIECAAAECBAgQIECAAAECBDICAqyMu64ECBAgQIAAAQIECBAgQIAAAQJFAQFWEUoZAQIECBAgQIAAAQIECBAgQIBARkCAlXHXlQABAgQIECBAgAABAgQIECBAoCggwCpCKSNAgAABAgQIECBAgAABAgQIEMgICLAy7roSIECAAAECBAgQIECAAAECBAgUBQRYRShlBAgQIECAAAECBAgQIECAAAECGQEBVsZdVwIECBAgQIAAAQIECBAgQIAAgaKAAKsIpYwAAQIECBAgQIAAAQIECBAgQCAjIMDKuOtKgAABAgQIECBAgAABAgQIECBQFBBgFaGUESBAgAABAgQIECBAgAABAgQIZAQEWBl3XQkQIECAAAECBAgQIECAAAECBIoCAqwilDICBAgQIECAAAECBAgQIECAAIGMgAAr464rAQIECBAgQIAAAQIECBAgQIBAUUCAVYRSRoAAAQIECBAgQIAAAQIECBAgkBEQYGXcdSVAgAABAgQIECBAgAABAgQIECgKCLCKUMoIECBAgAABAgQIECBAgAABAgQyAgKsjLuuBAgQIECAAAECBAgQIECAAAECRQEBVhFKGQECBAgQIECAAAECBAgQIECAQEZAgJVx15UAAQIECBAgQIAAAQIECBAgQKAoIMAqQikjQIAAAQIECBAgQIAAAQIECBDICAiwMu66EiBAgAABAgQIECBAgAABAgQIFAUEWEUoZQQIECBAgAABAgQIECBAgAABAhkBAVbGXVcCBAgQIECAAAECBAgQIECAAIGigACrCKWMAAECBAgQIECAAAECBAgQIEAgIyDAyrjrSoAAAQIECBAgQIAAAQIECBAgUBQQYBWhlBEgQIAAAQIECBAgQIAAAQIECGQEBFgZd10JECBAgAABAgQIECBAgAABAgSKAgKsIpQyAgQIECBAgAABAgQIECBAgACBjIAAK+OuKwECBAgQIECAAAECBAgQIECAQFFAgFWEUkaAAAECBAgQIECAAAECBAgQIJAREGBl3HUlQIAAAQIECBAgQIAAAQIECBAoCgiwilDKCBAgQIAAAQIECBAgQIAAAQIEMgICrIy7rgQIECBAgAABAgQIECBAgAABAkUBAVYRShkBAgQIECBAgAABAgQIECBAgEBGQICVcdeVAAECBAgQIECAAAECBAgQIECgKCDAKkIpI0CAAAECBAgQIECAAAECBAgQyAgIsDLuuhIgQIAAAQIECBAgQIAAAQIECBQFBFhFKGUECBAgQIAAAQIECBAgQIAAAQIZAQFWxl1XAgQIECBAgAABAgQIECBAgACBooAAqwiljAABAgQIECBAgAABAgQIECBAICMgwMq460qAAAECBAgQIECAAAECBAgQIFAUEGAVoZQRIECAAAECBAgQIECAAAECBAhkBARYGXddCRAgQIAAAQIECBAgQIAAAQIEigICrCKUMgIECBAgQIAAAQIECBAgQIAAgYyAACvjrisBAgQIECBAgAABAgQIECBAgEBRQIBVhFJGgAABAgQIECBAgAABAgQIECCQERBgZdx1JUCAAAECBAgQIECAAAECBAgQKAoIsIpQyggQIECAAAECBAgQIECAAAECBDICAqyMu64ECBAgQIAAAQIECBAgQIAAAQJFAQFWEUoZAQIECBAgQIAAAQIECBAgQIBARkCAlXHXlQABAgQIECBAgAABAgQIECBAoCggwCpCKSNAgAABAgQIECBAgAABAgQIEMgICLAy7roSIECAAAECBAgQIECAAAECBAgUBQRYRShlBAgQIECAAAECBAgQIECAAAECGQEBVsZdVwIECBAgQIAAAQIECBAgQIAAgaKAAKsIpYwAAQIECBAgQIAAAQIECBAgQCAjIMDKuOtKgAABAgQIECBAgAABAgQIECBQFBBgFaGUESBAgAABAgQIECBAgAABAgQIZAQEWBl3XQkQIECAAAECBAgQIECAAAECBIoCAqwilDICBAgQIECAAAECBAgQIECAAIGMgAAr464rAQIECBAgQIAAAQIECBAgQIBAUUCAVYRSRoAAAQIECBAgQIAAAQIECBAgkBEQYGXcdSVAgAABAgQIECBAgAABAgQIECgKCLCKUMoIECBAgAABAgQIECBAgAABAgQyAgKsjLuuBAgQIECAAAECBAgQIECAAAECRQEBVhFKGQECBAgQIECAAAECBAgQIECAQEZAgJVx15UAAQIECBAgQIAAAQIECBAgQKAoIMAqQikjQIAAAQIECBAgQIAAAQIECBDICAiwMu66EiBAgAABAgQIECBAgAABAgQIFAUEWEUoZQQIECBAgAABAgQIECBAgAABAhkBAVbGXVcCBAgQIECAAAECBAgQIECAAIGigACrCKWMAAECBAgQIECAAAECBAgQIEAgIyDAyrjrSoAAAQIECBAgQIAAAQIECBAgUBQQYBWhlBEgQIAAAQIECBAgQIAAAQIECGQEBFgZd10JECBAgAABAgQIECBAgAABAgSKAgKsIpQyAgQIECBAgAABAgQIECBAgACBjIAAK+OuKwECBAgQIECAAAECBAgQIECAQFFAgFWEUkaAAAECBAgQIECAAAECBAgQIJAREGBl3HUlQIAAAQIECBAgQIAAAQIECBAoCgiwilDKCBAgQIAAAQIECBAgQIAAAQIEMgICrIy7rgQIECBAgAABAgQIECBAgAABAkUBAVYRShkBAgQIECBAgAABAgQIECBAgEBGQICVcdeVAAECBAgQIECAAAECBAgQIECgKCDAKkIpI0CAAAECBAgQIECAAAECBAgQyAgIsDLuuhIgQIAAAQIECBAgQIAAAQIECBQFBFhFKGUECBAgQIAAAQIECBAgQIAAAQIZAQFWxl1XAgQIECBAgAABAgQIECBAgACBooAAqwiljAABAgQIECBAgAABAgQIECBAICMgwMq460qAAAECBAgQIECAAAECBAgQIFAUEGAVoZQRIECAAAECBAgQIECAAAECBAhkBARYGXddCRAgQIAAAQIECBAgQIAAAQIEigICrCKUMgIECBAgQIAAAQIECBAgQIAAgYyAACvjrisBAgQIECBAgAABAgQIECBAgEBRQIBVhFJGgAABAgQIECBAgAABAgQIECCQERBgZdx1JUCAAAECBAgQIECAAAECBAgQKAoIsIpQyggQIECAAAECBAgQIECAAAECBDICAqyMu64ECBAgQIAAAQIECBAgQIAAAQJFAQFWEUoZAQIECBAgQIAAAQIECBAgQIBARkCAlXHXlQABAgQIECBAgAABAgQIECBAoCggwCpCKSNAgAABAgQIECBAgAABAgQIEMgICLAy7roSIECAAAECBAgQIECAAAECBAgUBQRYRShlBAgQIECAAAECBAgQIECAAAECGQEBVsZdVwIECBAgQIAAAQIECBAgQIAAgaKAAKsIpYwAAQIECBAgQIAAAQIECBAgQCAjIMDKuOtKgAABAgQIECBAgAABAgQIECBQFBBgFaGUESBAgAABAgQIECBAgAABAgQIZAQEWBl3XQkQIECAAAECBAgQIECAAAECBIoCAqwilDICBAgQIECAAAECBAgQIECAAIGMgAAr464rAQIECBAgQIAAAQIECBAgQIBAUUCAVYRSRoAAAQIECBAgQIAAAQIECBAgkBEQYGXcdSVAgAABAgQIECBAgAABAgQIECgKCLCKUMoIECBAgAABAgQIECBAgAABAgQyAgKsjLuuBAgQIECAAAECBAgQIECAAAECRQEBVhFKGQECBAgQIECAAAECBAgQIECAQEZAgJVx15UAAQIECBAgQIAAAQIECBAgQKAoIMAqQikjQIAAAQIECBAgQIAAAQIECBDICAiwMu66EiBAgAABAgQIECBAgAABAgQIFAUEWEUoZQQIECBAgAABAgQIECBAgAABAhkBAVbGXVcCBAgQIECAAAECBAgQIECAAIGigACrCKWMAAECBAgQIECAAAECBAgQIEAgIyDAyrjrSoAAAQIECBAgQIAAAQIECBAgUBQQYBWhlBEgQIAAAQIECBAgQIAAAQIECGQEBFgZd10JECBAgAABAgQIECBAgAABAgSKAgKsIpQyAgQIECBAgAABAgQIECBAgACBjIAAK+OuKwECBAgQIECAAAECBAgQIECAQFFAgFWEUkaAAAECBAgQIECAAAECBAgQIJAREGBl3HUlQIAAAQIECBAgQIAAAQIECBAoCgiwilDKCBAgQIAAAQIECBAgQIAAAQIEMgICrIy7rgQIECBAgAABAgQIECBAgAABAkUBAVYRShkBAgQIECBAgAABAgQIECBAgEBGQICVcdeVAAECBAgQIECAAAECBAgQIECgKCDAKkIpI0CAAAECBAgQIECAAAECBAgQyAgIsDLuuhIgQIAAAQIECBAgQIAAAQIECBQFBFhFKGUECBAgQIAAAQIECBAgQIAAAQIZAQFWxl1XAgQIECBAgAABAgQIECBAgACBooAAqwiljAABAgQIECBAgAABAgQIECBAICMgwMq460qAAAECBAgQIECAAAECBAgQIFAUEGAVoZQRIECAAAECBAgQIECAAAECBAhkBARYGXddCRAgQIAAAQIECBAgQIAAAQIEigICrCKUMgIECBAgQIAAAQIECBAgQIAAgYyAACvjrisBAgQIECBAgAABAgQIECBAgEBRQIBVhFJGgAABAgQIECBAgAABAgQIECCQERBgZdx1JUCAAAECBAgQIECAAAECBAgQKAoIsIpQyggQIECAAAECBAgQIECAAAECBDICAqyMu64ECBAgQIAAAQIECBAgQIAAAQJFAQFWEUoZAQIECBAgQIAAAQIECBAgQIBARkCAlXHXlQABAgQIECBAgAABAgQIECBAoCggwCpCKSNAgAABAgQIECBAgAABAgQIEMgICLAy7roSIECAAAECBAgQIECAAAECBAgUBQRYRShlBAgQIECAAAECBAgQIECAAAECGQEBVsZdVwIECBAgQIAAAQIECBAgQIAAgaKAAKsIpYwAAQIECBAgQIAAAQIECBAgQCAjIMDKuOtKgAABAgQIECBAgAABAgQIECBQFBBgFaGUESBAgAABAgQIECBAgAABAgQIZAQEWBl3XQkQIECAAAECBAgQIECAAAECBIoCAqwilDICBAgQIECAAAECBAgQIECAAIGMgAAr464rAQIECBAgQIAAAQIECBAgQIBAUUCAVYRSRoAAAQIECBAgQIAAAQIECBAgkBEQYGXcdSVAgAABAgQIECBAgAABAgQIECgKCLCKUMoIECBAgAABAgQIECBAgAABAgQyAgKsjLuuBAgQIECAAAECBAgQIECAAAECRQEBVhFKGQECBAgQIECAAAECBAgQIECAQEZAgJVx15UAAQIECBAgQIAAAQIECBAgQKAoIMAqQikjQIAAAQIECBAgQIAAAQIECBDICAiwMu66EiBAgAABAgQIECBAgAABAgQIFAUEWEUoZQQIECBAgAABAgQIECBAgAABAhkBAVbGXVcCBAgQIECAAAECBAgQIECAAIGigACrCKWMAAECBAgQIECAAAECBAgQIEAgIyDAyrjrSoAAAQIECBAgQIAAAQIECBAgUBQQYBWhlBEgQIAAAQIECBAgQIAAAQIECGQEBFgZd10JECBAgAABAgQIECBAgAABAgSKAgKsIpQyAgQIECBAgAABAgQIECBAgACBjIAAK+OuKwECBAgQIECAAAECBAgQIECAQFFAgFWEUkaAAAECBAgQIECAAAECBAgQIJAREGBl3HUlQIAAAQIECBAgQIAAAQIECBAoCgiwilDKCBAgQIAAAQIECBAgQIAAAQIEMgICrIy7rgQIECBAgAABAgQIECBAgAABAkUBAVYRShkBAgQIECBAgAABAgQIECBAgEBGQICVcdeVAAECBAgQIECAAAECBAgQIECgKCDAKkIpI0CAAAECBAgQIECAAAECBAgQyAgIsDLuuhIgQIAAAQIECBAgQIAAAQIECBQFBFhFKGUECBAgQIAAAQIECBAgQIAAAQIZAQFWxl1XAgQIECBAgAABAgQIECBAgACBooAAqwiljAABAgQIECBAgAABAgQIECBAICMgwMq460qAAAECBAgQIECAAAECBAgQIFAUEGAVoZQRIECAAAECBAgQIECAAAECBAhkBARYGXddCRAgQIAAAQIECBAgQIAAAQIEigICrCKUMgIECBAgQIAAAQIECBAgQIAAgYyAACvjrisBAgQIECBAgAABAgQIECBAgEBRQIBVhFJGgAABAgQIECBAgAABAgQIECCQERBgZdx1JUCAAAECBAgQIECAAAECBAgQKAoIsIpQyggQIECAAAECBAgQIECAAAECBDICAqyMu64ECBAgQIAAAQIECBAgQIAAAQJFAQFWEUoZAQIECBAgQIAAAQIECBAgQIBARkCAlXHXlQABAgQIECBAgAABAgQIECBAoCggwCpCKSNAgAABAgQIECBAgAABAgQIEMgICLAy7roSIECAAAECBAgQIECAAAECBAgUBQRYRShlBAgQIECAAAECBAgQIECAAAECGQEBVsZdVwIECBAgQIAAAQIECBAgQIAAgaKAAKsIpYwAAQIECBAgQIAAAQIECBAgQCAjsJVpq+s6Cvz+++/TW2+9NW1ubq7j+kPvfPny5enTTz+ddnZ2ht7D8AQIECBAgAABAgQIECAwpoAAa8y7DTn1nTt3ps8++2zI2dd96KtXr06//PLLtLu7u+4U9idAgAABAgQIECBAgACBgIBvIQygr2vLxWKxrqsPv7dfNTf8CS1AgAABAgQIECBAgACBoQUEWEOfz/AECBAgQIAAAQIECBAgQIAAgf4CAqz+N7YhAQIECBAgQIAAAQIECBAgQGBoAQHW0OczPAECBAgQIECAAAECBAgQIECgv4AAq/+NbUiAAAECBAgQIECAAAECBAgQGFpAgDX0+QxPgAABAgQIECBAgAABAgQIEOgvIMDqf2MbEiBAgAABAgQIECBAgAABAgSGFhBgDX0+wxMgQIAAAQIECBAgQIAAAQIE+gsIsPrf2IYECBAgQIAAAQIECBAgQIAAgaEFBFhDn8/wBAgQIECAAAECBAgQIECAAIH+AgKs/je2IQECBAgQIECAAAECBAgQIEBgaAEB1tDnMzwBAgQIECBAgAABAgQIECBAoL+AAKv/jW1IgAABAgQIECBAgAABAgQIEBhaQIA19PkMT4AAAQIECBAgQIAAAQIECBDoLyDA6n9jGxIgQIAAAQIECBAgQIAAAQIEhhYQYA19PsMTIECAAAECBAgQIECAAAECBPoLCLD639iGBAgQIECAAAECBAgQIECAAIGhBQRYQ5/P8AQIECBAgAABAgQIECBAgACB/gICrP43tiEBAgQIECBAgAABAgQIECBAYGgBAdbQ5zM8AQIECBAgQIAAAQIECBAgQKC/gACr/41tSIAAAQIECBAgQIAAAQIECBAYWkCANfT5DE+AAAECBAgQIECAAAECBAgQ6C8gwOp/YxsSIECAAAECBAgQIECAAAECBIYWEGANfT7DEyBAgAABAgQIECBAgAABAgT6Cwiw+t/YhgQIECBAgAABAgQIECBAgACBoQUEWEOfz/AECBAgQIAAAQIECBAgQIAAgf4CAqz+N7YhAQIECBAgQIAAAQIECBAgQGBoAQHW0OczPAECBAgQIECAAAECBAgQIECgv4AAq/+NbUiAAAECBAgQIECAAAECBAgQGFpAgDX0+QxPgAABAgQIECBAgAABAgQIEOgvIMDqf2MbEiBAgAABAgQIECBAgAABAgSGFhBgDX0+wxMgQIAAAQIECBAgQIAAAQIE+gts9V/RhgQInFfg5s2b0+uvvz5dunTpvK/y/AUL3LlzZ/rqq6+m3d3dC+6sHQECBAgQIECAAAECBJYnIMBanqU3EWgrcHh4OP36669t9+u82MsvvzwdB5ACrM5XthsBAgQIECBAgACB/gK+hbD/jW1IgAABAgQIECBAgAABAgQIEBhaQIA19PkMT4AAAQIECBAgQIAAAQIECBDoLyDA6n9jGxIgQIAAAQIECBAgQIAAAQIEhhYQYA19PsMTIECAAAECBAgQIECAAAECBPoLCLD639iGBAgQIECAAAECBAgQIECAAIGhBQRYQ5/P8AQIECBAgAABAgQIECBAgACB/gICrP43tiEBAgQIECBAgAABAgQIECBAYGgBAdbQ5zM8AQIECBAgQIAAAQIECBAgQKC/gACr/41tSIAAAQIECBAgQIAAAQIECBAYWkCANfT5DE+AAAECBAgQIECAAAECBAgQ6C8gwOp/YxsSIECAAAECBAgQIECAAAECBIYWEGANfT7DEyBAgAABAgQIECBAgAABAgT6Cwiw+t/YhgQIECBAgAABAgQIECBAgACBoQUEWEOfz/AECBAgQIAAAQIECBAgQIAAgf4CAqz+N7YhAQIECBAgQIAAAQIECBAgQGBoAQHW0OczPAECBAgQIECAAAECBAgQIECgv4AAq/+NbUiAAAECBAgQIECAAAECBAgQGFpAgDX0+QxPgAABAgQIECBAgAABAgQIEOgvIMDqf2MbEiBAgAABAgQIECBAgAABAgSGFhBgDX0+wxMgQIAAAQIECBAgQIAAAQIE+gsIsPrf2IYECBAgQIAAAQIECBAgQIAAgaEFBFhDn8/wBAgQIECAAAECBAgQIECAAIH+AgKs/je2IQECBAgQIECAAAECBAgQIEBgaAEB1tDnMzwBAgQIECBAgAABAgQIECBAoL+AAKv/jW1IgAABAgQIECBAgAABAgQIEBhaQIA19PkMT4AAAQIECBAgQIAAAQIECBDoLyDA6n9jGxIgQIAAAQIECBAgQIAAAQIEhhYQYA19PsMTIECAAAECBAgQIECAAAECBPoLCLD639iGBAgQIECAAAECBAgQIECAAIGhBQRYQ5/P8AQIECBAgAABAgQIECBAgACB/gICrP43tiEBAgQIECBAgAABAgQIECBAYGgBAdbQ5zM8AQIECBAgQIAAAQIECBAgQKC/gACr/41tSIAAAQIECBAgQIAAAQIECBAYWkCANfT5DE+AAAECBAgQIECAAAECBAgQ6C8gwOp/YxsSIECAAAECBAgQIECAAAECBIYWEGANfT7DEyBAgAABAgQIECBAgAABAgT6Cwiw+t/YhgQIECBAgAABAgQIECBAgACBoQUEWEOfz/AECBAgQIAAAQIECBAgQIAAgf4CAqz+N7YhAQIECBAgQIAAAQIECBAgQGBoAQHW0OczPAECBAgQIECAAAECBAgQIECgv4AAq/+NbUiAAAECBAgQIECAAAECBAgQGFpAgDX0+QxPgAABAgQIECBAgAABAgQIEOgvsNV/RRsSIECAAAECBC5W4LvvvrvYhrotTWBjY2M6Ojpa2vu86OIEdnd3p52dnYtrqBMBAgQIXKiAAOtCuTUjQIAAAQIEugt8/vnn09tvvz1duXKl+6rt9tvb25v++uuv6aWXXmq3W/eFDg4OpnfeeWf65JNPuq9qPwIECKytgABrbU9vcQIECBAgQGAVAjdu3Jju3r07Xb9+fRWv984VC2xvb7vdio1X9frbt2+v6tXeS4AAAQIzEPB7YM3gCEYgQIAAAQIECBAgQIAAAQIECBB4soAA68k2foYAAQIECBAgQIAAAQIECBAgQGAGAgKsGRzBCAQIECBAgAABAgQIECBAgAABAk8W8HtgPdnGzxAgQIAAAQIECBAgMIjA8Z/++eGHHw4yrTH/FTj+Uz/ffPPN6Y033vj3h/ydAAECjxUQYD2WxQ8SIECAAAECBAgQIDCSwLfffjt9/fXXI41s1v8LHP/prV988QUPAgQI/KeAbyH8Tx4/SYAAAQIECBAgQIDACAKLxWKEMc34GIGtLb+u4jEsfogAgRMCAqwTID4lQIAAAQIECBAgQIAAAQIECBCYl4AAa173MA0BAgQIECBAgAABAgQIECBAgMAJAQHWCRCfEiBAgAABAgQIECBAgAABAgQIzEtAgDWve5iGAAECBAgQIECAAAECBAgQIEDghIAA6wSITwkQIECAAAECBAgQIECAAAECBOYlIMCa1z1MQ4AAAQIECBAgQIAAAQIECBAgcEJAgHUCxKcECBAgQIAAAQIECBAgQIAAAQLzEhBgzesepiFAgAABAgQIECBAgAABAgQIEDghsHXic58SIECAQCOBo6Oj6csvv5z29vYabbUeq2xubk6Hh4frsWyzLb/55ptmG1mHAAECBAgQIJAXEGDlb2ACAgQIrExgf39/ev/996ednZ2V9fDi1QgcHBxMi8ViunTp0moaeOvKBP7888+VvduLCRAgQIAAAQLrKiDAWtfL25sAgbURuHfv3nT8l4+xBLa3t6f79+9PDx48GGtw0xIgQIAAAQIECBBYgYDfA2sFqF5JgAABAgQIECBAgAABAgQIECCwPAEB1vIsvYkAAQIECBAgQIAAAQIECBAgQGAFAgKsFaB6JQECBAgQIECAAAECBAgQIECAwPIEBFjLs/QmAgQIECBAgAABAgQIECBAgACBFQgIsFaA6pUECBAgQIAAAQIECBAgQIAAAQLLExBgLc/SmwgQIECAAAECBAgQIECAAAECBFYgIMBaAapXEiBAgAABAgQIECBAgAABAgQILE9AgLU8S28iQIAAAQIECBAgQIAAAQIECBBYgcDWCt7plQQIECBAgAABAgQIECBAgEBzgf39/en27dvNt+y53jPPPDM9++yzQy0nwBrqXIYlQIAAAQIECBAgQIAAAQLzEHjttdemjQ3f2DWPa5xuiqOjo+nnn38+3UPhagFW+ADaEyBAgAABAgQIECBAgACBEQWOw6uffvppxNHXfuZr164NZyAqHe5kBiZAgAABAgQIECBAgAABAgQIrJeAAGu97m1bAgQIECBAgAABAgQIECBAgMBwAgKs4U5mYAIECBAgQIAAAQIECBAgQIDAegn4PbDW6962JUCAAAECBAgQIECAwKwEbt26NX388cezmskwNYH79+/XClURWIKAAGsJiF5BgAABAgQIECBAgAABAmcT+P7776f33nvvbA97KiqwtSVSiB5gzZr7FsI1O7h1CRAgQIAAAQIECBAgMCeBxWIxp3HMcgoBtzsFltJzCwiwzk3oBQQIECBAgAABAgQIECBAgAABAqsUEGCtUte7CRAgQIAAAQIECBAgQIAAAQIEzi0gwDo3oRcQIECAAAECBAgQIECAAAECBAisUkCAtUpd7yZAgAABAgQIECBAgAABAgQIEDi3gADr3IReQIAAAQIECBAgQIAAAQIECBAgsEoBAdYqdb2bAAECBAgQIECAAAECBAgQIEDg3AICrHMTegEBAgQIECBAgAABAgQIECBAgMAqBQRYq9T1bgIECBAgQIAAAQIECBAgQIAAgXMLDBdgHR4enntpL8gIuF3GfRld3W4Zipl3/P3335nGup5bwD935yb0AgJnEjg6OjrTcx7KCzx8+DA/hAnOJOCfuzOxzeIh/3tlFmc40xD7+/tnei750Fay+Vl6v/vuu9OPP/54lkc9Exa4efPm9OKLL06LxSI8ifanFbh169b09NNPT9vb26d9VH1YYG9v75+7PfXUU+FJtD+twPHtNjY2psuXL5/2UfVhgeN/Zx5/XLlyJTyJ9qcVuHfv3nT37t3p+eefP+2j6sMCDx48mA4ODqbnnnsuPIn2pxU4DkD++OOP6YUXXjjto+pnIPDbb7/98//xZjCKEU4pcO3atVM+kS9fPPovFf5TRf4OJiBAgAABAgQIECBAgAABAgQIEHiCwHDfQviEPfwwAQIECBAgQIAAAQIECBAgQIBAUwEBVtPDWosAAQIECBAgQIAAAQIECBAg0EVAgNXlkvYgQIAAAQIECBAgQIAAAQIECDQVEGA1Pay1CBAgQIAAAQIECBAgQIAAAQJdBARYXS5pDwIECBAgQIAAAQIECBAgQIBAUwEBVtPDWosAAQIECBAgQIAAAQIECBAg0EVAgNXlkvYgQIAAAQIECBAgQIAAAQIECDQVEGA1Pay1CBAgQIAAAQIECBAgQIAAAQJdBARYXS5pDwIECBAgQIAAAQIECBAgQIBAUwEBVtPDWosAAQIECBAgQIAAAQIECBAg0EVAgNXlkvYgQIAAAQIECBAgQIAAAQIECDQVEGA1Pay1CBAgQIAAAQIECBAgQIAAAQJdBARYXS5pDwIECBAgQIAAAQIECBAgQIBAU4H/AYr/9FXKnK5SAAAAAElFTkSuQmCC" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">pop</td>
+                  <td data-row="3" data-col="2">142</td>
+                  <td data-row="3" data-col="3">0</td>
+                  <td data-row="3" data-col="4">44021219.6</td>
+                  <td data-row="3" data-col="5">147621397.9</td>
+                  <td data-row="3" data-col="6">199579.0</td>
+                  <td data-row="3" data-col="7">10517531.0</td>
+                  <td data-row="3" data-col="8">1318683096.0</td>
+                  <td data-row="3" data-col="9"><img src="data:image/png;base64, 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BNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgYMByAwQIECBAgAABAgQIECBAgAABAmkBA1a6HuEIECBAgAABAgQIECBAgAABAgQMWG6AAAECBAgQIECAAAECBAgQIEAgLWDAStcjHAECBAgQIECAAAECBAgQIECAgAHLDRAgQIAAAQIECBAgQIAAAQIECKQFDFjpeoQjQIAAAQIECBAgQIAAAQIECBAwYLkBAgQIECBAgAABAgQIECBAgACBtIABK12PcAQIECBAgAABAgQIECBAgAABAgYsN0CAAAECBAgQIECAAAECBAgQIJAWMGCl6xGOAAECBAgQIECAAAECBAgQIEDAgOUGCBAgQIAAAQIECBAgQIAAAQIE0gIGrHQ9whEgQIAAAQIECBAgQIAAAQIECBiw3AABAgQIECBAgAABAgQIECBAgEBawICVrkc4AgQIECBAgAABAgQIECBAgAABA5YbIECAAAECBAgQIECAAAECBAgQSAsYsNL1CEeAAAECBAgQIECAAAECBAgQIGDAcgMECBAgQIAAAQIECBAgQIAAAQJpAQNWuh7hCBAgQIAAAQIECBAgQIAAAQIEDFhugAABAgQIECBAgAABAgQIECBAIC1gwErXIxwBAgQIECBAgAABAgQIECBAgIAByw0QIECAAAECBAgQIECAAAECBAikBQxY6XqEI0CAAAECBAgQIECAAAECBAgQMGC5AQIECBAgQIAAAQIECBAgQIAAgbSAAStdj3AECBAgQIAAAQIECBAgQIAAAQIGLDdAgAABAgQIECBAgAABAgQIECCQFjBgpesRjgABAgQIECBAgAABAgQIECBAwIDlBggQIECAAAECBAgQIECAAAECBNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgYMByAwQIECBAgAABAgQIECBAgAABAmkBA1a6HuEIECBAgAABAgQIECBAgAABAgQMWG6AAAECBAgQIECAAAECBAgQIEAgLWDAStcjHAECBAgQIECAAAECBAgQIECAgAHLDRAgQIAAAQIECBAgQIAAAQIECKQFDFjpeoQjQIAAAQIECBAgQIAAAQIECBAwYLkBAgQIECBAgAABAgQIECBAgACBtIABK12PcAQIECBAgAABAgQIECBAgAABAgYsN0CAAAECBAgQIECAAAECBAgQIJAWMGCl6xGOAAECBAgQIECAAAECBAgQIEDAgOUGCBAgQIAAAQIECBAgQIAAAQIE0gIGrHQ9whEgQIAAAQIECBAgQIAAAQIECBiw3AABAgQIECBAgAABAgQIECBAgEBawICVrkc4AgQIECBAgAABAgQIECBAgAABA5YbIECAAAECBAgQIECAAAECBAgQSAsYsNL1CEeAAAECBAgQIECAAAECBAgQIGDAcgMECBAgQIAAAQIECBAgQIAAAQJpAQNWuh7hCBAgQIAAAQIECBAgQIAAAQIEDFhugAABAgQIECBAgAABAgQIECBAIC1gwErXIxwBAgQIECBAgAABAgQIECBAgIAByw0QIECAAAECBAgQIECAAAECBAikBQxY6XqEI0CAAAECBAgQIECAAAECBAgQMGC5AQIECBAgQIAAAQIECBAgQIAAgbSAAStdj3AECBAgQIAAAQIECBAgQIAAAQIGLDdAgAABAgQIECBAgAABAgQIECCQFjBgpesRjgABAgQIECBAgAABAgQIECBAwIDlBggQIECAAAECBAgQIECAAAECBNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgYMByAwQIECBAgAABAgQIECBAgAABAmkBA1a6HuEIECBAgAABAgQIECBAgAABAgQMWG6AAAECBAgQIECAAAECBAgQIEAgLWDAStcjHAECBAgQIECAAAECBAgQIECAgAHLDRAgQIAAAQIECBAgQIAAAQIECKQFDFjpeoQjQIAAAQIECBAgQIAAAQIECBAwYLkBAgQIECBAgAABAgQIECBAgACBtIABK12PcAQIECBAgAABAgQIECBAgAABAgYsN0CAAAECBAgQIECAAAECBAgQIJAWMGCl6xGOAAECBAgQIECAAAECBAgQIEDAgOUGCBAgQIAAAQIECBAgQIAAAQIE0gIGrHQ9whEgQIAAAQIECBAgQIAAAQIECBiw3AABAgQIECBAgAABAgQIECBAgEBawICVrkc4AgQIECBAgAABAgQIECBAgAABA5YbIECAAAECBAgQIECAAAECBAgQSAsYsNL1CEeAAAECBAgQIECAAAECBAgQIGDAcgMECBAgQIAAAQIECBAgQIAAAQJpAQNWuh7hCBAgQIAAAQIECBAgQIAAAQIEDFhugAABAgQIECBAgAABAgQIECBAIC1gwErXIxwBAgQIECBAgAABAgQIECBAgIAByw0QIECAAAECBAgQIECAAAECBAikBQxY6XqEI0CAAAECBAgQIECAAAECBAgQMGC5AQIECBAgQIAAAQIECBAgQIAAgbSAAStdj3AECBAgQIAAAQIECBAgQIAAAQIGLDdAgAABAgQIECBAgAABAgQIECCQFjBgpesRjgABAgQIECBAgAABAgQIECBAwIDlBggQIECAAAECBAgQIECAAAECBNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgYMByAwQIECBAgAABAgQIECBAgAABAmkBA1a6HuEIECBAgAABAgQIECBAgAABAgQMWG6AAAECBAgQIECAAAECBAgQIEAgLWDAStcjHAECBAgQIECAAAECBAgQIECAgAHLDRAgQIAAAQIECBAgQIAAAQIECKQFDFjpeoQjQIAAAQIECBAgQIAAAQIECBAwYLkBAgQIECBAgAABAgQIECBAgACBtIABK12PcAQIECBAgAABAgQIECBAgAABAgYsN0CAAAECBAgQIECAAAECBAgQIJAWMGCl6xGOAAECBAgQIECAAAECBAgQIEDAgOUGCBAgQIAAAQIECBAgQIAAAQIE0gIGrHQ9whEgQIAAAQIECBAgQIAAAQIECBiw3AABAgQIECBAgAABAgQIECBAgEBawICVrkc4AgQIECBAgAABAgQIECBAgAABA5YbIECAAAECBAgQIECAAAECBAgQSAsYsNL1CEeAAAECBAgQIECAAAECBAgQIGDAcgMECBAgQIAAAQIECBAgQIAAAQJpAQNWuh7hCBAgQIAAAQIECBAgQIAAAQIEDFhugAABAgQIECBAgAABAgQIECBAIC1gwErXIxwBAgQIECBAgAABAgQIECBAgIAByw0QIECAAAECBAgQIECAAAECBAikBQxY6XqEI0CAAAECBAgQIECAAAECBAgQMGC5AQIECBAgQIAAAQIECBAgQIAAgbSAAStdj3AECBAgQIAAAQIECBAgQIAAAQIGLDdAgAABAgQIECBAgAABAgQIECCQFjBgpesRjgABAgQIECBAgAABAgQIECBAwIDlBggQIECAAAECBAgQIECAAAECBNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgYMByAwQIECBAgAABAgQIECBAgAABAmkBA1a6HuEIECBAgAABAgQIECBAgAABAgQMWG6AAAECBAgQIECAAAECBAgQIEAgLWDAStcjHAECBAgQIECAAAECBAgQIECAgAHLDRAgQIAAAQIECBAgQIAAAQIECKQFDFjpeoQjQIAAAQIECBAgQIAAAQIECBAwYLkBAgQIECBAgAABAgQIECBAgACBtIABK12PcAQIECBAgAABAgQIECBAgAABAgYsN0CAAAECBAgQIECAAAECBAgQIJAWMGCl6xGOAAECBAgQIECAAAECBAgQIEDAgOUGCBAgQIAAAQIECBAgQIAAAQIE0gIGrHQ9whEgQIAAAQIECBAgQIAAAQIECBiw3AABAgQIECBAgAABAgQIECBAgEBawICVrkc4AgQIECBAgAABAgQIECBAgAABA5YbIECAAAECBAgQIECAAAECBAgQSAsYsNL1CEeAAAECBAgQIECAAAECBAgQIGDAcgMECBAgQIAAAQIECBAgQIAAAQJpAQNWuh7hCBAgQIAAAQIECBAgQIAAAQIEDFhugAABAgQIECBAgAABAgQIECBAIC1gwErXIxwBAgQIECBAgAABAgQIECBAgIAByw0QIECAAAECBAgQIECAAAECBAikBQxY6XqEI0CAAAECBAgQIECAAAECBAgQMGC5AQIECBAgQIAAAQIECBAgQIAAgbSAAStdj3AECBAgQIAAAQIECBAgQIAAAQIGLDdAgAABAgQIECBAgAABAgQIECCQFjBgpesRjgABAgQIECBAgAABAgQIECBAwIDlBggQIECAAAECBAgQIECAAAECBNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgYMByAwQIECBAgAABAgQIECBAgAABAmkBA1a6HuEIECBAgAABAgQIECBAgAABAgQMWG6AAAECBAgQIECAAAECBAgQIEAgLWDAStcjHAECBAgQIECAAAECBAgQIECAgAHLDRAgQIAAAQIECBAgQIAAAQIECKQFDFjpeoQjQIAAAQIECBAgQIAAAQIECBAwYLkBAgQIECBAgAABAgQIECBAgACBtIABK12PcAQIECBAgAABAgQIECBAgAABAgYsN0CAAAECBAgQIECAAAECBAgQIJAWMGCl6xGOAAECBAgQIECAAAECBAgQIEDAgOUGCBAgQIAAAQIECBAgQIAAAQIE0gIGrHQ9whEgQIAAAQIECBAgQIAAAQIECBiw3AABAgQIECBAgAABAgQIECBAgEBawICVrkc4AgQIECBAgAABAgQIECBAgAABA5YbIECAAAECBAgQIECAAAECBAgQSAsYsNL1CEeAAAECBAgQIECAAAECBAgQIGDAcgMECBAgQIAAAQIECBAgQIAAAQJpAQNWuh7hCBAgQIAAAQIECBAgQIAAAQIEDFhugAABAgQIECBAgAABAgQIECBAIC1gwErXIxwBAgQIECBAgAABAgQIECBAgIAByw0QIECAAAECBAgQIECAAAECBAikBQxY6XqEI0CAAAECBAgQIECAAAECBAgQMGC5AQIECBAgQIAAAQIECBAgQIAAgbSAAStdj3AECBAgQIAAAQIECBAgQIAAAQIGLDdAgAABAgQIECBAgAABAgQIECCQFjBgpesRjgABAgQIECBAgAABAgQIECBAwIDlBggQIECAAAECBAgQIECAAAECBNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgYMByAwQIECBAgAABAgQIECBAgAABAmkBA1a6HuEIECBAgAABAgQIECBAgAABAgQMWG6AAAECBAgQIECAAAECBAgQIEAgLWDAStcjHAECBAgQIECAAAECBAgQIECAgAHLDRAgQIAAAQIECBAgQIAAAQIECKQFDFjpeoQjQIAAAQIECBAgQIAAAQIECBAwYLkBAgQIECBAgAABAgQIECBAgACBtIABK12PcAQIECBAgAABAgQIECBAgAABAgYsN0CAAAECBAgQIECAAAECBAgQIJAWMGCl6xGOAAECBAgQIECAAAECBAgQIEDAgOUGCBAgQIAAAQIECBAgQIAAAQIE0gIGrHQ9whEgQIAAAQIECBAgQIAAAQIECBiw3AABAgQIECBAgAABAgQIECBAgEBawICVrkc4AgQIECBAgAABAgQIECBAgAABA5YbIECAAAECBAgQIECAAAECBAgQSAsYsNL1CEeAAAECBAgQIECAAAECBAgQIGDAcgMECBAgQIAAAQIECBAgQIAAAQJpAQNWuh7hCBAgQIAAAQIECBAgQIAAAQIEDFhugAABAgQIECBAgAABAgQIECBAIC1gwErXIxwBAgQIECBAgAABAgQIECBAgIAByw0QIECAAAECBAgQIECAAAECBAikBQxY6XqEI0CAAAECBAgQIECAAAECBAgQMGC5AQIECBAgQIAAAQIECBAgQIAAgbSAAStdj3AECBAgQIAAAQIECBAgQIAAAQIGLDdAgAABAgQIECBAgAABAgQIECCQFjBgpesRjgABAgQIECBAgAABAgQIECBAwIDlBggQIECAAAECBAgQIECAAAECBNICBqx0PcIRIECAAAECBAgQIECAAAECBAgYsNwAAQIECBAgQIAAAQIECBAgQIBAWsCAla5HOAIECBAgQIAAAQIECBAgQIAAAQOWGyBAgAABAgQIECBAgAABAgQIEEgLGLDS9QhHgAABAgQIECBAgAABAgQIECBgwHIDBAgQIECAAAECBAgQIECAAAECaQEDVroe4QgQIECAAAECBAgQIECAAAECBAxYboAAAQIECBAgQIAAAQIECBAgQCAtYMBK1yMcAQIECBAgQIAAAQIECBAgQICAAcsNECBAgAABAgQIECBAgAABAgQIpAUMWOl6hCNAgAABAgQIECBAgAABAgQIEDBguQECBAgQIECAAAECBAgQIECAAIG0gAErXY9wBAgQIECAAAECBAgQIECAAAECBiw3QIAAAQIECBAgQIAAAQIECBAgkBYwYKXrEY4AAQIECBAgQIAAAQIECBAgQMCA5QYIECBAgAABAgQIECBAgAABAgTSAgasdD3CESBAgAABAgQIECBAgAABAgQIGLDcAAECBAgQIECAAAECBAgQIECAQFrAgJWuRzgCBAgQIECAAAECBAgQIECAAAEDlhsgQIAAAQIECBAgQIAAAQIECBBICxiw0vUIR4AAAQIECBAgQIAAAQIECBAgcA0BAQJnE3j69Ok4ODg42yf7LAJbEvjz5894/PjxuHnz5pae6DEECBAgQIAAAQIECBCYT8CANV9nEl+QwOvXr8eLFy8u6NW97FUV2N/fHw8ePDj966oaeN8ECBAgQIAAAQIECBDwRwjdAIEzCuzs7JzxM30age0J7O761/T2ND2JAAECBAgQIECAAIFZBfwOrFmbk5sAAQIECBAgQIAAga0IvHr1aty/f3/cunVrK8/zEAJnFTg+Ph57e3tu76xgPm9rAps/6fH8+fOtPe88HmTAOg9lr0GAAAECBAgQIECAQFbg5cuX4+TkZLx9+zabUbDLKXDjxo3x5cuX8enTp8v5Br2rrMCdO3ey2f4XbLoB6/fv3/97L/4+gVUFNl/U+CBw3gI/fvwYz549O/2VufN+ba93tQXevXs3bt++fbURvPsLEXB7F8J+5V9089/azQ9O8UHgvAV+/fp13i/p9QicCnz8+HE6iZ1/35RP9V354eHhePPmzXTQAs8t8P379/H161e/tXfuGqdM//nz59MvqK9fvz5lfqHnFTg6Ohp3796d9w1IPq2A25u2uqmD//z5c2z+v5N+6u/UNU4Z/sOHD2PzdZ7bm7K+qUNvfgfWo0ePpnoP0w1YU+kKS4AAAQIECBAgQIAAAQIECBAgsFjAj7daTOgBBAgQIECAAAECBAgQIECAAAECawoYsNbU9WwCBAgQIECAAAECBAgQIECAAIHFAgasxYQeQIAAAQIECBAgQIAAAQIECBAgsKaAAWtNXc8mQIAAAQIECBAgQIAAAQIECBBYLGDAWkzoAQQIECBAgAABAgQIECBAgAABAmsKGLDW1PVsAgQIECBAgAABAgQIECBAgACBxQIGrMWEHkCAAAECBAgQIECAAAECBAgQILCmgAFrTV3PJkCAAAECBAgQIECAAAECBAgQWCxgwFpM6AEECBAgQIAAAQIECBAgQIAAAQJrChiw1tT1bAIECBAgQIAAAQIECBAgQIAAgcUCBqzFhB5AgAABAgQIECBAgAABAgQIECCwpoABa01dzyZAgAABAgQIECBAgAABAgQIEFgsYMBaTOgBBAgQIECAAAECBAgQIECAAAECawr8BUUifn0MF3SfAAAAAElFTkSuQmCC" style="height: 1em;"></td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+</section>
+<section id="coefficient-plot-or-regression-table" class="level2">
+<h2 class="anchored" data-anchor-id="coefficient-plot-or-regression-table">Coefficient plot or regression table?</h2>
+<p>You have both tools now. A useful rule:</p>
+<ul>
+<li><strong>Table</strong>: when readers need to <em>look up</em> exact values (reviewers do), or when you report many models/specifications.</li>
+<li><strong>Coefficient plot</strong>: when readers should <em>compare</em> magnitudes and see which intervals cross zero — presentations, blog posts, and the main text of a paper.</li>
+</ul>
+<p>Many papers now do both: plot in the text, full table in the appendix. Since both come from the same model object, this costs you two chunks, not an afternoon.</p>
+</section>
+<section id="further-tools" class="level2">
+<h2 class="anchored" data-anchor-id="further-tools">Further tools</h2>
+<ul>
+<li><a href="https://www.danieldsjoberg.com/gtsummary/"><code>gtsummary</code></a> — publication-ready descriptive and regression tables with sensible medical/social-science defaults.</li>
+<li><a href="https://haozhu233.github.io/kableExtra/"><code>kableExtra</code></a> — lighter-weight alternative to <code>gt</code>, good for PDF output.</li>
+<li><code>gt::gtsave()</code> exports any gt table to .png, .html, .rtf, or .tex.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

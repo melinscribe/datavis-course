@@ -1,0 +1,758 @@
+[
+  {
+    "objectID": "regressions.html",
+    "href": "regressions.html",
+    "title": "Applied Examples",
+    "section": "",
+    "text": "First, load the packages required for the examples.\nCode\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(broom)\nlibrary(margins)\nlibrary(ggeffects)\nlibrary(patchwork)\nlibrary(viridis)\n\n#devtools::install_github(\"vdeminstitute/vdemdata\")\nlibrary(vdemdata)"
+  },
+  {
+    "objectID": "regressions.html#basic-plot-structure",
+    "href": "regressions.html#basic-plot-structure",
+    "title": "Applied Examples",
+    "section": "1. Basic Plot Structure",
+    "text": "1. Basic Plot Structure\nEvery ggplot2 plot starts with the ggplot() function, where you specify:\n\nThe data frame\nThe aesthetic mappings: aes()\n\n\n\nCode\nlibrary(ggplot2)\n\nggplot(data = mpg, aes(x = displ, y = hwy))\n\n\n\n\n\nThis creates a plot object, but it won’t render a chart until you add a layer."
+  },
+  {
+    "objectID": "regressions.html#add-geometries",
+    "href": "regressions.html#add-geometries",
+    "title": "Applied Examples",
+    "section": "2. Add Geometries",
+    "text": "2. Add Geometries\nYou must add a geometry layer (geom_*()) to display the data.\n\n\nCode\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point()\n\n\n\n\n\nCommon geometries:\n\ngeom_point() – scatterplot\ngeom_line() – line plot\ngeom_col() – bar chart (with values)\ngeom_bar() – bar chart (with counts)\ngeom_boxplot() – boxplot\ngeom_histogram() – histogram"
+  },
+  {
+    "objectID": "regressions.html#aesthetic-mappings",
+    "href": "regressions.html#aesthetic-mappings",
+    "title": "Applied Examples",
+    "section": "3. Aesthetic Mappings",
+    "text": "3. Aesthetic Mappings\nYou can map variables to color, size, shape, or linetype inside aes().\n\n\nCode\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point()"
+  },
+  {
+    "objectID": "regressions.html#labels-and-titles",
+    "href": "regressions.html#labels-and-titles",
+    "title": "Applied Examples",
+    "section": "4. Labels and Titles",
+    "text": "4. Labels and Titles\nUse labs() to customize the title, subtitle, and axis labels.\n\n\nCode\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point() +\n  labs(\n    title = \"Fuel Efficiency by Engine Size\",\n    subtitle = \"Colored by Vehicle Class\",\n    x = \"Displacement (L)\",\n    y = \"Highway MPG\",\n    color = \"Class\"\n  )"
+  },
+  {
+    "objectID": "regressions.html#facets-small-multiples",
+    "href": "regressions.html#facets-small-multiples",
+    "title": "Applied Examples",
+    "section": "5. Facets (Small Multiples)",
+    "text": "5. Facets (Small Multiples)\nUse facet_wrap() to split the data into multiple panels by category.\n\n\nCode\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class)"
+  },
+  {
+    "objectID": "regressions.html#themes",
+    "href": "regressions.html#themes",
+    "title": "Applied Examples",
+    "section": "6. Themes",
+    "text": "6. Themes\nThemes control the look of the plot: grid, font, background.\n\n\nCode\nggplot(mpg, aes(displ, hwy)) +\n  geom_point() +\n  theme_minimal()\n\n\n\n\n\nPopular themes:\n\ntheme_minimal()\ntheme_classic()\ntheme_light()\ntheme_bw()\ntheme_void()"
+  },
+  {
+    "objectID": "regressions.html#scales",
+    "href": "regressions.html#scales",
+    "title": "Applied Examples",
+    "section": "7. Scales",
+    "text": "7. Scales\nUse scale_*() functions to adjust axes, colors, or sizes.\n\n\nCode\nggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point() +\n  scale_color_viridis_d()"
+  },
+  {
+    "objectID": "regressions.html#full-example",
+    "href": "regressions.html#full-example",
+    "title": "Applied Examples",
+    "section": "8. Full Example",
+    "text": "8. Full Example\n\n\nCode\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3, alpha = 0.8) +\n  labs(\n    title = \"Fuel Efficiency vs. Engine Size\",\n    subtitle = \"Vehicle class shown by color\",\n    x = \"Engine Displacement (L)\",\n    y = \"Highway MPG\",\n    color = \"Class\"\n  ) +\n  theme_minimal() +\n  scale_color_viridis_d()"
+  },
+  {
+    "objectID": "regressions.html#logit-model-binary-democracy-outcome",
+    "href": "regressions.html#logit-model-binary-democracy-outcome",
+    "title": "Applied Examples",
+    "section": "Logit Model: Binary Democracy Outcome",
+    "text": "Logit Model: Binary Democracy Outcome\nWhat is the effect of Judicial Constraints on Executive on Democracy?\n\n\nCode\nlogit_model &lt;- glm(democracy_binary ~ v2x_jucon + v2x_corr  + as.factor(e_regionpol_6C),\n                   data = vdem, family = binomial)\n\n\nbroom::tidy(logit_model, conf.int = TRUE)%&gt;%\n  mutate(term = recode(term,\n    \"v2x_jucon\" = \"Judicial Constraints\",\n    \"v2x_corr\" = \"Corruption Control\",\n    \"as.factor(e_regionpol_6C)2\" = \"Latin America & Caribbean\",\n    \"as.factor(e_regionpol_6C)3\" = \"Middle East & North Africa\",\n    \"as.factor(e_regionpol_6C)4\" = \"Sub-Saharan Africa\",\n    \"as.factor(e_regionpol_6C)5\" = \"Western Europe & North America\",\n    \"as.factor(e_regionpol_6C)6\" = \"Asia & Pacific\"\n    # Region 1 is the reference category — not shown in output\n  )) %&gt;%\n  mutate(term = factor(term, levels = rev(c(\n    \"Judicial Constraints\",\n    \"Corruption Control\",\n    \"Latin America & Caribbean\",\n    \"Middle East & North Africa\",\n    \"Sub-Saharan Africa\",\n    \"Western Europe & North America\",\n    \"Asia & Pacific\",\n    \"(Intercept)\"\n  )))) %&gt;%\n  ggplot(aes(x = estimate, y = term)) +\n  geom_point() +\n  geom_errorbar(aes(xmin = conf.low, xmax = conf.high), width = 0.2) +\n  labs(\n    title = \"Logit Coefficient Plot: Democracy (Binary)\",\n    x = \"Estimate (Log Odds)\", y = NULL\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\nCode\ndem_preds &lt;- ggpredict(logit_model, terms = c(\"v2x_jucon [all]\", \"e_regionpol_6C\"))\n\n\n# Plot using ggplot and viridis color scale\nggplot(dem_preds, aes(x = x, y = predicted, color = group)) +\n  geom_line(linewidth = 1) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = group), alpha = 0.15, color = NA) +\n  scale_color_viridis_d(labels = region_labels, name = \"Region\", end = 0.9) +\n  scale_fill_viridis_d(labels = region_labels, name = \"Region\", end = 0.9) +\n  labs(\n    title = \"Predicted Probability of Democracy by Region\",\n    x = \"Judicial Constraints on Executive (1=No Constraints)\",\n    y = \"Pr(Democracy)\"\n  ) +\n  theme_minimal(base_size = 13)"
+  },
+  {
+    "objectID": "regressions.html#interaction",
+    "href": "regressions.html#interaction",
+    "title": "Applied Examples",
+    "section": "Interaction",
+    "text": "Interaction\n\n\nCode\ninteract &lt;- lm(e_gdppc  ~ v2x_corr * democracy_binary,\n                      data = vdem)\n\ncorr_region_pred &lt;- ggpredict(interact,\n                              terms = c(\"v2x_corr\", \"democracy_binary\"))\n\n# Relabel group variable (0/1) to \"Autocracy\"/\"Democracy\"\ncorr_region_pred$group &lt;- factor(corr_region_pred$group,\n  levels = c(\"0\", \"1\"),\n  labels = c(\"Autocracy\", \"Democracy\")\n)\n\nggplot(corr_region_pred, aes(x = x, y = predicted, color = group, fill = group)) +\n  geom_line(linewidth = 1) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2, color = NA) +\n  scale_color_viridis_d(name = \"Regime Type\", end = 0.8) +\n  scale_fill_viridis_d(name = \"Regime Type\", end = 0.8) +\n  labs(\n    title = \"Interaction: Corruption × Regime Type on GDP per Capita\",\n        subtitle = \"0 = less corrupt, 1 = more corrupt\",\n    x = \"Corruption\",\n    y = \"Predicted GDP per Capita\"\n  ) +\n  theme_minimal(base_size = 13)"
+  },
+  {
+    "objectID": "regressions.html#overlay-on-openstreetmaps-osm",
+    "href": "regressions.html#overlay-on-openstreetmaps-osm",
+    "title": "Applied Examples",
+    "section": "Overlay on OpenStreetMaps (OSM)",
+    "text": "Overlay on OpenStreetMaps (OSM)\nIn this example, we scrape prison locations from OSM and map den on an interactive map.\nFirst, get and prepare the data.\n\n\nCode\n# bounding box of where we want to query data\nq &lt;- opq(bbox = st_bbox(st_transform(germany, 4326)))\nger &lt;- opq(bbox = \"Germany\")\n\n# Build the query of location of prisons\n#osmq &lt;- add_osm_feature(q, key = \"amenity\", value = \"prison\")\nosmq &lt;- add_osm_feature(ger, key = \"amenity\", value = \"prison\")\n\n# And then query the data\npris.osm &lt;- osmdata_sf(osmq)\n\n# Make unique points / polygons\npris.osm &lt;- unique_osmdata(pris.osm)\n\n# Get points and polygons \npris.points &lt;- pris.osm$osm_points\n# filter only points within Germany\npris.points &lt;- pris.osm$osm_points |&gt; \n  st_as_sf() |&gt; \n  st_filter(germany)\n# Get polygons \npoly &lt;- pris.osm$osm_polygons |&gt; \n  st_as_sf() |&gt; \n  st_filter(germany)\nmultipoly &lt;- pris.osm$osm_multipolygons |&gt; \n  st_as_sf() |&gt;   st_make_valid() |&gt;\n  st_filter(germany)\n# Harmonize columns (keep only common ones, or add missing if needed)\ncommon_cols &lt;- intersect(names(pris.points), names(poly)) |&gt; \n  intersect(names(multipoly))\n\npris.points &lt;- pris.points[, common_cols]\npoly &lt;- poly[, common_cols]\nmultipoly &lt;- multipoly[, common_cols]\n\n# Convert polygons and multipolygons to centroids\npoly_pts &lt;- st_centroid(poly)\nmultipoly_pts &lt;- st_centroid(multipoly)\n# Combine all as point geometries\npris_all &lt;- bind_rows(pris.points, poly_pts, multipoly_pts)\n\n\nMap the data. Specify the indicator with zcol = \" \"\n\n\nCode\nmapview(pris_all, zcol = \"name\", legend = FALSE)"
+  },
+  {
+    "objectID": "technicalities.html",
+    "href": "technicalities.html",
+    "title": "Technicalities",
+    "section": "",
+    "text": "Pixel vs. Vector\nThe key difference between pixel and vector based graphics is how the image is structured. Pixel based graphics are made up from lots of tiny physical squares (or ‘pixels’) where as vector graphics are mapped out using mathematical equations which calculate where the edges of the shapes sit in relation to one another.\nAs an example; fonts are always created using vectors so that the colours can be changed efficiently and the symbol can be easily scaled up to any size without losing quality. In contrast, digital photographs are always made up of pixels, which allows for a much more efficient blending of the colours as each physical pixel block can be coloured individually – rather than each shape being mapped out and filled with a gradient, as it would have to be if it were made up using vectors.\n\n\n\nVector vs. Pixel Image\n\n\nPixel graphics use a grid of small, square picture elements (pixels) for displaying graphics. Each pixel has a particular position and a particular colour value. The total number of pixels in an image is always the same. If the image is enlarged, the resolution is reduced. Then the image often looks “jagged“. If an interpolation is used the image looks smooth but not as sharp. Dataforms: JPG, PNG, TIFF, GIF, PSD, BMP\nVector graphics are created from mathematically defined lines (vectors) and curves. Vectors draw pictures on the basis of their geometrical characteristics. Vector graphics are not defined by a fixed number of pixels. Therefore they are not dependent on resolution. During expansion the contours are scaled without affecting the quality of the pictures or increasing the quantity of data. Vector graphics are always displayed or printed in the resolution of the relevant output device. Therefore they are suitable for showing sharp contours and details. Dataforms: PDF, EPS, AI, CDR, WMF,\n\n\nDataforms\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEPS\nGIF\nJPEG\nPDF\nTIFF\nPNG\n\n\n\n\nDescription\nEPS (Encapsulated PostScript) is actually a page description language but is also used for describing images, and especially vector graphics.\nGIF is in most cases used for screen presentations and animations.\nJPEG (Joint Photographics Experts Group) is the most common format on the Internet because it allows to compress images a lot without limiting the color range such as in GIFs .\nPDF (Portable Document Format) is produced by Adobe Acrobat and the format is based on PostScript (PS) format.\nTIFF (Tagged Image File Format) is one of the most common formats.\nPNG (Portable Network Graphics) is a raster image format developed as a lossless alternative to GIF.\n\n\nPurpose\nA platform-independent printing format.\nGIF (Graphic Interchange Format) is the perfect dataform for Internet figures that only requires up to 256 indexed colours.\nInternet publications, presentations, never for print!\nA cross application/platform description and publishing format.\nPlatform independent format for photos etc. TIFF has become a defacto standard for pixel images.\nIdeal for web graphics requiring transparency or lossless compression.\n\n\nAdvantages\nEPS has been a de facto standard within the graphic industry during the last fifteen years. It offers a very good printing quality on PS-printers. EPS is mostly used for storing vector information.\nMost image software can import and export GIF-files. The file format offers extremely small files which is ideal for internet publications.\nThe format offers a very good compression, especially for photos. The compression will reduce the file size by approximately 5 to 20 times.\nVery good printing quality. A standard in desktop publishing. All information will be stored inside a PDF.\nThe format is supported in almost every image and word processing software, and it does not compress the data. Ideal for printing.\nLossless compression with support for millions of colors and transparency; widely supported in browsers.\n\n\nDisadvantages\nThere are sometimes problems when printing these files on printers that don’t support the Postscript format.\nMaximum 256 colours can be stored in the file. That means that there is always a quality loss when you use it for photos.\nThe format uses a lossy compression. This means that you will lose information every time you save the image. You should not use JPEG as a master copy of your images.\nOnly limited options to edit a PDF-file.\nLarge images require large storage space. Not the best format for online publications.\nLarger file sizes than JPEG for photographs; no animation support.\n\n\n\n\n\n\nImage Resolutions\nTo determine whether your raster images are a suitable resolution for a specific application, you need to check their pixel density. Units of measurement such as dots per inch (DPI) or pixels per inch (PPI) refer to the number of pixels in one inch of the image. These measurements become important when you attempt to use raster images in specific places, such as on the web or in print publications.\nThe web, historically, displays 72dpi (72 dots or pixels per inch) – a relatively low pixel density however most modern displays are now much higher. That said many images on the web are still in that 72-100 dpi range. While monitors can display higher resolution the web also needs to optimize for speed so images around 100 dpi hit the sweet spot for looking great on a screen but also loading quickly. Raster images with a low DPI in the 72-100 look nice and crisp on the web. But this same low DPI image may not be suitable for printing. To correctly print an image, it should be at least 300dpi, a much higher pixel density than the web displays. Resizing a low DPI image pulled from the web to fit the dimensions of your print project won’t work because the same finite number of pixels only get bigger and begin to distort. For example, let’s say you want to print your logo at 2″x3″ on a brochure. If have a 72dpi jpg of your logo and it’s 2-inches by 3-inches, it will need to be “stretched” to more than 3 times the size to get it up to 300dpi. That 72dpi logo may look great on your computer monitor, but when it prints at 300dpi it will look pixilated. Instead you should use a vector version of your logo (.EPS or .AI) or create a raster (JPG) with the exact dimensions desired and at 300dpi."
+  },
+  {
+    "objectID": "exercises.html",
+    "href": "exercises.html",
+    "title": "Exercises",
+    "section": "",
+    "text": "Download this quarto file with exercises. Solutions are on the Solutions page (released after the session).\nCode\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(gapminder)\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)"
+  },
+  {
+    "objectID": "exercises.html#exploring-gapminder",
+    "href": "exercises.html#exploring-gapminder",
+    "title": "Exercises",
+    "section": "✍️ Exploring Gapminder",
+    "text": "✍️ Exploring Gapminder\n3.1 Create a histogram of gdpPercap for 2007. It will look skewed. Fix this with a log scale and explain in one sentence what a reader must now keep in mind.\n3.2 Build a line plot of population over time for the five most populous countries of 2007. Replace the legend with direct labels at the end of each line (ggrepel).\n3.3 Compute mean life expectancy per continent per year, and plot it as a line chart. Annotate the most striking feature of the plot with annotate()."
+  },
+  {
+    "objectID": "exercises.html#challenge-exercise-explore-a-development-pattern",
+    "href": "exercises.html#challenge-exercise-explore-a-development-pattern",
+    "title": "Exercises",
+    "section": "🧠 Challenge Exercise: Explore a Development Pattern",
+    "text": "🧠 Challenge Exercise: Explore a Development Pattern\nBefore seeing any example plots, try to visualize the following:\n\nHow does a country’s population size relate to life expectancy and income level?\n\nYour task: Create a visualization using the gapminder dataset for the year 2007 that captures the relationship between:\n\nlifeExp: Life expectancy\ngdpPercap: GDP per capita\npop: Population\n\nYou may use any type of plot or mapping of variables (e.g. color, size), but aim to show all three variables clearly."
+  },
+  {
+    "objectID": "colors.html",
+    "href": "colors.html",
+    "title": "Colors",
+    "section": "",
+    "text": "Color theory provides guidance on how to mix different colors together, and what effects these mixes can have on the viewer. An understanding of color theory helps to evaluate which colors work together, and which don’t.\nThe color wheel depicts the color spectrum in a circle and is made up of three different types of colors: Primary, secondary, and tertiary colors. The primary colors are red, yellow, and blue. They are called primary for a couple of reasons. No two colors can be mixed to create a primary color. Primary colors cannot be created by mixing together other colors, but only through the use of natural pigments.\nThe secondary colors are orange, green, and purple. Secondary colors are created by mixing equal parts of two primary colors. Tertiary colors are created by mixing equal parts of a secondary color and a primary color together. There are six tertiary colors; red-purple, red-orange, blue-green, yellow-green, blue-purple, and yellow-orange. When naming the tertiary colors, the primary color is always named first.\n\nThe color wheel can be divided into ranges that are visually active (warm colors) or passive (cold colors). Active colors appear stronger next to cold colors.\n\n\n\nThe Color Wheel\n\n\n\n\n\n\nColor schemes are practical guidlines on how to mix colors together.\nMonochromatic means one (mono) color (chroma). A monochromatic color scheme consists of only one color and its shades and tints.\nAnalogous colors are next to each other on the color wheel. They can have an intense yet harmonic effect.\nComplementary colors are found directly across from each other on the color wheel. They provide a strong contrast.\nColor triads are three colors that are equally spaced apart from each other on the color wheel.\n\n\n\n\n\n\nComplementary Colors are located opposite each other on the color wheel. Every visual presentation involves figure-ground relationships. This relationship between a subject (or figure) and its surrounding field (ground) will evidence a level of contrast; the more an object contrasts with its surrounds, the more visible it becomes.\n\n\n\n\n\n\nComplementary colors can have interesting and intense effects. This may be a desirable effect, or a problem if there is text involved.\n\n\n\nComplementary Colors\n\n\n\n\n\nValue is the darkness or lightness of a color. When dealing with pure color (hue), value can be affected by adding white or black to a color. Adding white to a color produces a tint. Adding black to a color produces a shade.\n\n\n\nColor Values\n\n\n\n\n\n\n\nColor blindness is the inability to differentiate certain colors. It comes in different forms, but the most common is red-green color blindness. There are multiple causes, but the most common cause is a mutated X Chromosome. Because men have only one X chromosome, they are more often affected by colorblindness Around 8% of adult men suffer from color blindness. Women on the other hand have two X chromosomes, which is why only few women are color blind.\nThe most common type of color blindness is red green color blindness, this type affects about 95% of all color blind people. It means that the affected person can either not see the color red or green or both as colors but only as shades of grey, and hence not distinguish between them. The remaining 5% of colorblindness is made up of blue yellow color blindness, and less commonly – total color blindness.\nBelow you can see an R package that tests graphic output for different types of color blindess. The first figure shows a graph as seen by a non-colorblind person. The second figure shows how different types of color blindness affect the vision of the same graph. Link to the R package colorblindr\n\n\n\nSource: Colorblindr R Package\n\n\n\n\n\nSource: Colorblindr R Package\n\n\n\n\n\n\nSUBTRACTIVE COLOR\nThe subtractive method is applied when we paint or print colors. As you know from painting, if you add more and more layers of colors, the shade will get darker and end in black. This is where the CMYK (Cyan, Magenta, Yellow and Key Color) color system is used.\nADDITIVE COLOR\nOn digital screens, colors are created with light. If we do not have any light, we see black. The more colors we add, the lighter it gets and ends in white. This is when the RGB color system is applied. Most pictures you find on the internet are in the RGB mode and thus not printable. Although most modern office printers automatically convert the colors to CMYK mode, you need to take the color mode into consideration when submitting to a professional printer.\n\n\n\nThe following websites help you choose a harmonic color palette:\n\nhttps://coolors.co\nhttps://mycolor.space\nhttp://paletton.com"
+  },
+  {
+    "objectID": "colors.html#color-theory",
+    "href": "colors.html#color-theory",
+    "title": "Colors",
+    "section": "",
+    "text": "Color theory provides guidance on how to mix different colors together, and what effects these mixes can have on the viewer. An understanding of color theory helps to evaluate which colors work together, and which don’t.\nThe color wheel depicts the color spectrum in a circle and is made up of three different types of colors: Primary, secondary, and tertiary colors. The primary colors are red, yellow, and blue. They are called primary for a couple of reasons. No two colors can be mixed to create a primary color. Primary colors cannot be created by mixing together other colors, but only through the use of natural pigments.\nThe secondary colors are orange, green, and purple. Secondary colors are created by mixing equal parts of two primary colors. Tertiary colors are created by mixing equal parts of a secondary color and a primary color together. There are six tertiary colors; red-purple, red-orange, blue-green, yellow-green, blue-purple, and yellow-orange. When naming the tertiary colors, the primary color is always named first.\n\nThe color wheel can be divided into ranges that are visually active (warm colors) or passive (cold colors). Active colors appear stronger next to cold colors.\n\n\n\nThe Color Wheel"
+  },
+  {
+    "objectID": "colors.html#color-schemes",
+    "href": "colors.html#color-schemes",
+    "title": "Colors",
+    "section": "",
+    "text": "Color schemes are practical guidlines on how to mix colors together.\nMonochromatic means one (mono) color (chroma). A monochromatic color scheme consists of only one color and its shades and tints.\nAnalogous colors are next to each other on the color wheel. They can have an intense yet harmonic effect.\nComplementary colors are found directly across from each other on the color wheel. They provide a strong contrast.\nColor triads are three colors that are equally spaced apart from each other on the color wheel."
+  },
+  {
+    "objectID": "colors.html#complementary-colors",
+    "href": "colors.html#complementary-colors",
+    "title": "Colors",
+    "section": "",
+    "text": "Complementary Colors are located opposite each other on the color wheel. Every visual presentation involves figure-ground relationships. This relationship between a subject (or figure) and its surrounding field (ground) will evidence a level of contrast; the more an object contrasts with its surrounds, the more visible it becomes.\n\n\n\n\n\n\nComplementary colors can have interesting and intense effects. This may be a desirable effect, or a problem if there is text involved.\n\n\n\nComplementary Colors\n\n\n\n\n\nValue is the darkness or lightness of a color. When dealing with pure color (hue), value can be affected by adding white or black to a color. Adding white to a color produces a tint. Adding black to a color produces a shade.\n\n\n\nColor Values"
+  },
+  {
+    "objectID": "colors.html#color-blindness",
+    "href": "colors.html#color-blindness",
+    "title": "Colors",
+    "section": "",
+    "text": "Color blindness is the inability to differentiate certain colors. It comes in different forms, but the most common is red-green color blindness. There are multiple causes, but the most common cause is a mutated X Chromosome. Because men have only one X chromosome, they are more often affected by colorblindness Around 8% of adult men suffer from color blindness. Women on the other hand have two X chromosomes, which is why only few women are color blind.\nThe most common type of color blindness is red green color blindness, this type affects about 95% of all color blind people. It means that the affected person can either not see the color red or green or both as colors but only as shades of grey, and hence not distinguish between them. The remaining 5% of colorblindness is made up of blue yellow color blindness, and less commonly – total color blindness.\nBelow you can see an R package that tests graphic output for different types of color blindess. The first figure shows a graph as seen by a non-colorblind person. The second figure shows how different types of color blindness affect the vision of the same graph. Link to the R package colorblindr\n\n\n\nSource: Colorblindr R Package\n\n\n\n\n\nSource: Colorblindr R Package"
+  },
+  {
+    "objectID": "colors.html#color-systems",
+    "href": "colors.html#color-systems",
+    "title": "Colors",
+    "section": "",
+    "text": "SUBTRACTIVE COLOR\nThe subtractive method is applied when we paint or print colors. As you know from painting, if you add more and more layers of colors, the shade will get darker and end in black. This is where the CMYK (Cyan, Magenta, Yellow and Key Color) color system is used.\nADDITIVE COLOR\nOn digital screens, colors are created with light. If we do not have any light, we see black. The more colors we add, the lighter it gets and ends in white. This is when the RGB color system is applied. Most pictures you find on the internet are in the RGB mode and thus not printable. Although most modern office printers automatically convert the colors to CMYK mode, you need to take the color mode into consideration when submitting to a professional printer."
+  },
+  {
+    "objectID": "colors.html#tools-to-help-you-choose-your-colors",
+    "href": "colors.html#tools-to-help-you-choose-your-colors",
+    "title": "Colors",
+    "section": "",
+    "text": "The following websites help you choose a harmonic color palette:\n\nhttps://coolors.co\nhttps://mycolor.space\nhttp://paletton.com"
+  },
+  {
+    "objectID": "visualization.html",
+    "href": "visualization.html",
+    "title": "Data Visualization",
+    "section": "",
+    "text": "Visualization may not be as precise as statistics, but it provides a unique view onto data that can make it much easier to discover interesting structures than numerical methods. Visualization also provides the context necessary to make better choices and to be more careful when fitting models. Anscombe’s Quartet is a case in point, showing that four datasets that have identical statistical properties can indeed be very different.\n\n\n\n).\n\n\nWhen we visualize data, it means that we are encoding data into visual forms such as colors, size, shape, etc. Although our data pretty much decides which type of graphs we can consider, the human brain cannot decode the information of all types of data visualization equally.\nIn the mid-1980s, Cleveland and McGill (1985) ran experiments measuring how accurately people were able to perceive the quantitative information encoded by different types of data visualization. People were asked to estimate two values within a chart, or compare values between charts. In 2010, Heer & Bostock (2010) replicated Cleveland’s earlier experiments and added additional assessments, such as rectangular-area graphs.\nThe overall pattern of results shows less accurate perception as we move from length-based scales to angles and finally areas.\n\n\n\nSource: Healy (2019)\n\n\nSchematic representation of basic perceptual tasks for nine chart types, by Heer and Bostock, following Cleveland and McGill. In both studies, participants were asked to make comparisons of highlighted portions of each chart type, and say which was smaller.\nWe best judge a quantity if we have a clear scale on which elements are aligned, such as a denoted y-axis for bar charts. When elements are not clearly marked by a scale, comparison is a bit harder but still good. It is more difficult again to compare the lengths of lines without a common baseline.\nWe tend to misjudge quantities represented as angles. This is why pie charts are usually a bad idea. We also misjudge areas. We have known for a long time that area-based comparisons of quantities are easily misinterpreted or exaggerated. For example, values in the data might be encoded as lengths which are then squared to make the shape on the graph. The result is that the difference in size between the squares or rectangles area will be much larger than the difference between the two numbers they represent.\nFinally, three-dimensional visualization of data is hardest to interprete. Our ability to scan the dimension of depth (z-axis) is weaker than our ability to grasp the x and y axes. Three-dimensional visualization can look impressive, but they are also harder to judge."
+  },
+  {
+    "objectID": "visualization.html#basic-principles",
+    "href": "visualization.html#basic-principles",
+    "title": "Data Visualization",
+    "section": "",
+    "text": "Visualization may not be as precise as statistics, but it provides a unique view onto data that can make it much easier to discover interesting structures than numerical methods. Visualization also provides the context necessary to make better choices and to be more careful when fitting models. Anscombe’s Quartet is a case in point, showing that four datasets that have identical statistical properties can indeed be very different.\n\n\n\n).\n\n\nWhen we visualize data, it means that we are encoding data into visual forms such as colors, size, shape, etc. Although our data pretty much decides which type of graphs we can consider, the human brain cannot decode the information of all types of data visualization equally.\nIn the mid-1980s, Cleveland and McGill (1985) ran experiments measuring how accurately people were able to perceive the quantitative information encoded by different types of data visualization. People were asked to estimate two values within a chart, or compare values between charts. In 2010, Heer & Bostock (2010) replicated Cleveland’s earlier experiments and added additional assessments, such as rectangular-area graphs.\nThe overall pattern of results shows less accurate perception as we move from length-based scales to angles and finally areas.\n\n\n\nSource: Healy (2019)\n\n\nSchematic representation of basic perceptual tasks for nine chart types, by Heer and Bostock, following Cleveland and McGill. In both studies, participants were asked to make comparisons of highlighted portions of each chart type, and say which was smaller.\nWe best judge a quantity if we have a clear scale on which elements are aligned, such as a denoted y-axis for bar charts. When elements are not clearly marked by a scale, comparison is a bit harder but still good. It is more difficult again to compare the lengths of lines without a common baseline.\nWe tend to misjudge quantities represented as angles. This is why pie charts are usually a bad idea. We also misjudge areas. We have known for a long time that area-based comparisons of quantities are easily misinterpreted or exaggerated. For example, values in the data might be encoded as lengths which are then squared to make the shape on the graph. The result is that the difference in size between the squares or rectangles area will be much larger than the difference between the two numbers they represent.\nFinally, three-dimensional visualization of data is hardest to interprete. Our ability to scan the dimension of depth (z-axis) is weaker than our ability to grasp the x and y axes. Three-dimensional visualization can look impressive, but they are also harder to judge."
+  },
+  {
+    "objectID": "visualization.html#which-chart-type-should-i-use",
+    "href": "visualization.html#which-chart-type-should-i-use",
+    "title": "Data Visualization",
+    "section": "Which chart type should I use?",
+    "text": "Which chart type should I use?\nThis is a frequently asked question, and the answer is: There is no best answer. However, you should ask by asking yourself “What would you like to show?”. Below you can see a basic framework to identify different chart types for different data types. Experiment with different charts to see which chart works best to tell the story in your data.\n\n\nThe most important question you should always ask is: ““What is it about the data that I would like to visualize?”. The struggle of a good visualization is often find not a visualization problem, but an operationalization problem.\nInformation visualization is not an art, but a systematic process. You need to clarify which attributes of your data you want to highlight, and how these attributes relate to other attributes in the data.\nWhen is data visualization useful?\nThe less straight-forward the answer to your question, the more useful data visualization might be. If your question is ‘how many toothpastes did our company sell in a given year?’, you do not need to visualize the numeric answer to that question. However, if you ask how did our toothpaste sells do compared to other toothpaste companies in a given year, a graphic visualization might be useful to look at the differences and comparisons. Vague questions require you to look at your data from different perspectives and angles. Visualizating your data for vague questions can thus be useful to draw inferences based on your own knowledge.\nIn most statistic courses for social scientists, creating a graph is part of your statistical analysis. You’re being taught to create a graph from your results, to show your effects, or maybe look at the distribution of your data visually.\nThis ignors that information visualization can be of much greater use than only showing the outcome of an analysis. In fact, the most cited parts of a paper are usually the parts exploring, describing and interpreting the data at hand, which typically requires good and simple visualization. Exploring data visually might then give you indices on how to further work with the data, e.g. statistical analysis, machine learning, network analysis, etc. In other words, information visualization can be vital in the step to a successful operationalization.\nTypes of information visualization\n\n\n\nSource: McCandless (2013)."
+  },
+  {
+    "objectID": "visualization.html#good-figures",
+    "href": "visualization.html#good-figures",
+    "title": "Data Visualization",
+    "section": "Good Figures",
+    "text": "Good Figures\nComing across a good visualization in this dense information jungle nowadays is a relief, because it is effortless and just poures in.\nAfter pie charts, double Y-axis graphs have caused more trouble than almost any other\nWhen we look at maps, we tend to focus on the substantive matter of the data and don’t primarily think about the methodology behind it.\nTime-Series\nA random sample of 4’000 graphics from 15 popular newspapers and magazins from around the world between 2974 and 1980 showed that 75% of these graphics displayed time-series Tufte (1983). The strength of time-series is the natural ordering of the time scale, and the ability to make big data sets with lots of variability easily visual.\nAdding an additional space dimension to time-series (if your data allows) increases explanatory power. The following examples show complex multivariate graphics that are so easy to understand that viewers barely notice the multiple dimensions.\nNarrative Graphics of Time and Space\n\n\n\nMinard’s visualization of Napoleon’s retreat from Moscow, Paris 1885.\n\n\nVisual Area and Numerical Measure\n\n\n\nAntonio Gabaglio, Teoria Generale della Statistica (Milan, second edition, 1888).\n\n\nMaps\nAs the importance of location data continues to grow so do the ways you can visualize this information. Maps are great for an intuitive to look at spatial patterns and great for distributing geographic data. In many cases, just by making a map you are doing analysis. That’s because you’re making the map for a reason. You have a question you want the map to help answer: Where has disease ravaged trees? Which communities are in the path of a wildfire? Where are areas of high crime? It’s also because when you make a map, as with any analysis, you’re making decisions about which information to include and how to present that information. Effective visualization is valuable for communicating results and messages clearly in an engaging way. Here are three key decisions that affect the information a map presents and the story it tells.\n\n\n\nSource: flowingdata.com (2019)\n\n\nTyler Vigen wrote an algorithm that attempts to automatically find things that correlate."
+  },
+  {
+    "objectID": "visualization.html#bad-figures",
+    "href": "visualization.html#bad-figures",
+    "title": "Data Visualization",
+    "section": "Bad Figures",
+    "text": "Bad Figures"
+  },
+  {
+    "objectID": "visualization.html#pie-charts",
+    "href": "visualization.html#pie-charts",
+    "title": "Data Visualization",
+    "section": "Pie Charts",
+    "text": "Pie Charts\n\n\n\nLooking at this chart, S&D appears to be roughly even with EPP.\nIn 3D Pie Charts, the perspective is distorted, it seems as if red is in fact bigger.\n\n\n\nLook at the single slices, and see if you can figure out an ordering from largest to smallest?\n\n\n\n… What?\n\nToo much going on, wrong chart type.\nContext is essential\nGood data visualization should always answer the question ‘compared to what?’. Too few data in a graph should always alarm you. Consider the example about traffic deaths in the ‘bad figures’ section.\nData-Ink\nGood information visualization should invoke your focus on the substance of the data and nothing else. Statistical graphics are instruments to help people reason about quantitative information. Data-Ink is the non-erasable core of a graphic, the non-redundant ink arranged in response to variation in the numbers represented. That ink changes as the data changes. You should try to maximize the share of data-ink in your graph. Erase non-data-ink within reason.\nChartjunk\nThe decoration of graphs produces a lot of ink that is not necessary to understand the data behind the graph. This non-data-ink is called chartjunk. This can include\n\nunintentional optical art (eye-catching visual additions to a graph that distracts from the actual information and distorts the reader)\nThe Grid (Grids are mostly for the intitial plotting of the data, but they carry no information and clutter up the graphic)\nSelf-promoting graphics (when the data measures and elements become the design elements)\n\n\n\n\n\nCode\ngap2007 %&gt;%\n  arrange(desc(pop)) %&gt;%\n  slice(1:10) %&gt;%\n  ggplot(aes(x = country, y = pop)) +\n  geom_bar(stat = \"identity\") +\n  labs(title = \"population of Countries in year 2007\") \n\n\n\n\n\n\n\n\nCode\ngap2007 %&gt;%\n  arrange(desc(pop)) %&gt;%\n  slice(1:10) %&gt;%\n  ggplot(aes(x = country, y = pop, fill = country)) +\n  geom_bar(stat = \"identity\", color = \"black\", linewidth = 1.5) +\n  labs(title = \"population of Countries in year 2007\", x = \"This is the X Axis\", y = \"Some Very Large Numbers\") \n\n\n\n\n\n\n\nThe following example is adapted from Tufte (1983). He shows how data out of context can present untruthful results. When presenting results or effects, you should always show the answer to the question ‘compared to what’, such as time before/after or other units.\n\n\n\nAdapted from Tufte (1983)\n\n\nDesign that is too data thin should always raise your suspicion and you should consider the question ‘compared to what?’. Here, a few more datapoints lead to a completely different conclusion. In the first figure, one could assume that a stricter enforcement of speed limits lead to a significant decrease in traffic deaths. However, the second figure below shows that there was actually a sudden increase before the law enforcement. Thus, the drop might not be correlated with law enforcement.\n\nThe line connecting the two datapoints in the first figure could have a variety of other time-paths before and after.\n\nBringing other states into the picture further reveals that not only Connecticut had a sudden increase in 1955 in traffic deaths.\n\n\n\nAdapted from Tufte (1983)\n\n\nThink about the responsibility you have towards your reader. Depending on the platform and publication, showing an untruthful chart can lead to a lie being repeated thousands of times. Here are some principles you should consider in order to keep your graphs truthful (Tufte 1983, 77):\n\nThe representation of numbers should always be directly proportional to the numerical quantities represented.\nClear labelling should avoid ambiguities in interpreting graphs. In the best case, you write the labelling directly on the graph. Add important event labels.\nShow data variation, not design variation.\nGraphics shouldn’t quote data out of context\nThe number of dimensions in your graph should never exceed the number of dimensions in your data."
+  },
+  {
+    "objectID": "visualization.html#tables",
+    "href": "visualization.html#tables",
+    "title": "Data Visualization",
+    "section": "Tables",
+    "text": "Tables\nTables are usually better than graphics for 20 or less numbers. The special power of graphics comes with large datasets. Tables also work well when the data presentation requires many localized comparisons.\n\n\n\nSource: New York Times, November 9, 1980.\n\n\nTables are often presented with rows/cols ordered alphabetically which is good for looking up specific values, but it is bad for seeing patterns, trends, anomalies. It is better to sort rows or columns by means or medians and to shade cells according to values. If you are going to present the numbers, round a lot. Nobody wants to see all those decimals.\n\n\n\nBasic table, hard to stay on the right line when reading it.\n\n\n\n\n\n\n\nCleaned table, sorted according to countries and status. Shaded areas enhance readability.\n\n\n\n\n\n\nCleaned table, sorted according to values. Shaded areas enhance readability."
+  },
+  {
+    "objectID": "visualization.html#inspirational-resources",
+    "href": "visualization.html#inspirational-resources",
+    "title": "Data Visualization",
+    "section": "Inspirational Resources",
+    "text": "Inspirational Resources\n\nThe Fallen of World War II\nUN Icons\nFlowing Data\nCountry Clusters\nTufte in R\nSarah Leo, a visual journalist at The Economist, looked through the archives and found some charts that could use a re-design.\nGapminder project"
+  },
+  {
+    "objectID": "fonts.html",
+    "href": "fonts.html",
+    "title": "Fonts",
+    "section": "",
+    "text": "Typography is the style, arrangement, or appearance of typeset matter The main goal of typography is presenting information in a way that is readable and easy to consume.\n\n\n\n\nSerif:  these typefaces are the more traditional ones. “Serifs” are the little feet or arms that hang off the end of letter strokes, and typically add a thick/thin look to the letter. Serif fonts are considered the easiest fonts to read so they are most often used as text or “body” copy\n\nSans-Serif:  As the name suggests, sans-serif fonts are ‘without serifs’ and usually have an overall even stroke weight. Sans serif fonts can evoke a more modern look because they were not created until the 19th century. While they can also be harder to read, they are often used only for small amounts of copy, subheadings, or large headlines. Helvetica is the most universal sans serif font as it is used around the world.\n\n\n\nFor large amounts of text, serif fonts are generally thought to move the eye along more effectively and increase reading speed, especially in print (though this obviously depends the characteristics of the specific font used). On the other hand, sans-serif fonts are often favored for online/on-screen text due to their simplified letterforms that display more clearly at various screen resolutions.\n\n\n\n\n\n\nAnatomy of Type\n\n\n\n\n\npoint size should be 10–12 points in printed documents, 15-25 pixels on the web.\nline spacing should be 120–145% of the point size.\nThe average line length should be 45–90 characters (including spaces).\nNever use underlining, except perhaps for web links.\nUse centered text sparingly.\nUse bold or italic as little as possible.\n\n\n\n\nalign left\nalign right\nalign center\njustified\n\n\n\n\nIf a single word or very short line is left at the end of a column it is called a Widow. Likewise if the same is left at the top of the following column this is called an Orphan. Both of these are considered bad typography as they cause distracting shapes in a block of type. They can usually be fixed easily in the same way as the rag, by reworking the line breaks in the column or by editing the copy.\n\n\n\n\n\nWidow: They have a past but no future\n\n\n\n\n\n\n\nOrphan: They have no past but a future\n\n\n\n\n\n\n\nBefore we start looking for a font to add to our design and combine it with our body text font, we need to ask ourselves: do we really need more than one font? Don’t just add one for the sake of it. There’s no rule in typography that says the more fonts used the better (the contrary is probably more true).\nOne of the main reasons that pairing serif and sans-serif fonts works so well is that it creates contrast. This idea of contrast brings together multiple concepts that you should be considering, including hierarchy and how fonts complement each other.\nContrast can be achieved in a number of ways, including through style, size, weight, spacing, and color, among others. In the example below, a bold, chunky font is paired with a tall, thin one and although they’re almost complete opposites, they work nicely together in large part because they are so different. The differences help create distinct roles for each font, allowing them to stand out as individual pieces of information.\nWhen combining fonts, you do want contrast, but you don’t want conflict. Just because fonts are different doesn’t mean they will automatically work well together. Generally speaking, typefaces that share a couple qualities, maybe they have similar proportions, or the lowercase letters have the same height (known as “x-height”), are more likely to look harmonious together, even if the overall appearance differs.\nchoosing fonts that are too similar (i.e., don’t have enough contrast) becomes problematic. You’ll have trouble establishing a hierarchy because the fonts aren’t visually distinguishable from each other. And any differences that are discernible may look more like a mistake than a purposeful choice.\n\n\n\n\nhttps://medium.muz.li/typography-that-sacred-cow-ea7a5909ca70\nFont Combinations"
+  },
+  {
+    "objectID": "fonts.html#what-is-typography",
+    "href": "fonts.html#what-is-typography",
+    "title": "Fonts",
+    "section": "",
+    "text": "Typography is the style, arrangement, or appearance of typeset matter The main goal of typography is presenting information in a way that is readable and easy to consume.\n\n\n\n\nSerif:  these typefaces are the more traditional ones. “Serifs” are the little feet or arms that hang off the end of letter strokes, and typically add a thick/thin look to the letter. Serif fonts are considered the easiest fonts to read so they are most often used as text or “body” copy\n\nSans-Serif:  As the name suggests, sans-serif fonts are ‘without serifs’ and usually have an overall even stroke weight. Sans serif fonts can evoke a more modern look because they were not created until the 19th century. While they can also be harder to read, they are often used only for small amounts of copy, subheadings, or large headlines. Helvetica is the most universal sans serif font as it is used around the world.\n\n\n\nFor large amounts of text, serif fonts are generally thought to move the eye along more effectively and increase reading speed, especially in print (though this obviously depends the characteristics of the specific font used). On the other hand, sans-serif fonts are often favored for online/on-screen text due to their simplified letterforms that display more clearly at various screen resolutions.\n\n\n\n\n\n\nAnatomy of Type\n\n\n\n\n\npoint size should be 10–12 points in printed documents, 15-25 pixels on the web.\nline spacing should be 120–145% of the point size.\nThe average line length should be 45–90 characters (including spaces).\nNever use underlining, except perhaps for web links.\nUse centered text sparingly.\nUse bold or italic as little as possible.\n\n\n\n\nalign left\nalign right\nalign center\njustified\n\n\n\n\nIf a single word or very short line is left at the end of a column it is called a Widow. Likewise if the same is left at the top of the following column this is called an Orphan. Both of these are considered bad typography as they cause distracting shapes in a block of type. They can usually be fixed easily in the same way as the rag, by reworking the line breaks in the column or by editing the copy.\n\n\n\n\n\nWidow: They have a past but no future\n\n\n\n\n\n\n\nOrphan: They have no past but a future\n\n\n\n\n\n\n\nBefore we start looking for a font to add to our design and combine it with our body text font, we need to ask ourselves: do we really need more than one font? Don’t just add one for the sake of it. There’s no rule in typography that says the more fonts used the better (the contrary is probably more true).\nOne of the main reasons that pairing serif and sans-serif fonts works so well is that it creates contrast. This idea of contrast brings together multiple concepts that you should be considering, including hierarchy and how fonts complement each other.\nContrast can be achieved in a number of ways, including through style, size, weight, spacing, and color, among others. In the example below, a bold, chunky font is paired with a tall, thin one and although they’re almost complete opposites, they work nicely together in large part because they are so different. The differences help create distinct roles for each font, allowing them to stand out as individual pieces of information.\nWhen combining fonts, you do want contrast, but you don’t want conflict. Just because fonts are different doesn’t mean they will automatically work well together. Generally speaking, typefaces that share a couple qualities, maybe they have similar proportions, or the lowercase letters have the same height (known as “x-height”), are more likely to look harmonious together, even if the overall appearance differs.\nchoosing fonts that are too similar (i.e., don’t have enough contrast) becomes problematic. You’ll have trouble establishing a hierarchy because the fonts aren’t visually distinguishable from each other. And any differences that are discernible may look more like a mistake than a purposeful choice.\n\n\n\n\nhttps://medium.muz.li/typography-that-sacred-cow-ea7a5909ca70\nFont Combinations"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Advanced Graphics",
+    "section": "",
+    "text": "Welcome to this workshop on information visualization and advanced graphics in R.\nInformation visualization, the art of representing data in a way that it is easy to understand and to manipulate, can help us make sense of information and thus make it useful in our lives. There’s a huge need for data to be presented so that it is understood by experts and non-experts alike.\nSome of the most famous information visualizations are maps of Underground/Subway systems. The geography above ground is very different to the way it is shown on the underground map. However, it enables pretty much anyone to quickly understand how to get from one point in the city to any other using the underground system.\nInformation visualization is designed to help us make sense out of data. It can be used to explore relationships between data, to confirm ideas we hold about data or to explain data in easy to digest manners. It may also be used, rightly or wrongly, to help persuade someone with data.\nThis workshop is an introduction to the principles and techniques for visualizing data. The course first and foremost is aimed at making researchers aware of “good” and “bad” visualizations. Participants learn the principles of how to visualize complex matters into readable charts and graphs."
+  },
+  {
+    "objectID": "home.html",
+    "href": "home.html",
+    "title": "Advanced Graphics",
+    "section": "",
+    "text": "Welcome to this workshop on information visualization and advanced graphics in R.\nInformation visualization, the art of representing data in a way that it is easy to understand and to manipulate, can help us make sense of information and thus make it useful in our lives. There’s a huge need for data to be presented so that it is understood by experts and non-experts alike.\nSome of the most famous information visualizations are maps of Underground/Subway systems. The geography above ground is very different to the way it is shown on the underground map. However, it enables pretty much anyone to quickly understand how to get from one point in the city to any other using the underground system.\nInformation visualization is designed to help us make sense out of data. It can be used to explore relationships between data, to confirm ideas we hold about data or to explain data in easy to digest manners. It may also be used, rightly or wrongly, to help persuade someone with data.\nThis workshop is an introduction to the principles and techniques for visualizing data. The course first and foremost is aimed at making researchers aware of “good” and “bad” visualizations. Participants learn the principles of how to visualize complex matters into readable charts and graphs."
+  },
+  {
+    "objectID": "exercises/exercises_R_solution.html",
+    "href": "exercises/exercises_R_solution.html",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "The following exercises help you explore real-world development data using ggplot2, gapminder and V-Dem.\n\n\n\nBefore seeing any example plots, try to visualize the following:\n\nHow does a country’s population size relate to life expectancy and income level?\n\nYour task: Create a visualization using the gapminder dataset for the year 2007 that captures the relationship between: - lifeExp: Life expectancy - gdpPercap: GDP per capita - pop: Population\nYou may use any type of plot or mapping of variables (e.g., x-axis, color, size), but aim to show all three variables clearly.\n⬇️ Fill in the code below. Afterward, we’ll compare approaches and interpretations.\n\n\nCode\n# ✏️ Add here your own code!\nlibrary(viridis)  \n\ngapminder %&gt;%\n  filter(year == 2007) %&gt;%\n  ggplot(aes(\n    x = gdpPercap,\n    y = lifeExp,\n    size = pop,\n    color = continent\n  )) +\n  geom_point(alpha = 0.8) +\n  scale_x_log10() +\n  scale_size(range = c(2, 20), guide = \"none\") +\n  scale_color_viridis_d(option = \"D\", end=0.95) +\n  labs(\n    title = \"Life Expectancy vs GDP per Capita (2007)\",\n    subtitle = \"Bubble size = population, color = continent\",\n    x = \"GDP per Capita (log scale)\",\n    y = \"Life Expectancy\",\n    color = \"Continent\"\n  ) +\n  theme_minimal() +\n  theme(\n    axis.text = element_text(size = 14),\n    axis.title = element_text(size = 15)\n  )\n\n\n\n\n\n\n\n\nUse the 2007 data to create two histogram that shows how gdpPercap and logged gdpPercap is distributed across all countries. Arrange the plots side by side.\nHint: Use ggplot() + geom_histogram() and consider scale_x_log10().\n⬇️ Fill in your code below:\n\n\nCode\n# ✏️ Add here your own code!\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)\n\n# A: Raw histogram (no transformation)\nhist_raw &lt;- ggplot(gap2007, aes(x = gdpPercap)) +\n  geom_histogram(binwidth = 2000, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"A. GDP per Capita (Raw Scale)\",\n    x = \"GDP per Capita\",\n    y = \"Count\"\n  ) +\n  theme_classic(base_size = 13)\n\n\n# B: Histogram with log-scaled x-axis\nhist_logscale &lt;- ggplot(gap2007, aes(x = gdpPercap)) +\n  geom_histogram(binwidth = 0.1, fill = \"darkred\", color = \"white\") +\n  scale_x_log10() +\n  labs(\n    title = \"B. GDP per Capita (Log10 Scale)\",\n    x = \"GDP per Capita (log10)\",\n    y = \"Count\"\n  ) +\n  theme_classic(base_size = 13)\n\n# Combine both using patchwork\nhist_raw + hist_logscale + plot_annotation(\n  title = \"Distribution of GDP per Capita in 2007\",\n  tag_levels = 'A'\n)\n\n\n\n\n\n\n\n\n\nGoal: Compare how GDP per capita and life expectancy evolved over time in three world regions.\nTask:\n\nFilter the Gapminder dataset to include only the years 1977, 1987, 1997, and 2007.\nCreate a scatterplot of GDP per capita vs life expectancy.\nUse bubble size for population, color for continent, and facet by year.\n\n\n\nCode\n# Student solution space here\n\ngap_filtered &lt;- gapminder %&gt;% \n  filter(year %in% c(1977, 1987, 1997, 2007))\n\nggplot(gap_filtered, aes(x = gdpPercap, y = lifeExp, size = pop, color = continent)) +\n  geom_point(alpha = 0.7) +\n  scale_x_log10() +\n  facet_wrap(~ year) +\n  scale_color_viridis_d() +\n  scale_size(range = c(2, 20), guide = \"none\") +\n  labs(\n    title = \"GDP vs Life Expectancy Over Time\",\n    x = \"GDP per Capita (log)\",\n    y = \"Life Expectancy\",\n    size = \"\",\n    color = \"Continent\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nGoal: Explore the relationship between democracy and perceived corruption.\nTask:\n\nUse V-Dem variables:\n\nv2x_frassoc_thick (freedom of assocation)\nv2x_libdem (liberal democracy index)\n\nVisualize their relationship using a smooth line or scatterplot, and split the plot by region using facets.\n\n\n\nCode\n# Student solution space here\n\nvdem_filtered &lt;- vdem %&gt;%\n  filter(!is.na(v2x_frassoc_thick), !is.na(v2x_libdem), !is.na(e_regionpol_6C)) %&gt;%\n  mutate(region = factor(e_regionpol_6C))\n\n# Custom region labels\nregion_labels &lt;- c(\n  \"1\" = \"Western Europe & North America\",\n  \"2\" = \"Eastern Europe & Central Asia\",\n  \"3\" = \"Latin America & Caribbean\",\n  \"4\" = \"Sub-Saharan Africa\",\n  \"5\" = \"Middle East & North Africa\",\n  \"6\" = \"Asia & Pacific\"\n)\n\n\nggplot(vdem_filtered, aes(x = v2x_frassoc_thick, y = v2x_libdem)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  geom_smooth(method = \"loess\", se = FALSE, color = \"darkred\") +\n  facet_wrap(~ region, labeller = as_labeller(region_labels)) +\n  labs(\n    title = \"Relationship between Corruption and Liberal Democracy\",\n    x = \"Freedom of Assocation (v2x_frassoc_thick)\",\n    y = \"Liberal Democracy Index (v2x_libdem)\"\n  ) +\n  theme_minimal()\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nGoal: Create an interaction plot for the effect of Legislative Constraints and regime type on Freedom of Expression (V-Dem).\nTask:\n\nBuild a plot using ggplot() with geom_line() or geom_point().\nShow the interaction of v2x_freexp and a binary democracy variable on GDP (v2xlg_legcon).\nUse color or linetype to distinguish regime type.\n\n\n\nCode\n# Student solution space here\n\nvdem_interact_data &lt;- vdem %&gt;%\n  filter(\n    !is.na(v2xlg_legcon),\n    !is.na(v2x_freexp),\n    !is.na(v2x_regime)\n  ) %&gt;%\n  mutate(\n    regime_type = ifelse(v2x_regime == 1, \"Democracy\", \"Autocracy\")\n  )\n\nggplot(vdem_interact_data, aes(x = v2xlg_legcon, y = v2x_freexp, color = regime_type)) +\n  geom_smooth(method = \"lm\", se = TRUE, linewidth = 1.2) +\n  scale_color_viridis_d(option = \"D\") +\n  labs(\n    title = \"Interaction: Legislative Constraints and Regime Type\",\n    subtitle = \"Do stronger legislative constraints improve freedom of expression?\",\n    x = \"Legislative Constraints on Executive (v2xlg_legcon)\",\n    y = \"Freedom of Expression Index (v2x_freexp)\",\n    color = \"Regime Type\"\n  ) +\n  theme_minimal(base_size = 13)\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nGoal: Map the latest available democracy index globally using a choropleth map.\nTask: - Use the latest year in the V-Dem data. - Use a spatial join or merge with a world shapefile (e.g., from rnaturalearth). - Plot a map using geom_sf() and fill countries by v2x_libdem. - Use scale_fill_viridis_c() for color.\n\n\nCode\n# Student solution space here\n\nlatest_vdem &lt;- vdem %&gt;%\n  filter(year == max(year), !is.na(v2x_libdem)) %&gt;%\n  mutate(iso3c = countrycode(country_name, \"country.name\", \"iso3c\"))\n\n\nWarning: There was 1 warning in `mutate()`.\nℹ In argument: `iso3c = countrycode(country_name, \"country.name\", \"iso3c\")`.\nCaused by warning:\n! Some values were not matched unambiguously: Kosovo, Somaliland, Zanzibar\n\n\nCode\nworld &lt;- ne_countries(scale = \"medium\", returnclass = \"sf\")\n\nworld_map &lt;- left_join(world, latest_vdem, by = c(\"iso_a3\" = \"iso3c\"))\n\nggplot(world_map) +\n  geom_sf(aes(fill = v2x_libdem)) +\n  scale_fill_viridis_c(option = \"D\", na.value = \"grey90\") +\n  labs(\n    title = \"Liberal Democracy Index (Most Recent Year)\",\n    fill = \"v2x_libdem\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "exercises/exercises_R_solution.html#challenge-exercise-explore-a-development-pattern",
+    "href": "exercises/exercises_R_solution.html#challenge-exercise-explore-a-development-pattern",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Before seeing any example plots, try to visualize the following:\n\nHow does a country’s population size relate to life expectancy and income level?\n\nYour task: Create a visualization using the gapminder dataset for the year 2007 that captures the relationship between: - lifeExp: Life expectancy - gdpPercap: GDP per capita - pop: Population\nYou may use any type of plot or mapping of variables (e.g., x-axis, color, size), but aim to show all three variables clearly.\n⬇️ Fill in the code below. Afterward, we’ll compare approaches and interpretations.\n\n\nCode\n# ✏️ Add here your own code!\nlibrary(viridis)  \n\ngapminder %&gt;%\n  filter(year == 2007) %&gt;%\n  ggplot(aes(\n    x = gdpPercap,\n    y = lifeExp,\n    size = pop,\n    color = continent\n  )) +\n  geom_point(alpha = 0.8) +\n  scale_x_log10() +\n  scale_size(range = c(2, 20), guide = \"none\") +\n  scale_color_viridis_d(option = \"D\", end=0.95) +\n  labs(\n    title = \"Life Expectancy vs GDP per Capita (2007)\",\n    subtitle = \"Bubble size = population, color = continent\",\n    x = \"GDP per Capita (log scale)\",\n    y = \"Life Expectancy\",\n    color = \"Continent\"\n  ) +\n  theme_minimal() +\n  theme(\n    axis.text = element_text(size = 14),\n    axis.title = element_text(size = 15)\n  )"
+  },
+  {
+    "objectID": "exercises/exercises_R_solution.html#exercise-1-create-two-histograms-of-gdp-per-capita",
+    "href": "exercises/exercises_R_solution.html#exercise-1-create-two-histograms-of-gdp-per-capita",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Use the 2007 data to create two histogram that shows how gdpPercap and logged gdpPercap is distributed across all countries. Arrange the plots side by side.\nHint: Use ggplot() + geom_histogram() and consider scale_x_log10().\n⬇️ Fill in your code below:\n\n\nCode\n# ✏️ Add here your own code!\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)\n\n# A: Raw histogram (no transformation)\nhist_raw &lt;- ggplot(gap2007, aes(x = gdpPercap)) +\n  geom_histogram(binwidth = 2000, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"A. GDP per Capita (Raw Scale)\",\n    x = \"GDP per Capita\",\n    y = \"Count\"\n  ) +\n  theme_classic(base_size = 13)\n\n\n# B: Histogram with log-scaled x-axis\nhist_logscale &lt;- ggplot(gap2007, aes(x = gdpPercap)) +\n  geom_histogram(binwidth = 0.1, fill = \"darkred\", color = \"white\") +\n  scale_x_log10() +\n  labs(\n    title = \"B. GDP per Capita (Log10 Scale)\",\n    x = \"GDP per Capita (log10)\",\n    y = \"Count\"\n  ) +\n  theme_classic(base_size = 13)\n\n# Combine both using patchwork\nhist_raw + hist_logscale + plot_annotation(\n  title = \"Distribution of GDP per Capita in 2007\",\n  tag_levels = 'A'\n)"
+  },
+  {
+    "objectID": "exercises/exercises_R_solution.html#exercise-2-faceted-trend-comparison",
+    "href": "exercises/exercises_R_solution.html#exercise-2-faceted-trend-comparison",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Compare how GDP per capita and life expectancy evolved over time in three world regions.\nTask:\n\nFilter the Gapminder dataset to include only the years 1977, 1987, 1997, and 2007.\nCreate a scatterplot of GDP per capita vs life expectancy.\nUse bubble size for population, color for continent, and facet by year.\n\n\n\nCode\n# Student solution space here\n\ngap_filtered &lt;- gapminder %&gt;% \n  filter(year %in% c(1977, 1987, 1997, 2007))\n\nggplot(gap_filtered, aes(x = gdpPercap, y = lifeExp, size = pop, color = continent)) +\n  geom_point(alpha = 0.7) +\n  scale_x_log10() +\n  facet_wrap(~ year) +\n  scale_color_viridis_d() +\n  scale_size(range = c(2, 20), guide = \"none\") +\n  labs(\n    title = \"GDP vs Life Expectancy Over Time\",\n    x = \"GDP per Capita (log)\",\n    y = \"Life Expectancy\",\n    size = \"\",\n    color = \"Continent\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "exercises/exercises_R_solution.html#exercise-3-democracy-and-freedom-of-assocation-v-dem",
+    "href": "exercises/exercises_R_solution.html#exercise-3-democracy-and-freedom-of-assocation-v-dem",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Explore the relationship between democracy and perceived corruption.\nTask:\n\nUse V-Dem variables:\n\nv2x_frassoc_thick (freedom of assocation)\nv2x_libdem (liberal democracy index)\n\nVisualize their relationship using a smooth line or scatterplot, and split the plot by region using facets.\n\n\n\nCode\n# Student solution space here\n\nvdem_filtered &lt;- vdem %&gt;%\n  filter(!is.na(v2x_frassoc_thick), !is.na(v2x_libdem), !is.na(e_regionpol_6C)) %&gt;%\n  mutate(region = factor(e_regionpol_6C))\n\n# Custom region labels\nregion_labels &lt;- c(\n  \"1\" = \"Western Europe & North America\",\n  \"2\" = \"Eastern Europe & Central Asia\",\n  \"3\" = \"Latin America & Caribbean\",\n  \"4\" = \"Sub-Saharan Africa\",\n  \"5\" = \"Middle East & North Africa\",\n  \"6\" = \"Asia & Pacific\"\n)\n\n\nggplot(vdem_filtered, aes(x = v2x_frassoc_thick, y = v2x_libdem)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  geom_smooth(method = \"loess\", se = FALSE, color = \"darkred\") +\n  facet_wrap(~ region, labeller = as_labeller(region_labels)) +\n  labs(\n    title = \"Relationship between Corruption and Liberal Democracy\",\n    x = \"Freedom of Assocation (v2x_frassoc_thick)\",\n    y = \"Liberal Democracy Index (v2x_libdem)\"\n  ) +\n  theme_minimal()\n\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "exercises/exercises_R_solution.html#exercise-4-visualizing-interaction-effects",
+    "href": "exercises/exercises_R_solution.html#exercise-4-visualizing-interaction-effects",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Create an interaction plot for the effect of Legislative Constraints and regime type on Freedom of Expression (V-Dem).\nTask:\n\nBuild a plot using ggplot() with geom_line() or geom_point().\nShow the interaction of v2x_freexp and a binary democracy variable on GDP (v2xlg_legcon).\nUse color or linetype to distinguish regime type.\n\n\n\nCode\n# Student solution space here\n\nvdem_interact_data &lt;- vdem %&gt;%\n  filter(\n    !is.na(v2xlg_legcon),\n    !is.na(v2x_freexp),\n    !is.na(v2x_regime)\n  ) %&gt;%\n  mutate(\n    regime_type = ifelse(v2x_regime == 1, \"Democracy\", \"Autocracy\")\n  )\n\nggplot(vdem_interact_data, aes(x = v2xlg_legcon, y = v2x_freexp, color = regime_type)) +\n  geom_smooth(method = \"lm\", se = TRUE, linewidth = 1.2) +\n  scale_color_viridis_d(option = \"D\") +\n  labs(\n    title = \"Interaction: Legislative Constraints and Regime Type\",\n    subtitle = \"Do stronger legislative constraints improve freedom of expression?\",\n    x = \"Legislative Constraints on Executive (v2xlg_legcon)\",\n    y = \"Freedom of Expression Index (v2x_freexp)\",\n    color = \"Regime Type\"\n  ) +\n  theme_minimal(base_size = 13)\n\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "exercises/exercises_R_solution.html#exercise-4-mapping-democracy",
+    "href": "exercises/exercises_R_solution.html#exercise-4-mapping-democracy",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Map the latest available democracy index globally using a choropleth map.\nTask: - Use the latest year in the V-Dem data. - Use a spatial join or merge with a world shapefile (e.g., from rnaturalearth). - Plot a map using geom_sf() and fill countries by v2x_libdem. - Use scale_fill_viridis_c() for color.\n\n\nCode\n# Student solution space here\n\nlatest_vdem &lt;- vdem %&gt;%\n  filter(year == max(year), !is.na(v2x_libdem)) %&gt;%\n  mutate(iso3c = countrycode(country_name, \"country.name\", \"iso3c\"))\n\n\nWarning: There was 1 warning in `mutate()`.\nℹ In argument: `iso3c = countrycode(country_name, \"country.name\", \"iso3c\")`.\nCaused by warning:\n! Some values were not matched unambiguously: Kosovo, Somaliland, Zanzibar\n\n\nCode\nworld &lt;- ne_countries(scale = \"medium\", returnclass = \"sf\")\n\nworld_map &lt;- left_join(world, latest_vdem, by = c(\"iso_a3\" = \"iso3c\"))\n\nggplot(world_map) +\n  geom_sf(aes(fill = v2x_libdem)) +\n  scale_fill_viridis_c(option = \"D\", na.value = \"grey90\") +\n  labs(\n    title = \"Liberal Democracy Index (Most Recent Year)\",\n    fill = \"v2x_libdem\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "exercises/exercises_R.html",
+    "href": "exercises/exercises_R.html",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "The following exercises help you explore real-world development data using ggplot2, gapminder and V-Dem.\n\n\n\nBefore seeing any example plots, try to visualize the following:\n\nHow does a country’s population size relate to life expectancy and income level?\n\nYour task: Create a visualization using the gapminder dataset for the year 2007 that captures the relationship between: - lifeExp: Life expectancy - gdpPercap: GDP per capita - pop: Population\nYou may use any type of plot or mapping of variables (e.g., x-axis, color, size), but aim to show all three variables clearly.\n⬇️ Fill in the code below. Afterward, we’ll compare approaches and interpretations.\n\n\nCode\n# ✏️ Add here your own code!\n\n\n\n\n\nUse the 2007 data to create two histogram that shows how gdpPercap and logged gdpPercap is distributed across all countries. Arrange the plots side by side.\nHint: Use ggplot() + geom_histogram() and consider scale_x_log10().\n⬇️ Fill in your code below:\n\n\nCode\n# ✏️ Add here your own code!\n\n\n\n\n\n\nGoal: Compare how GDP per capita and life expectancy evolved over time in three world regions.\nTask:\n\nFilter the Gapminder dataset to include only the years 1977, 1987, 1997, and 2007.\nCreate a scatterplot of GDP per capita vs life expectancy.\nUse bubble size for population, color for continent, and facet by year.\n\n\n\nCode\n# Student solution space here\n\n\n\n\n\n\nGoal: Explore the relationship between democracy and perceived corruption.\nTask:\n\nUse V-Dem variables:\n\nv2x_frassoc_thick (freedom of assocation)\nv2x_libdem (liberal democracy index)\n\nVisualize their relationship using a smooth line or scatterplot, and split the plot by region using facets.\n\n\n\nCode\n# Student solution space here\n\n\n\n\n\n\nGoal: Create an interaction plot for the effect of Legislative Constraints and regime type on Freedom of Expression (V-Dem).\nTask:\n\nBuild a plot using ggplot() with geom_line() or geom_point().\nShow the interaction of v2x_freexp and a binary democracy variable on GDP (v2xlg_legcon).\nUse color or linetype to distinguish regime type.\n\n\n\nCode\n# Student solution space here\n\n\n\n\n\n\nGoal: Map the latest available democracy index globally using a choropleth map.\nTask: - Use the latest year in the V-Dem data. - Use a spatial join or merge with a world shapefile (e.g., from rnaturalearth). - Plot a map using geom_sf() and fill countries by v2x_libdem. - Use scale_fill_viridis_c() for color.\n\n\nCode\n# Student solution space here"
+  },
+  {
+    "objectID": "exercises/exercises_R.html#challenge-exercise-explore-a-development-pattern",
+    "href": "exercises/exercises_R.html#challenge-exercise-explore-a-development-pattern",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Before seeing any example plots, try to visualize the following:\n\nHow does a country’s population size relate to life expectancy and income level?\n\nYour task: Create a visualization using the gapminder dataset for the year 2007 that captures the relationship between: - lifeExp: Life expectancy - gdpPercap: GDP per capita - pop: Population\nYou may use any type of plot or mapping of variables (e.g., x-axis, color, size), but aim to show all three variables clearly.\n⬇️ Fill in the code below. Afterward, we’ll compare approaches and interpretations.\n\n\nCode\n# ✏️ Add here your own code!"
+  },
+  {
+    "objectID": "exercises/exercises_R.html#exercise-1-create-two-histograms-of-gdp-per-capita",
+    "href": "exercises/exercises_R.html#exercise-1-create-two-histograms-of-gdp-per-capita",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Use the 2007 data to create two histogram that shows how gdpPercap and logged gdpPercap is distributed across all countries. Arrange the plots side by side.\nHint: Use ggplot() + geom_histogram() and consider scale_x_log10().\n⬇️ Fill in your code below:\n\n\nCode\n# ✏️ Add here your own code!"
+  },
+  {
+    "objectID": "exercises/exercises_R.html#exercise-2-faceted-trend-comparison",
+    "href": "exercises/exercises_R.html#exercise-2-faceted-trend-comparison",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Compare how GDP per capita and life expectancy evolved over time in three world regions.\nTask:\n\nFilter the Gapminder dataset to include only the years 1977, 1987, 1997, and 2007.\nCreate a scatterplot of GDP per capita vs life expectancy.\nUse bubble size for population, color for continent, and facet by year.\n\n\n\nCode\n# Student solution space here"
+  },
+  {
+    "objectID": "exercises/exercises_R.html#exercise-3-democracy-and-freedom-of-assocation-v-dem",
+    "href": "exercises/exercises_R.html#exercise-3-democracy-and-freedom-of-assocation-v-dem",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Explore the relationship between democracy and perceived corruption.\nTask:\n\nUse V-Dem variables:\n\nv2x_frassoc_thick (freedom of assocation)\nv2x_libdem (liberal democracy index)\n\nVisualize their relationship using a smooth line or scatterplot, and split the plot by region using facets.\n\n\n\nCode\n# Student solution space here"
+  },
+  {
+    "objectID": "exercises/exercises_R.html#exercise-4-visualizing-interaction-effects",
+    "href": "exercises/exercises_R.html#exercise-4-visualizing-interaction-effects",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Create an interaction plot for the effect of Legislative Constraints and regime type on Freedom of Expression (V-Dem).\nTask:\n\nBuild a plot using ggplot() with geom_line() or geom_point().\nShow the interaction of v2x_freexp and a binary democracy variable on GDP (v2xlg_legcon).\nUse color or linetype to distinguish regime type.\n\n\n\nCode\n# Student solution space here"
+  },
+  {
+    "objectID": "exercises/exercises_R.html#exercise-4-mapping-democracy",
+    "href": "exercises/exercises_R.html#exercise-4-mapping-democracy",
+    "title": "Advanced Graphics Exercises",
+    "section": "",
+    "text": "Goal: Map the latest available democracy index globally using a choropleth map.\nTask: - Use the latest year in the V-Dem data. - Use a spatial join or merge with a world shapefile (e.g., from rnaturalearth). - Plot a map using geom_sf() and fill countries by v2x_libdem. - Use scale_fill_viridis_c() for color.\n\n\nCode\n# Student solution space here"
+  },
+  {
+    "objectID": "solutions.html",
+    "href": "solutions.html",
+    "title": "Solutions",
+    "section": "",
+    "text": "Note\n\n\n\nTry the exercises yourself before opening the folded code. These are possible solutions — in visualization there is rarely a single correct answer, only better and worse justified choices.\nCode\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(gapminder)\nlibrary(ggrepel)\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)"
+  },
+  {
+    "objectID": "solutions.html#colors",
+    "href": "solutions.html#colors",
+    "title": "Solutions",
+    "section": "🎨 Colors",
+    "text": "🎨 Colors\n1.1 (b) Complementary highlight\n\n\nCode\ngap2007 %&gt;%\n  mutate(group = ifelse(continent == \"Europe\", \"Europe\", \"Other\")) %&gt;%\n  ggplot(aes(x = gdpPercap, y = lifeExp, color = group)) +\n  geom_point(size = 2.5, alpha = 0.8) +\n  scale_x_log10() +\n  scale_color_manual(values = c(\"Europe\" = \"#1f78b4\", \"Other\" = \"grey70\")) +\n  labs(x = \"GDP per Capita (log scale)\", y = \"Life Expectancy\", color = NULL) +\n  theme_classic()\n\n\n\n\n\nA highlight doesn’t need two saturated complementary colors — one saturated color against grey is usually stronger. If you did use orange/blue: those are complementary and colorblind-safe, which is why they are so common.\n1.2 Under deuteranopia, red/green highlights fail. The fix without changing colors: add a redundant channel, e.g. aes(shape = group) or larger point size for the highlighted group.\n1.3 Unemployment level is a sequential quantity (one direction, zero-bounded) → sequential scale (scale_fill_viridis_c()). Change in unemployment has a meaningful midpoint at zero → diverging scale (scale_fill_gradient2(midpoint = 0)). Qualitative palettes are only for unordered categories."
+  },
+  {
+    "objectID": "solutions.html#chart-choice",
+    "href": "solutions.html#chart-choice",
+    "title": "Solutions",
+    "section": "📊 Chart Choice",
+    "text": "📊 Chart Choice\n2.1\n\nDistribution of one continuous variable → histogram or density plot of pop (log x-scale).\nComparison of a trend between two groups → line chart, x = year, y = mean lifeExp, color/linetype = continent (Africa, Europe only).\nWithin-group spread → boxplot or violin, x = continent, y = gdpPercap (log scale).\nRelationship of two continuous variables → scatter plot, x = pop (log), y = lifeExp.\n\n2.3 Pie charts encode values as angles, which Cleveland & McGill showed are judged much less accurately than positions on a common scale. With 12 slices, ordering by eye is nearly impossible. Better: a sorted horizontal bar chart.\n\n\nCode\nset.seed(1)\nbrands &lt;- tibble(brand = LETTERS[1:12],\n                 share = prop.table(runif(12)) * 100)\n\nggplot(brands, aes(x = reorder(brand, share), y = share)) +\n  geom_col(fill = \"steelblue\") +\n  coord_flip() +\n  labs(x = NULL, y = \"Market share (%)\") +\n  theme_classic()"
+  },
+  {
+    "objectID": "solutions.html#exploring-gapminder",
+    "href": "solutions.html#exploring-gapminder",
+    "title": "Solutions",
+    "section": "✍️ Exploring Gapminder",
+    "text": "✍️ Exploring Gapminder\n3.1\n\n\nCode\nggplot(gap2007, aes(x = gdpPercap)) +\n  geom_histogram(bins = 30, fill = \"darkred\") +\n  scale_x_log10() +\n  labs(x = \"GDP per Capita (log scale)\") +\n  theme_classic()\n\n\n\n\n\nCaveat for the reader: on a log axis, equal distances mean equal ratios, not equal differences — the visual symmetry is a property of the transformed scale.\n3.2\n\n\nCode\ntop5 &lt;- gap2007 %&gt;% slice_max(pop, n = 5) %&gt;% pull(country)\n\nd &lt;- gapminder %&gt;% filter(country %in% top5)\n\nggplot(d, aes(x = year, y = pop, color = country)) +\n  geom_line(linewidth = 1.1) +\n  geom_text_repel(\n    data = d %&gt;% group_by(country) %&gt;% filter(year == max(year)),\n    aes(label = country), direction = \"y\", hjust = 0, nudge_x = 1, size = 4\n  ) +\n  scale_color_viridis_d(end = 0.9, guide = \"none\") +\n  scale_x_continuous(limits = c(1952, 2020)) +\n  scale_y_continuous(labels = scales::label_number(scale = 1e-9, suffix = \"B\")) +\n  labs(x = NULL, y = \"Population\") +\n  theme_classic()\n\n\n\n\n\n3.3\n\n\nCode\ncont_year &lt;- gapminder %&gt;%\n  group_by(continent, year) %&gt;%\n  summarise(lifeExp = mean(lifeExp), .groups = \"drop\")\n\nggplot(cont_year, aes(x = year, y = lifeExp, color = continent)) +\n  geom_line(linewidth = 1.1) +\n  scale_color_viridis_d(end = 0.95) +\n  annotate(\"text\", x = 1997, y = 51, label = \"African progress stalls\\nin the 1990s (HIV/AIDS)\",\n           hjust = 1, size = 3.5, color = \"grey30\") +\n  annotate(\"curve\", x = 1997, xend = 2000, y = 52.5, yend = 53.8,\n           curvature = 0.3, arrow = arrow(length = unit(2, \"mm\")), color = \"grey30\") +\n  labs(x = NULL, y = \"Mean Life Expectancy\", color = \"Continent\") +\n  theme_classic()"
+  },
+  {
+    "objectID": "solutions.html#challenge",
+    "href": "solutions.html#challenge",
+    "title": "Solutions",
+    "section": "🧠 Challenge",
+    "text": "🧠 Challenge\n\n\nCode\nlabels &lt;- gap2007 %&gt;%\n  filter(country %in% c(\"China\", \"India\", \"United States\", \"Nigeria\", \"Norway\"))\n\nggplot(gap2007, aes(x = gdpPercap, y = lifeExp, size = pop, color = continent)) +\n  geom_point(alpha = 0.7) +\n  geom_text_repel(data = labels,\n                  aes(x = gdpPercap, y = lifeExp, label = country),\n                  size = 4, color = \"black\", inherit.aes = FALSE) +\n  scale_x_log10() +\n  scale_size(range = c(2, 20), guide = \"none\") +\n  scale_color_viridis_d(option = \"D\", end = 0.95) +\n  labs(\n    title = \"Richer countries live longer — but population size plays no role\",\n    subtitle = \"142 countries, 2007. Bubble size = population.\",\n    caption = \"Data: Gapminder\",\n    x = \"GDP per Capita (log scale)\", y = \"Life Expectancy\", color = \"Continent\"\n  ) +\n  theme_minimal()\n\n\n\n\n\nThe substantive point most students find: income predicts life expectancy strongly (with diminishing returns — hence the log scale), while population size is essentially unrelated to it."
+  },
+  {
+    "objectID": "solutions.html#redesign-gallery",
+    "href": "solutions.html#redesign-gallery",
+    "title": "Solutions",
+    "section": "🔧 Redesign Gallery",
+    "text": "🔧 Redesign Gallery\n4.1 Problems: unordered x-axis, unreadable overlapping labels, redundant color legend (country is already on the axis), heavy outlines, purple gridlines and yellow background (chartjunk), uninformative axis titles, unformatted y-axis numbers.\n\n\nCode\ngap2007 %&gt;%\n  slice_max(pop, n = 10) %&gt;%\n  ggplot(aes(x = reorder(country, pop), y = pop)) +\n  geom_col(fill = \"steelblue\") +\n  coord_flip() +\n  scale_y_continuous(labels = scales::label_number(scale = 1e-6, suffix = \"M\")) +\n  labs(title = \"Top 10 Most Populous Countries (2007)\",\n       x = NULL, y = \"Population (millions)\", caption = \"Data: Gapminder\") +\n  theme_classic()\n\n\n\n\n\n4.2 The bar’s area below the mean carries no information but dominates the plot; bars imply the y-axis starts at zero and hide the distribution. A point range over the raw data shows more with less ink:\n\n\nCode\ncont_summary &lt;- gap2007 %&gt;%\n  group_by(continent) %&gt;%\n  summarise(m = mean(lifeExp), se = sd(lifeExp) / sqrt(n()))\n\nggplot(gap2007, aes(x = continent, y = lifeExp)) +\n  geom_jitter(width = 0.15, alpha = 0.3, color = \"grey50\") +\n  geom_pointrange(data = cont_summary,\n                  aes(y = m, ymin = m - 1.96 * se, ymax = m + 1.96 * se),\n                  color = \"darkred\", linewidth = 1) +\n  labs(x = NULL, y = \"Life Expectancy\",\n       caption = \"Red: means with 95% CI. Grey: individual countries.\") +\n  theme_classic()\n\n\n\n\n\n4.3 Truncating a bar chart’s axis breaks the proportionality between bar length and value (Tufte’s first principle) — a 2-point difference can look like a 3-fold one. For line charts, the position encoding is the line’s vertical location, not a length from zero, so a non-zero axis is often fine and sometimes necessary — but mark it clearly."
+  },
+  {
+    "objectID": "solutions.html#bonus-spatial",
+    "href": "solutions.html#bonus-spatial",
+    "title": "Solutions",
+    "section": "🗺️ Bonus: Spatial",
+    "text": "🗺️ Bonus: Spatial\n5.1 With a linear fill, China and India consume the entire scale and every other country looks identical. Log-transform the fill: scale_fill_viridis_c(trans = \"log10\", labels = scales::label_number(scale_cut = scales::cut_short_scale()))."
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Advanced Graphics",
+    "section": "Course Overview",
+    "text": "Course Overview\n\n\n\nBlock\nTopic\nPages\n\n\n\n\n1\nDesign foundations\nColors, Fonts, Technicalities\n\n\n2\nPrinciples & chart choice\nData Visualization\n\n\n3\nggplot2 in practice\nApplied Examples, Tables\n\n\n4\nCommunicating results\nAnnotation, Uncertainty, Accessibility\n\n\n5\nBeyond the static plot\nInteractive Graphics, Exporting\n\n\n—\nPractice\nExercises, Solutions"
+  },
+  {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "Advanced Graphics",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nBasic familiarity with R (loading data, running functions) and some exposure to regression analysis. You do not need prior ggplot2 experience, but skim the ggplot2 introduction beforehand if it is new to you."
+  },
+  {
+    "objectID": "index.html#setup-before-the-first-session",
+    "href": "index.html#setup-before-the-first-session",
+    "title": "Advanced Graphics",
+    "section": "Setup: before the first session",
+    "text": "Setup: before the first session\nPlease bring a laptop with a recent R (≥ 4.3) and RStudio installed, and run the following once:\n\n\nCode\ninstall.packages(c(\n  # core\n  \"ggplot2\", \"dplyr\", \"tidyr\", \"broom\", \"patchwork\",\n  # colors & themes\n  \"viridis\", \"ggthemes\", \"colorspace\", \"cowplot\",\n  # annotation & uncertainty\n  \"ggrepel\", \"gghighlight\", \"ggdist\", \"ggeffects\", \"marginaleffects\",\n  # tables\n  \"gt\", \"modelsummary\",\n  # interactive\n  \"plotly\", \"ggiraph\", \"gganimate\", \"leaflet\", \"mapview\",\n  # spatial\n  \"sf\", \"terra\", \"rnaturalearth\", \"rnaturalearthdata\", \"osmdata\",\n  # export & data\n  \"ragg\", \"svglite\", \"scales\", \"gapminder\"\n))\n\n# From GitHub (needs the 'remotes' package)\ninstall.packages(\"devtools\")\nremotes::install_github(\"clauswilke/colorblindr\")\nremotes::install_github(\"vdeminstitute/vdemdata\")\n\n\nIf sf or terra fail to install, see the sf installation notes for your operating system."
+  },
+  {
+    "objectID": "index.html#questions",
+    "href": "index.html#questions",
+    "title": "Advanced Graphics",
+    "section": "Questions?",
+    "text": "Questions?\nContact me at melanie.sauter@uni-mannheim.de."
+  },
+  {
+    "objectID": "exercises.html#colors",
+    "href": "exercises.html#colors",
+    "title": "Exercises",
+    "section": "🎨 Colors",
+    "text": "🎨 Colors\n1.1 Take this plot and give it (a) a monochromatic color scheme, (b) a complementary two-color scheme for highlighting Europe vs. all other continents. Use coolors.co or paletton.com to pick the values, and scale_color_manual() to apply them.\n\n\nCode\nggplot(gap2007, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10()\n\n\n1.2 Run colorblindr::cvd_grid() on your version of the plot from 1.1(b). Is your highlight still visible under deuteranopia? If not, fix it without changing the colors (hint: redundant encoding).\n1.3 You want to map unemployment rates (0–25%) across German districts. Should the fill scale be sequential, diverging, or qualitative? What if you instead map change in unemployment (-5 to +5 percentage points)? Write down your answer, then create both scales with scale_fill_viridis_c() and scale_fill_gradient2() on any choropleth from the course."
+  },
+  {
+    "objectID": "exercises.html#chart-choice",
+    "href": "exercises.html#chart-choice",
+    "title": "Exercises",
+    "section": "📊 Chart Choice",
+    "text": "📊 Chart Choice\n2.1 For each question, name the most suitable chart type and the aesthetic mappings (x, y, color, size, facet), no code needed:\n\nHow is population distributed across countries in 2007?\nDid the gap in life expectancy between Africa and Europe narrow between 1952 and 2007?\nWhich continent has the most within-continent inequality in GDP per capita?\nIs there a relationship between population size and life expectancy?\n\n2.2 Now implement two of your answers from 2.1 in ggplot2.\n2.3 A colleague presents the market shares of 12 toothpaste brands as a pie chart. Explain, using the Cleveland & McGill results from the Data Visualization page, why this is hard to read and produce a better alternative with fake data (tibble(brand = LETTERS[1:12], share = ...))."
+  },
+  {
+    "objectID": "exercises.html#challenge-explore-a-development-pattern",
+    "href": "exercises.html#challenge-explore-a-development-pattern",
+    "title": "Exercises",
+    "section": "🧠 Challenge: Explore a Development Pattern",
+    "text": "🧠 Challenge: Explore a Development Pattern\nBefore seeing any example plots, try to visualize the following:\n\nHow does a country’s population size relate to life expectancy and income level?\n\nYour task: Create a visualization using the gapminder dataset for the year 2007 that captures the relationship between:\n\nlifeExp: Life expectancy\ngdpPercap: GDP per capita\npop: Population\n\nYou may use any type of plot or mapping of variables (e.g. color, size), but aim to show all three variables clearly. Then annotate it so it works without any accompanying text: a title that states the finding, direct labels for at least three notable countries, and a source caption."
+  },
+  {
+    "objectID": "exercises.html#redesign-gallery",
+    "href": "exercises.html#redesign-gallery",
+    "title": "Exercises",
+    "section": "🔧 Redesign Gallery",
+    "text": "🔧 Redesign Gallery\nBad charts are the best teachers. For each of the following, (a) list what is wrong, (b) rebuild it properly.\n4.1 The chartjunk special:\n\n\nCode\ngap2007 %&gt;%\n  arrange(desc(pop)) %&gt;%\n  slice(1:10) %&gt;%\n  ggplot(aes(x = country, y = pop, fill = country)) +\n  geom_bar(stat = \"identity\", color = \"black\", linewidth = 1.5) +\n  labs(title = \"population of Countries in year 2007\",\n       x = \"This is the X Axis\", y = \"Some Very Large Numbers\") +\n  theme(panel.grid.major = element_line(color = \"purple\", linewidth = 1),\n        plot.background = element_rect(fill = \"lightyellow\"))\n\n\n4.2 The dynamite plot:\n\n\nCode\ngap2007 %&gt;%\n  group_by(continent) %&gt;%\n  summarise(m = mean(lifeExp), se = sd(lifeExp) / sqrt(n())) %&gt;%\n  ggplot(aes(x = continent, y = m)) +\n  geom_col(fill = \"steelblue\") +\n  geom_errorbar(aes(ymin = m - se, ymax = m + se), width = 0.2)\n\n\nWhy is the bar misleading here? What does it hide? (Hint: what is the y-axis origin, and where did the raw data go?)\n4.3 The truncated axis. Recreate any bar chart from the course, then add coord_cartesian(ylim = c(60, 85)). Describe the effect on a casual reader, and explain when axis truncation is legitimate (line charts?) and when it is a lie (bar charts?).\n4.4 Find one real published chart (newspaper, report, social media) that violates at least one of Tufte’s principles from the Data Visualization page. Bring it to the next session with a one-paragraph critique or redesign it if the data is available. Sarah Leo’s Economist redesigns show the format."
+  },
+  {
+    "objectID": "exercises.html#bonus-spatial",
+    "href": "exercises.html#bonus-spatial",
+    "title": "Exercises",
+    "section": "🗺️ Bonus: Spatial",
+    "text": "🗺️ Bonus: Spatial\n5.1 Using rnaturalearth and the 2007 Gapminder data (see Applied Examples), map population instead of GDP. Population is even more skewed than GDP what do you need to change about the fill scale to make the map informative?"
+  },
+  {
+    "objectID": "accessibility.html",
+    "href": "accessibility.html",
+    "title": "Accessibility",
+    "section": "",
+    "text": "The Colors page covers color blindness, which is the best-known accessibility issue in visualization, but not the only one. Around 8% of men can’t rely on your color choices; a further share of your readers use screen readers, have low vision, or read your figure on a phone in sunlight. Accessible design usually makes figures better for everyone."
+  },
+  {
+    "objectID": "accessibility.html#redundant-encoding-never-rely-on-color-alone",
+    "href": "accessibility.html#redundant-encoding-never-rely-on-color-alone",
+    "title": "Accessibility",
+    "section": "Redundant encoding: never rely on color alone",
+    "text": "Redundant encoding: never rely on color alone\nThe single most effective habit. If groups differ by color, make them differ by something else too, like linetype, shape, direct labels, or facets. You have seen the linetype version on the Data Visualization page; shapes work the same way:\n\n\nCode\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(gapminder)\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)\n\nggplot(gap2007, aes(x = gdpPercap, y = lifeExp,\n                    color = continent, shape = continent)) +\n  geom_point(size = 2.5, alpha = 0.8) +\n  scale_x_log10() +\n  scale_color_viridis_d(end = 0.95) +\n  labs(x = \"GDP per Capita (log scale)\", y = \"Life Expectancy\",\n       color = \"Continent\", shape = \"Continent\") +\n  theme_minimal() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))\n\n\n\n\n\nBecause color and shape map to the same variable, ggplot2 merges them into one legend. Direct labeling (see Annotation & Storytelling) is even better because it removes the color-matching task entirely."
+  },
+  {
+    "objectID": "accessibility.html#contrast",
+    "href": "accessibility.html#contrast",
+    "title": "Accessibility",
+    "section": "Contrast",
+    "text": "Contrast\nLight grey text on white backgrounds fails for low-vision readers and for anyone viewing a projector in a bright room. The WCAG guideline is a contrast ratio of at least 4.5:1 for text check pairs at WebAIM’s contrast checker. Practical implications: avoid grey70 or lighter for anything carrying information; avoid pale yellow on white entirely; and remember beamer projectors wash out everything by a stop or two."
+  },
+  {
+    "objectID": "accessibility.html#text-size",
+    "href": "accessibility.html#text-size",
+    "title": "Accessibility",
+    "section": "Text size",
+    "text": "Text size\nMost figures in slides and papers have text that is too small. Minimums that work in practice: 12 pt equivalent in papers, and for slides, whatever you can read from three meters behind your laptop. Setting theme_minimal(base_size = 14) (or higher for slides) scales all theme text at once."
+  },
+  {
+    "objectID": "accessibility.html#alt-text-making-figures-visible-to-screen-readers",
+    "href": "accessibility.html#alt-text-making-figures-visible-to-screen-readers",
+    "title": "Accessibility",
+    "section": "Alt text: making figures visible to screen readers",
+    "text": "Alt text: making figures visible to screen readers\nA screen reader cannot see your plot; it reads the alternative text aloud. In Quarto, add it to any chunk:\n```{r}\n#| fig-alt: &gt;\n#|   Scatterplot of GDP per capita against life expectancy for 142\n#|   countries in 2007. Life expectancy rises steeply with income among\n#|   poor countries and flattens out above roughly 10,000 dollars.\n```\nGood alt text states the chart type, the variables, and the finding, in one to three sentences. “Figure 1” or “scatterplot” is not alt text. This matters beyond screen readers: alt text is what remains when images fail to load, and writing it is a useful discipline. If you cannot state the finding in two sentences, the figure may not have one."
+  },
+  {
+    "objectID": "accessibility.html#a-practical-checklist",
+    "href": "accessibility.html#a-practical-checklist",
+    "title": "Accessibility",
+    "section": "A practical checklist",
+    "text": "A practical checklist\n\nRun colorblindr::cvd_grid() on any color-dependent figure (see the Colors page).\nColor never carries information alone: add shape, linetype, labels, or facets.\nText at least 12 pt equivalent; larger for slides.\nInformation-carrying elements at 4.5:1 contrast or better.\nEvery figure in HTML output has meaningful fig-alt.\nPrint the figure in greyscale. Still readable? Then colorblind readers, bad projectors, and photocopied readings are all covered."
+  },
+  {
+    "objectID": "exporting.html",
+    "href": "exporting.html",
+    "title": "Exporting Graphs",
+    "section": "",
+    "text": "How do you get graphs out of R in the right size and resolutation?"
+  },
+  {
+    "objectID": "exporting.html#ggsave-the-essentials",
+    "href": "exporting.html#ggsave-the-essentials",
+    "title": "Exporting Graphs",
+    "section": "ggsave(): the essentials",
+    "text": "ggsave(): the essentials\n\n\nCode\nlibrary(ggplot2)\n\np &lt;- ggplot(mpg, aes(displ, hwy)) + geom_point() + theme_minimal()\n\n# Vector: for papers (scales without quality loss)\nggsave(\"figure1.pdf\", plot = p, width = 16, height = 10, units = \"cm\")\n\n# Pixel: for the web and slides\nggsave(\"figure1.png\", plot = p, width = 16, height = 10, units = \"cm\", dpi = 300)\n\n\nThree parameters matter:\n\nwidth / height — the physical size. This is what controls how large text appears relative to the plot. Always set these explicitly; the default is “whatever your plotting window happened to be”, which is not reproducible.\ndpi — pixel density, for raster formats only. 300 for print, ~150 for screens.\nformat — chosen by the file extension. .pdf and .svg are vector; .png and .jpg are pixel. Never export a chart as .jpg: JPEG compression is designed for photos and puts artifacts around sharp lines and text."
+  },
+  {
+    "objectID": "exporting.html#the-most-common-mistake-fixing-size-by-scaling",
+    "href": "exporting.html#the-most-common-mistake-fixing-size-by-scaling",
+    "title": "Exporting Graphs",
+    "section": "The most common mistake: fixing size by scaling",
+    "text": "The most common mistake: fixing size by scaling\nIf your exported plot has tiny unreadable text, the wrong fix is exporting bigger and scaling down in Word, which shrinks the text further. The right fix: keep the physical size close to how it will be printed (a journal text column is ~8–16 cm wide) and increase base_size in the theme:\n\n\nCode\np + theme_minimal(base_size = 14)   # bigger text, same physical size\n\n\nRule of thumb: text in a figure should end up roughly the same size as the caption text below it."
+  },
+  {
+    "objectID": "exporting.html#which-format-for-which-destination",
+    "href": "exporting.html#which-format-for-which-destination",
+    "title": "Exporting Graphs",
+    "section": "Which format for which destination?",
+    "text": "Which format for which destination?\n\n\n\n\n\n\n\n\nDestination\nFormat\nSettings\n\n\n\n\nJournal submission\nPDF (or EPS if required)\nexact column width in cm\n\n\nWord document\nPNG\n300 dpi, final physical size\n\n\nWebsite / blog\nPNG or SVG\n~150 dpi, or SVG for sharpness\n\n\nSlides\nPNG\n150–200 dpi, 16:9-friendly size\n\n\nPoster (professional print)\nPDF\nvector; check CMYK requirements\n\n\nTwitter/Bluesky/LinkedIn\nPNG\n1200×675 px works well"
+  },
+  {
+    "objectID": "exporting.html#better-rendering-ragg-and-svglite",
+    "href": "exporting.html#better-rendering-ragg-and-svglite",
+    "title": "Exporting Graphs",
+    "section": "Better rendering: ragg and svglite",
+    "text": "Better rendering: ragg and svglite\nThe default PNG device varies across operating systems (different fonts, different anti-aliasing). The ragg package renders identically everywhere and handles custom fonts properly:\n\n\nCode\nlibrary(ragg)\nggsave(\"figure1.png\", plot = p, device = agg_png,\n       width = 16, height = 10, units = \"cm\", dpi = 300)\n\n\nFor SVG output use svglite::svglite — SVGs stay sharp at any zoom level and are small for line-based graphics, making them ideal for the web.\nIn a Quarto project you can set this once in _quarto.yml instead of per chunk:\nknitr:\n  opts_chunk:\n    dev: \"ragg_png\"\n    dpi: 300\n    fig-width: 7\n    fig-height: 4.5"
+  },
+  {
+    "objectID": "exporting.html#fonts-in-exported-figures",
+    "href": "exporting.html#fonts-in-exported-figures",
+    "title": "Exporting Graphs",
+    "section": "Fonts in exported figures",
+    "text": "Fonts in exported figures\nIf you use a custom font (see the Fonts page), PDF export may silently substitute it. Two solutions: use ragg devices (they find system fonts automatically), or embed fonts in PDFs with cairo_pdf as the device. Always check the exported file and not the RStudio preview before submitting anywhere.\n\n\nCode\ncairo_pdf(\n  filename = \"figure.pdf\",\n  width = 8,\n  height = 5.5,\n  family = \"Arial\",\n  onefile = TRUE\n)"
+  },
+  {
+    "objectID": "exporting.html#reproducibility-checklist",
+    "href": "exporting.html#reproducibility-checklist",
+    "title": "Exporting Graphs",
+    "section": "Reproducibility checklist",
+    "text": "Reproducibility checklist\n\nExport with code (ggsave()), never with the RStudio Export button. Clicks are not reproducible.\nFix width, height, and dpi explicitly.\nKeep an R script or Quarto document that regenerates every figure in the paper from raw data.\nName files after the figure they are (fig1_coefplot.pdf), and regenerate them all before each submission."
+  },
+  {
+    "objectID": "tables.html",
+    "href": "tables.html",
+    "title": "Publication Tables",
+    "section": "",
+    "text": "The Data Visualization page covers when tables beat graphs (roughly: 20 numbers or fewer, or many localized comparisons) and how to design them (sort by values, not alphabetically; shade; round a lot). This page shows how to actually build such tables in R, reproducibly.\nCode\nlibrary(dplyr)\nlibrary(gapminder)\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)"
+  },
+  {
+    "objectID": "tables.html#descriptive-tables-with-gt",
+    "href": "tables.html#descriptive-tables-with-gt",
+    "title": "Publication Tables",
+    "section": "Descriptive tables with gt",
+    "text": "Descriptive tables with gt\ngt is to tables what ggplot2 is to graphs: a grammar. You pipe a data frame in and add layers of formatting.\n\n\nCode\nlibrary(gt)\n\ngap2007 %&gt;%\n  group_by(continent) %&gt;%\n  summarise(\n    Countries = n(),\n    `Life Expectancy` = mean(lifeExp),\n    `GDP per Capita` = mean(gdpPercap),\n    Population = sum(pop)\n  ) %&gt;%\n  arrange(desc(`Life Expectancy`)) %&gt;%     # sort by values, not alphabet\n  gt() %&gt;%\n  fmt_number(columns = `Life Expectancy`, decimals = 1) %&gt;%\n  fmt_currency(columns = `GDP per Capita`, decimals = 0) %&gt;%\n  fmt_number(columns = Population, suffixing = TRUE) %&gt;%  # 1.2B not 1200000000\n  data_color(columns = `Life Expectancy`, palette = \"viridis\") %&gt;%\n  tab_header(title = \"The World in 2007, by Continent\") %&gt;%\n  tab_source_note(\"Data: Gapminder\")\n\n\n\n\n\n\n  \n    \n      The World in 2007, by Continent\n    \n    \n    \n      continent\n      Countries\n      Life Expectancy\n      GDP per Capita\n      Population\n    \n  \n  \n    Oceania\n2\n80.7\n$29,810\n24.55M\n    Europe\n30\n77.6\n$25,054\n586.10M\n    Americas\n25\n73.6\n$11,003\n898.87M\n    Asia\n33\n70.7\n$12,473\n3.81B\n    Africa\n52\n54.8\n$3,089\n929.54M\n  \n  \n    \n      Data: Gapminder\n    \n  \n\n\n\n\nNote how the design rules from the visualization page appear as code: arrange() sorts by the substantively interesting column, fmt_number(decimals = 1) rounds a lot, data_color() shades cells by value so patterns are visible."
+  },
+  {
+    "objectID": "tables.html#regression-tables-with-modelsummary",
+    "href": "tables.html#regression-tables-with-modelsummary",
+    "title": "Publication Tables",
+    "section": "Regression tables with modelsummary",
+    "text": "Regression tables with modelsummary\nHand-copying coefficients into Word tables is the leading cause of avoidable errors in submitted papers. modelsummary builds the table straight from the model objects.\n\n\nCode\nlibrary(modelsummary)\n\nm1 &lt;- lm(lifeExp ~ log(gdpPercap), data = gap2007)\nm2 &lt;- lm(lifeExp ~ log(gdpPercap) + continent, data = gap2007)\n\nmodelsummary(\n  list(\"Bivariate\" = m1, \"+ Continent\" = m2),\n  coef_rename = c(\n    \"log(gdpPercap)\" = \"Log GDP per Capita\",\n    \"continentAmericas\" = \"Americas\",\n    \"continentAsia\" = \"Asia\",\n    \"continentEurope\" = \"Europe\",\n    \"continentOceania\" = \"Oceania\"\n  ),\n  gof_map = c(\"nobs\", \"r.squared\"),\n  stars = TRUE,\n  notes = \"Reference category: Africa. OLS estimates, standard errors in parentheses.\"\n)\n\n\n\n\n\n    \n\n    \n\n    \n    \n    \n      \n        \n        \n              \n                 \n                Bivariate\n                + Continent\n              \n        \n        + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001\nReference category: Africa. OLS estimates, standard errors in parentheses.\n        \n                \n                  (Intercept)\n                  4.950\n                  20.138***\n                \n                \n                  \n                  (3.858)\n                  (4.033)\n                \n                \n                  Log GDP per Capita\n                  7.203***\n                  4.631***\n                \n                \n                  \n                  (0.442)\n                  (0.527)\n                \n                \n                  Americas\n                  \n                  11.694***\n                \n                \n                  \n                  \n                  (1.655)\n                \n                \n                  Asia\n                  \n                  10.114***\n                \n                \n                  \n                  \n                  (1.476)\n                \n                \n                  Europe\n                  \n                  11.268***\n                \n                \n                  \n                  \n                  (1.894)\n                \n                \n                  Oceania\n                  \n                  12.929**\n                \n                \n                  \n                  \n                  (4.521)\n                \n                \n                  Num.Obs.\n                  142\n                  142\n                \n                \n                  R2\n                  0.654\n                  0.767\n                \n        \n      \n    \n\n\n\nmodelsummary() outputs to HTML, LaTeX, and Word depending on your output format — one code chunk serves the website and the paper. Its sibling datasummary_skim() gives a one-line descriptive overview of a whole dataset:\n\n\nCode\ndatasummary_skim(gap2007 %&gt;% select(lifeExp, gdpPercap, pop))\n\n\n\n\n\n    \n\n    \n\n    \n    \n    \n      \n        \n        \n              \n                 \n                Unique\n                Missing Pct.\n                Mean\n                SD\n                Min\n                Median\n                Max\n                Histogram\n              \n        \n        \n        \n                \n                  lifeExp\n                  142\n                  0\n                  67.0\n                  12.1\n                  39.6\n                  71.9\n                  82.6\n                  \n                \n                \n                  gdpPercap\n                  142\n                  0\n                  11680.1\n                  12859.9\n                  277.6\n                  6124.4\n                  49357.2\n                  \n                \n                \n                  pop\n                  142\n                  0\n                  44021219.6\n                  147621397.9\n                  199579.0\n                  10517531.0\n                  1318683096.0"
+  },
+  {
+    "objectID": "tables.html#coefficient-plot-or-regression-table",
+    "href": "tables.html#coefficient-plot-or-regression-table",
+    "title": "Publication Tables",
+    "section": "Coefficient plot or regression table?",
+    "text": "Coefficient plot or regression table?\nYou have both tools now. A useful rule:\n\nTable: when readers need to look up exact values (reviewers do), or when you report many models/specifications.\nCoefficient plot: when readers should compare magnitudes and see which intervals cross zero — presentations, blog posts, and the main text of a paper.\n\nMany papers now do both: plot in the text, full table in the appendix. Since both come from the same model object, this costs you two chunks, not an afternoon."
+  },
+  {
+    "objectID": "tables.html#further-tools",
+    "href": "tables.html#further-tools",
+    "title": "Publication Tables",
+    "section": "Further tools",
+    "text": "Further tools\n\ngtsummary — publication-ready descriptive and regression tables with sensible medical/social-science defaults.\nkableExtra — lighter-weight alternative to gt, good for PDF output.\ngt::gtsave() exports any gt table to .png, .html, .rtf, or .tex."
+  },
+  {
+    "objectID": "uncertainty.html",
+    "href": "uncertainty.html",
+    "title": "Visualizing Uncertainty",
+    "section": "",
+    "text": "Every estimate you plot has uncertainty attached. Hiding it makes graphs look more precise than the analysis warrants; showing it badly makes graphs unreadable. Since much of social science communication consists of plotting model estimates, this deserves its own section.\nCode\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(gapminder)\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)"
+  },
+  {
+    "objectID": "uncertainty.html#error-bars-the-workhorse",
+    "href": "uncertainty.html#error-bars-the-workhorse",
+    "title": "Visualizing Uncertainty",
+    "section": "Error bars: the workhorse",
+    "text": "Error bars: the workhorse\nYou have seen coefficient plots with geom_errorbar() in the Applied Examples. Two rules:\n\nSay what the interval is. A bar could be a standard error, a 90% CI, or a 95% CI. The reader cannot tell. Put it in the caption.\nBeware the “cliff edge” effect. Readers treat values inside the interval as certain and values outside as impossible. Neither is true.\n\n\n\nCode\ncont_summary &lt;- gap2007 %&gt;%\n  group_by(continent) %&gt;%\n  summarise(mean_le = mean(lifeExp),\n            se = sd(lifeExp) / sqrt(n()))\n\nggplot(cont_summary, aes(x = reorder(continent, mean_le), y = mean_le)) +\n  geom_point(size = 3) +\n  geom_errorbar(aes(ymin = mean_le - 1.96 * se, ymax = mean_le + 1.96 * se),\n                width = 0.15) +\n  coord_flip() +\n  labs(x = NULL, y = \"Mean Life Expectancy\",\n       caption = \"Error bars show 95% confidence intervals.\") +\n  theme_minimal() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))\n\n\n\n\n\nDo not put error bars on top of bar charts (“dynamite plots”). The bar’s length encodes the mean, but the filled area below carries no information and the interval below the mean is hidden. Use a point range instead, as above."
+  },
+  {
+    "objectID": "uncertainty.html#ribbons-for-continuous-predictions",
+    "href": "uncertainty.html#ribbons-for-continuous-predictions",
+    "title": "Visualizing Uncertainty",
+    "section": "Ribbons for continuous predictions",
+    "text": "Ribbons for continuous predictions\nFor predicted values across a continuous variable, use geom_ribbon(), you have seen this pattern with ggeffects:\n\n\nCode\nggplot(gap2007, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(alpha = 0.25) +\n  geom_smooth(method = \"loess\", se = TRUE, alpha = 0.3) +\n  scale_x_log10() +\n  labs(x = \"GDP per Capita (log scale)\", y = \"Life Expectancy\",\n       caption = \"Shaded band: 95% confidence interval of the LOESS fit.\") +\n  theme_minimal() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))"
+  },
+  {
+    "objectID": "uncertainty.html#beyond-intervals-ggdist",
+    "href": "uncertainty.html#beyond-intervals-ggdist",
+    "title": "Visualizing Uncertainty",
+    "section": "Beyond intervals: ggdist",
+    "text": "Beyond intervals: ggdist\nThe ggdist package provides geoms that show whole distributions of uncertainty instead of a single interval, half-eyes, gradient intervals, and quantile dotplots.\n\n\nCode\nlibrary(ggdist)\n\nggplot(gap2007, aes(x = lifeExp, y = continent)) +\n  stat_halfeye(aes(fill = continent), alpha = 0.7,\n               .width = c(0.66, 0.95)) +\n  scale_fill_viridis_d(end = 0.95, guide = \"none\") +\n  labs(x = \"Life Expectancy\", y = NULL,\n       caption = \"Points: medians. Bars: 66% and 95% intervals. Curves: distributions.\") +\n  theme_minimal() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))\n\n\n\n\n\nThe gradient interval avoids the cliff-edge problem entirely, certainty fades out gradually:\n\n\nCode\nggplot(gap2007, aes(x = lifeExp, y = continent)) +\n  stat_gradientinterval(aes(fill = continent)) +\n  scale_fill_viridis_d(end = 0.95, guide = \"none\") +\n  labs(x = \"Life Expectancy\", y = NULL) +\n  theme_minimal() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))\n\n\n\n\n\nQuantile dotplots show uncertainty as a countable number of dots, lay audiences read frequencies (“18 of 20 dots are above 60”) far better than probability densities:\n\n\nCode\nggplot(gap2007, aes(x = lifeExp)) +\n  stat_dots(quantiles = 50, fill = \"darkred\", color = NA) +\n  labs(x = \"Life Expectancy\",\n       caption = \"Each dot represents 2% of countries.\") +\n  theme_minimal() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))"
+  },
+  {
+    "objectID": "uncertainty.html#guidelines",
+    "href": "uncertainty.html#guidelines",
+    "title": "Visualizing Uncertainty",
+    "section": "Guidelines",
+    "text": "Guidelines\n\nAlways show uncertainty when plotting estimates; always say what the interval is.\nPrefer point ranges over bars + error bars.\nTwo interval widths (66% + 95%) communicate more than one.\nFor general audiences, frequency framings (dotplots, “1 in 5”) beat densities and CIs.\nUncertainty visualization is an active research area, see Padilla, Kay & Hullman (2021), Uncertainty Visualization, for an overview."
+  },
+  {
+    "objectID": "annotation.html",
+    "href": "annotation.html",
+    "title": "Annotation & Storytelling",
+    "section": "",
+    "text": "The difference between an exploratory plot and a publication plot is the annotation. A well-annotated graph answers the reader’s questions on the graph itself: What am I looking at? Which point matters? What happened here? Tufte’s principle applies: write the labelling directly on the graph.\nCode\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(gapminder)\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)"
+  },
+  {
+    "objectID": "annotation.html#direct-labels-instead-of-legends",
+    "href": "annotation.html#direct-labels-instead-of-legends",
+    "title": "Annotation & Storytelling",
+    "section": "Direct labels instead of legends",
+    "text": "Direct labels instead of legends\nLegends force the reader’s eye to travel back and forth. Where possible, label the data directly.\n\n\nCode\nlibrary(ggrepel)\n\n# Label only a meaningful subset — labelling everything is labelling nothing\nhighlight &lt;- gap2007 %&gt;%\n  filter(country %in% c(\"Norway\", \"Germany\", \"China\", \"India\",\n                        \"Nigeria\", \"Haiti\", \"Afghanistan\"))\n\nggplot(gap2007, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(alpha = 0.3, color = \"grey50\") +\n  geom_point(data = highlight, color = \"darkred\", size = 2.5) +\n  geom_text_repel(data = highlight, aes(label = country), size = 4) +\n  scale_x_log10() +\n  labs(x = \"GDP per Capita (log scale)\", y = \"Life Expectancy\") +\n  theme_classic() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))\n\n\n\n\n\ngeom_text_repel() (from the ggrepel package) automatically moves labels so they don’t overlap points or each other. Plain geom_text() will happily print labels on top of your data.\nEnding line charts with the series name replaces the legend entirely:\n\n\nCode\nd &lt;- gapminder %&gt;% filter(country %in% c(\"Germany\", \"India\", \"China\"))\n\nggplot(d, aes(x = year, y = lifeExp, color = country)) +\n  geom_line(linewidth = 1.1) +\n  geom_text_repel(\n    data = d %&gt;% group_by(country) %&gt;% filter(year == max(year)),\n    aes(label = country),\n    direction = \"y\", hjust = 0, nudge_x = 1, size = 4.5\n  ) +\n  scale_color_viridis_d(option = \"B\", end = 0.85, guide = \"none\") +\n  scale_x_continuous(limits = c(1952, 2015)) +\n  labs(x = NULL, y = \"Life Expectancy\") +\n  theme_classic() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))"
+  },
+  {
+    "objectID": "annotation.html#highlighting-one-series-in-focus-the-rest-as-context",
+    "href": "annotation.html#highlighting-one-series-in-focus-the-rest-as-context",
+    "title": "Annotation & Storytelling",
+    "section": "Highlighting: one series in focus, the rest as context",
+    "text": "Highlighting: one series in focus, the rest as context\ngghighlight greys out everything except what you want the reader to see. The “compared to what?” question answered visually.\n\n\nCode\nlibrary(gghighlight)\n\nggplot(gapminder, aes(x = year, y = lifeExp, group = country)) +\n  geom_line(color = \"darkred\", linewidth = 1) +\n  gghighlight(country %in% c(\"Rwanda\", \"Cambodia\"),\n              unhighlighted_params = list(color = \"grey85\", linewidth = 0.3)) +\n  labs(x = NULL, y = \"Life Expectancy\",\n       title = \"Life expectancy collapses during mass violence\",\n       subtitle = \"All other countries shown in grey\") +\n  theme_classic() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))"
+  },
+  {
+    "objectID": "annotation.html#annotating-events-and-reference-values",
+    "href": "annotation.html#annotating-events-and-reference-values",
+    "title": "Annotation & Storytelling",
+    "section": "Annotating events and reference values",
+    "text": "Annotating events and reference values\nannotate() adds one-off text, arrows, and shading without needing a data frame. Use it to mark events, thresholds, and periods.\n\n\nCode\ngermany &lt;- gapminder %&gt;% filter(country == \"Germany\")\n\nggplot(germany, aes(x = year, y = lifeExp)) +\n  annotate(\"rect\", xmin = 1961, xmax = 1989, ymin = -Inf, ymax = Inf,\n           alpha = 0.1, fill = \"steelblue\") +\n  annotate(\"text\", x = 1975, y = 78, label = \"Berlin Wall era\",\n           color = \"steelblue\", size = 4.5) +\n  geom_line(linewidth = 1.1) +\n  geom_hline(yintercept = 75, linetype = \"dashed\", color = \"grey40\") +\n  annotate(\"text\", x = 1955, y = 75.7, label = \"75 years\",\n           color = \"grey40\", hjust = 0, size = 4) +\n  labs(x = NULL, y = \"Life Expectancy\") +\n  theme_classic() +\n  theme(axis.text = element_text(size = 14),\n        axis.title = element_text(size = 15))"
+  },
+  {
+    "objectID": "annotation.html#titles-that-state-the-finding",
+    "href": "annotation.html#titles-that-state-the-finding",
+    "title": "Annotation & Storytelling",
+    "section": "Titles that state the finding",
+    "text": "Titles that state the finding\nCompare “Life Expectancy by Continent” with “Africans live 15 years less than Europeans on average”. The first describes the axes; the second states the finding. Newspapers do this well; academic figures can too (use the caption if the title must stay neutral).\nA useful division of labour:\n\nTitle: the finding, in one sentence.\nSubtitle: the data and unit of analysis.\nCaption: source and notes (labs(caption = \"Data: Gapminder, 2007\"))."
+  },
+  {
+    "objectID": "annotation.html#checklist-before-you-export",
+    "href": "annotation.html#checklist-before-you-export",
+    "title": "Annotation & Storytelling",
+    "section": "Checklist before you export",
+    "text": "Checklist before you export\n\nCan a reader understand the plot without the surrounding text?\nIs everything the reader must compare labelled directly?\nDo title/subtitle state what to see, not just what is plotted?\nIs the source on the graph?\nHave you erased annotation ink that isn’t doing work? (Annotation is data-ink only when it carries information.)"
+  },
+  {
+    "objectID": "interactive.html",
+    "href": "interactive.html",
+    "title": "Interactive Graphics",
+    "section": "",
+    "text": "Static graphs are ideal for print and papers. On the web, you can let readers hover, zoom, and filter. Interactivity lets you show detail on demand instead of cluttering the plot with labels.\nWhen to use interactivity: exploratory analysis, dashboards, teaching, supplementary online material. When not to: anything that must also work on paper. Always design the static version first, an interactive chart that only works when hovered is a bad chart.\nCode\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(gapminder)\n\ngap2007 &lt;- gapminder %&gt;% filter(year == 2007)"
+  },
+  {
+    "objectID": "interactive.html#from-ggplot2-to-plotly-ggplotly",
+    "href": "interactive.html#from-ggplot2-to-plotly-ggplotly",
+    "title": "Interactive Graphics",
+    "section": "From ggplot2 to plotly: ggplotly()",
+    "text": "From ggplot2 to plotly: ggplotly()\nThe fastest route to interactivity: build a normal ggplot, then wrap it in plotly::ggplotly(). Hover, zoom, and pan come for free.\n\n\nCode\nlibrary(plotly)\n\np &lt;- ggplot(gap2007, aes(\n  x = gdpPercap, y = lifeExp,\n  color = continent, size = pop,\n  # 'text' is not a ggplot2 aesthetic; plotly picks it up for the tooltip\n  text = paste0(country, \"\\nLife exp: \", round(lifeExp, 1))\n)) +\n  geom_point(alpha = 0.7) +\n  scale_x_log10() +\n  scale_color_viridis_d(end = 0.95) +\n  scale_size(range = c(1, 12), guide = \"none\") +\n  labs(x = \"GDP per Capita (log scale)\", y = \"Life Expectancy\",\n       color = \"Continent\") +\n  theme_minimal()\n\nggplotly(p, tooltip = \"text\")\n\n\n\n\n\n\nTip: ggplotly() translates most, but not all, ggplot2 features. Facets and simple geoms work well; complex annotations and some themes get lost in translation. Check the result before publishing."
+  },
+  {
+    "objectID": "interactive.html#ggiraph-interactive-ggplots-with-full-styling-control",
+    "href": "interactive.html#ggiraph-interactive-ggplots-with-full-styling-control",
+    "title": "Interactive Graphics",
+    "section": "ggiraph: interactive ggplots with full styling control",
+    "text": "ggiraph: interactive ggplots with full styling control\nggiraph replaces geoms with _interactive versions (geom_point_interactive(), geom_sf_interactive(), …). It stays closer to your ggplot2 styling than plotly and supports linked hovering between panels.\n\n\nCode\nlibrary(ggiraph)\n\ngg &lt;- ggplot(gap2007, aes(\n  x = gdpPercap, y = lifeExp,\n  tooltip = country, data_id = country   # ggiraph aesthetics\n)) +\n  geom_point_interactive(aes(color = continent), size = 3, alpha = 0.7) +\n  scale_x_log10() +\n  scale_color_viridis_d(end = 0.95) +\n  labs(x = \"GDP per Capita (log scale)\", y = \"Life Expectancy\") +\n  theme_minimal()\n\ngirafe(ggobj = gg,\n       options = list(opts_hover(css = \"fill:red;stroke:black;\")))"
+  },
+  {
+    "objectID": "interactive.html#animation-gganimate",
+    "href": "interactive.html#animation-gganimate",
+    "title": "Interactive Graphics",
+    "section": "Animation: gganimate",
+    "text": "Animation: gganimate\nAnimation adds time as a display dimension: the famous Hans Rosling bubble chart is exactly this.\n\n\nCode\nlibrary(gganimate)\n\nggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +\n  geom_point(alpha = 0.7) +\n  scale_x_log10() +\n  scale_color_viridis_d(end = 0.95) +\n  scale_size(range = c(2, 12), guide = \"none\") +\n  labs(title = \"Year: {frame_time}\", x = \"GDP per Capita\", y = \"Life Expectancy\") +\n  theme_minimal() +\n  transition_time(year) +\n  ease_aes(\"linear\")\n\n# anim_save(\"gapminder.gif\") to export\n\n\nUse animation only when time (or another ordered variable) is central to the story. A faceted static plot is often easier to compare across."
+  },
+  {
+    "objectID": "interactive.html#interactive-maps",
+    "href": "interactive.html#interactive-maps",
+    "title": "Interactive Graphics",
+    "section": "Interactive maps",
+    "text": "Interactive maps\nYou already know mapview from the spatial examples. For more control, leaflet is the standard:\n\n\nCode\nlibrary(leaflet)\n\nleaflet() %&gt;%\n  addTiles() %&gt;%\n  setView(lng = 8.46, lat = 49.49, zoom = 12) %&gt;%\n  addMarkers(lng = 8.4622, lat = 49.4875, popup = \"University of Mannheim\")"
+  },
+  {
+    "objectID": "interactive.html#caveats",
+    "href": "interactive.html#caveats",
+    "title": "Interactive Graphics",
+    "section": "Caveats",
+    "text": "Caveats\nInteractive output is HTML + JavaScript. It works on websites and in HTML slides, but not in PDF or Word output. If your Quarto project renders to multiple formats, guard interactive chunks with #| eval: !expr knitr::is_html_output(). Interactive charts also carry accessibility costs: tooltips are invisible to screen readers, so never put essential information only in a tooltip."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources & Further Reading",
+    "section": "",
+    "text": "Here is a list of further resources."
+  },
+  {
+    "objectID": "resources.html#books-free-online",
+    "href": "resources.html#books-free-online",
+    "title": "Resources & Further Reading",
+    "section": "Books (free online)",
+    "text": "Books (free online)\n\nKieran Healy, Data Visualization: A Practical Introduction. The book closest to this course: principles plus ggplot2 code, written for social scientists. The perceptual material in the Data Visualization section draws on Chapter 1.\nClaus Wilke, Fundamentals of Data Visualization. The best single reference on which chart to use and why; code-free, so it pairs well with Healy. Wilke also wrote the colorblindr and cowplot packages used in this course.\nHadley Wickham et al., ggplot2: Elegant Graphics for Data Analysis. The grammar of graphics from its author; the reference once you’re past the basics.\nHadley Wickham et al., R for Data Science. For the wrangling (dplyr, tidyr) that comes before every good plot.\nRob Lovelace et al., Geocomputation with R . The standard reference for the spatial material in Applied Examples."
+  },
+  {
+    "objectID": "resources.html#books-print",
+    "href": "resources.html#books-print",
+    "title": "Resources & Further Reading",
+    "section": "Books (print)",
+    "text": "Books (print)\n\nEdward Tufte, The Visual Display of Quantitative Information (1983). The classic behind data-ink, chartjunk, and the truthfulness principles cited throughout this course.\nAlberto Cairo, How Charts Lie (2019) Chart literacy for consumers of graphs; excellent source of discussion examples.\nCole Nussbaumer Knaflic, Storytelling with Data (2015). Annotation and presentation-oriented; complements the Annotation & Storytelling page.\nJacques Bertin, Semiology of Graphics (1967). Where the idea of visual encoding channels began."
+  },
+  {
+    "objectID": "resources.html#key-papers",
+    "href": "resources.html#key-papers",
+    "title": "Resources & Further Reading",
+    "section": "Key papers",
+    "text": "Key papers\n\nCleveland & McGill (1985), Graphical Perception. The ranking of perceptual tasks underlying the “which chart” framework.\nHeer & Bostock (2010), Crowdsourcing Graphical Perception. The replication.\nPadilla, Kay & Hullman (2021), Uncertainty Visualization. Overview behind the Visualizing Uncertainty page.\nFranconeri et al. (2021), The Science of Visual Data Communication: What Works. A comprehensive, readable evidence review."
+  },
+  {
+    "objectID": "resources.html#reference-sites",
+    "href": "resources.html#reference-sites",
+    "title": "Resources & Further Reading",
+    "section": "Reference sites",
+    "text": "Reference sites\n\nFrom Data to Viz. Decision tree from data type to chart type, each with R code; the interactive version of the “which chart” poster.\nR Graph Gallery. Hundreds of charts with copy-paste ggplot2 code.\nggplot2 cheat sheet\nDatawrapper blog. Lisa Charlotte Muth’s color guides are the best practical color texts on the web.\nFlowing Data"
+  },
+  {
+    "objectID": "resources.html#inspiration",
+    "href": "resources.html#inspiration",
+    "title": "Resources & Further Reading",
+    "section": "Inspiration",
+    "text": "Inspiration\n\nThe Fallen of World War II\nThe Pudding. Visual essays\nOur World in Data\nInformation is Beautiful Awards\nSarah Leo, Mistakes, we’ve drawn a few. The Economist redesigning its own charts\nGapminder project"
+  },
+  {
+    "objectID": "resources.html#package-index-for-this-course",
+    "href": "resources.html#package-index-for-this-course",
+    "title": "Resources & Further Reading",
+    "section": "Package index for this course",
+    "text": "Package index for this course\n\n\n\n\n\n\n\nPurpose\nPackages\n\n\n\n\nCore plotting\nggplot2, patchwork\n\n\nData wrangling\ndplyr, tidyr, broom\n\n\nColors & themes\nviridis, ggthemes, colorspace, colorblindr, cowplot\n\n\nAnnotation\nggrepel, gghighlight\n\n\nUncertainty\nggdist, ggeffects, marginaleffects, margins\n\n\nTables\ngt, modelsummary\n\n\nInteractive\nplotly, ggiraph, gganimate, leaflet, mapview\n\n\nSpatial\nsf, terra, rnaturalearth, osmdata, blackmarbler, geodata, tidyterra\n\n\nExport\nragg, svglite\n\n\nData\ngapminder, vdemdata"
+  }
+]
