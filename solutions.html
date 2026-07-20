@@ -234,7 +234,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Try the exercises yourself before opening the folded code. These are <em>possible</em> solutions — in visualization there is rarely a single correct answer, only better and worse justified choices.</p>
+<p>Try the exercises yourself before opening the folded code. These are <em>possible</em> solutions in visualization, though there is rarely a single correct answer, only better and worse justified choices.</p>
 </div>
 </div>
 <div class="cell">
@@ -267,7 +267,7 @@ Note
 <p><img src="solutions_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>A highlight doesn’t need two saturated complementary colors — one saturated color against grey is usually stronger. If you did use orange/blue: those are complementary <em>and</em> colorblind-safe, which is why they are so common.</p>
+<p>A highlight doesn’t need two saturated complementary colors. One saturated color against grey is usually stronger. If you did use orange/blue: those are complementary <em>and</em> colorblind-safe, which is why they are so common.</p>
 <p><strong>1.2</strong> Under deuteranopia, red/green highlights fail. The fix without changing colors: add a redundant channel, e.g.&nbsp;<code>aes(shape = group)</code> or larger point size for the highlighted group.</p>
 <p><strong>1.3</strong> Unemployment <em>level</em> is a sequential quantity (one direction, zero-bounded) → sequential scale (<code>scale_fill_viridis_c()</code>). <em>Change</em> in unemployment has a meaningful midpoint at zero → diverging scale (<code>scale_fill_gradient2(midpoint = 0)</code>). Qualitative palettes are only for unordered categories.</p>
 </section>
@@ -315,7 +315,7 @@ Note
 <p><img src="solutions_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Caveat for the reader: on a log axis, equal distances mean equal <em>ratios</em>, not equal differences — the visual symmetry is a property of the transformed scale.</p>
+<p>Caveat for the reader: on a log axis, equal distances mean equal <em>ratios</em>, not equal differences. The visual symmetry is a property of the transformed scale.</p>
 <p><strong>3.2</strong></p>
 <div class="cell">
 <details>
@@ -380,7 +380,7 @@ Note
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">20</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"D"</span>, <span class="at">end =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Richer countries live longer — but population size plays no role"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Richer countries live longer, but population size plays no role"</span>,</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"142 countries, 2007. Bubble size = population."</span>,</span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Data: Gapminder"</span>,</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"GDP per Capita (log scale)"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy"</span>, <span class="at">color =</span> <span class="st">"Continent"</span></span>
@@ -391,7 +391,7 @@ Note
 <p><img src="solutions_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The substantive point most students find: income predicts life expectancy strongly (with diminishing returns — hence the log scale), while population size is essentially unrelated to it.</p>
+<p>The substantive point most students find: income predicts life expectancy strongly (with diminishing returns, hence the log scale), while population size is essentially unrelated to it.</p>
 </section>
 <section id="redesign-gallery" class="level2">
 <h2 class="anchored" data-anchor-id="redesign-gallery">🔧 Redesign Gallery</h2>
@@ -434,7 +434,7 @@ Note
 <p><img src="solutions_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>4.3</strong> Truncating a bar chart’s axis breaks the proportionality between bar length and value (Tufte’s first principle) — a 2-point difference can look like a 3-fold one. For <em>line</em> charts, the position encoding is the line’s vertical location, not a length from zero, so a non-zero axis is often fine and sometimes necessary — but mark it clearly.</p>
+<p><strong>4.3</strong> Truncating a bar chart’s axis breaks the proportionality between bar length and value (Tufte’s first principle) a 2-point difference can look like a 3-fold one. For <em>line</em> charts, the position encoding is the line’s vertical location, not a length from zero, so a non-zero axis is often fine and sometimes necessary but mark it clearly.</p>
 </section>
 <section id="bonus-spatial" class="level2">
 <h2 class="anchored" data-anchor-id="bonus-spatial">🗺️ Bonus: Spatial</h2>
