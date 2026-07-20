@@ -1,0 +1,59 @@
+---
+title: "Resources & Further Reading"
+---
+
+Here is a list of further resources. 
+
+## Books (free online)
+
+- Kieran Healy, [*Data Visualization: A Practical Introduction*](https://socviz.co/). The book closest to this course: principles plus ggplot2 code, written for social scientists. The perceptual material in the Data Visualization section draws on Chapter 1.
+- Claus Wilke, [*Fundamentals of Data Visualization*](https://clauswilke.com/dataviz/). The best single reference on *which* chart to use and why; code-free, so it pairs well with Healy. Wilke also wrote the `colorblindr` and `cowplot` packages used in this course.
+- Hadley Wickham et al., [*ggplot2: Elegant Graphics for Data Analysis*](https://ggplot2-book.org/). The grammar of graphics from its author; the reference once you're past the basics.
+- Hadley Wickham et al., [*R for Data Science*](https://r4ds.hadley.nz/). For the wrangling (`dplyr`, `tidyr`) that comes before every good plot.
+- Rob Lovelace et al., [*Geocomputation with R*](https://r.geocompx.org/) . The standard reference for the spatial material in Applied Examples.
+
+## Books (print)
+
+- Edward Tufte, *The Visual Display of Quantitative Information* (1983). The classic behind data-ink, chartjunk, and the truthfulness principles cited throughout this course.
+- Alberto Cairo, *How Charts Lie* (2019) Chart literacy for consumers of graphs; excellent source of discussion examples.
+- Cole Nussbaumer Knaflic, *Storytelling with Data* (2015). Annotation and presentation-oriented; complements the Annotation & Storytelling page.
+- Jacques Bertin, *Semiology of Graphics* (1967). Where the idea of visual encoding channels began.
+
+## Key papers
+
+- Cleveland & McGill (1985), [Graphical Perception](http://courses.ischool.berkeley.edu/i247/f05/readings/Cleveland_GraphicalPerception_Science85.pdf). The ranking of perceptual tasks underlying the "which chart" framework.
+- Heer & Bostock (2010), [Crowdsourcing Graphical Perception](https://dl.acm.org/citation.cfm?id=1753357). The replication.
+- Padilla, Kay & Hullman (2021), [Uncertainty Visualization](https://osf.io/preprints/psyarxiv/ebd6r). Overview behind the Visualizing Uncertainty page.
+- Franconeri et al. (2021), [The Science of Visual Data Communication: What Works](https://journals.sagepub.com/doi/10.1177/15291006211051956). A comprehensive, readable evidence review.
+
+## Reference sites
+
+- [From Data to Viz](https://www.data-to-viz.com/). Decision tree from data type to chart type, each with R code; the interactive version of the "which chart" poster.
+- [R Graph Gallery](https://r-graph-gallery.com/). Hundreds of charts with copy-paste ggplot2 code.
+- [ggplot2 cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+- [Datawrapper blog](https://blog.datawrapper.de/). Lisa Charlotte Muth's color guides are the best practical color texts on the web.
+- [Flowing Data](https://flowingdata.com/)
+
+## Inspiration
+
+- [The Fallen of World War II](https://vimeo.com/128373915)
+- [The Pudding](https://pudding.cool/). Visual essays
+- [Our World in Data](https://ourworldindata.org/)
+- [Information is Beautiful Awards](https://www.informationisbeautifulawards.com/)
+- Sarah Leo, [Mistakes, we've drawn a few](https://medium.economist.com/mistakes-weve-drawn-a-few-8cdd8a42d368). The Economist redesigning its own charts
+- [Gapminder project](https://www.gapminder.org)
+
+## Package index for this course
+
+| Purpose | Packages |
+|---|---|
+| Core plotting | `ggplot2`, `patchwork` |
+| Data wrangling | `dplyr`, `tidyr`, `broom` |
+| Colors & themes | `viridis`, `ggthemes`, `colorspace`, `colorblindr`, `cowplot` |
+| Annotation | `ggrepel`, `gghighlight` |
+| Uncertainty | `ggdist`, `ggeffects`, `marginaleffects`, `margins` |
+| Tables | `gt`, `modelsummary` |
+| Interactive | `plotly`, `ggiraph`, `gganimate`, `leaflet`, `mapview` |
+| Spatial | `sf`, `terra`, `rnaturalearth`, `osmdata`, `blackmarbler`, `geodata`, `tidyterra` |
+| Export | `ragg`, `svglite` |
+| Data | `gapminder`, `vdemdata` |

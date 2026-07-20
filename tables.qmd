@@ -1,0 +1,88 @@
+---
+title: "Publication Tables"
+execute:
+  warning: false
+  message: false
+---
+
+The Data Visualization page covers *when* tables beat graphs (roughly: 20 numbers or fewer, or many localized comparisons) and *how* to design them (sort by values, not alphabetically; shade; round a lot). This page shows how to actually build such tables in R, reproducibly.
+
+```{r}
+library(dplyr)
+library(gapminder)
+
+gap2007 <- gapminder %>% filter(year == 2007)
+```
+
+## Descriptive tables with `gt`
+
+[`gt`](https://gt.rstudio.com/) is to tables what ggplot2 is to graphs: a grammar. You pipe a data frame in and add layers of formatting.
+
+```{r}
+library(gt)
+
+gap2007 %>%
+  group_by(continent) %>%
+  summarise(
+    Countries = n(),
+    `Life Expectancy` = mean(lifeExp),
+    `GDP per Capita` = mean(gdpPercap),
+    Population = sum(pop)
+  ) %>%
+  arrange(desc(`Life Expectancy`)) %>%     # sort by values, not alphabet
+  gt() %>%
+  fmt_number(columns = `Life Expectancy`, decimals = 1) %>%
+  fmt_currency(columns = `GDP per Capita`, decimals = 0) %>%
+  fmt_number(columns = Population, suffixing = TRUE) %>%  # 1.2B not 1200000000
+  data_color(columns = `Life Expectancy`, palette = "viridis") %>%
+  tab_header(title = "The World in 2007, by Continent") %>%
+  tab_source_note("Data: Gapminder")
+```
+
+Note how the design rules from the visualization page appear as code: `arrange()` sorts by the substantively interesting column, `fmt_number(decimals = 1)` rounds a lot, `data_color()` shades cells by value so patterns are visible.
+
+## Regression tables with `modelsummary`
+
+Hand-copying coefficients into Word tables is the leading cause of avoidable errors in submitted papers. [`modelsummary`](https://modelsummary.com/) builds the table straight from the model objects.
+
+```{r}
+library(modelsummary)
+
+m1 <- lm(lifeExp ~ log(gdpPercap), data = gap2007)
+m2 <- lm(lifeExp ~ log(gdpPercap) + continent, data = gap2007)
+
+modelsummary(
+  list("Bivariate" = m1, "+ Continent" = m2),
+  coef_rename = c(
+    "log(gdpPercap)" = "Log GDP per Capita",
+    "continentAmericas" = "Americas",
+    "continentAsia" = "Asia",
+    "continentEurope" = "Europe",
+    "continentOceania" = "Oceania"
+  ),
+  gof_map = c("nobs", "r.squared"),
+  stars = TRUE,
+  notes = "Reference category: Africa. OLS estimates, standard errors in parentheses."
+)
+```
+
+`modelsummary()` outputs to HTML, LaTeX, and Word depending on your output format — one code chunk serves the website and the paper. Its sibling `datasummary_skim()` gives a one-line descriptive overview of a whole dataset:
+
+```{r}
+datasummary_skim(gap2007 %>% select(lifeExp, gdpPercap, pop))
+```
+
+## Coefficient plot or regression table?
+
+You have both tools now. A useful rule:
+
+- **Table**: when readers need to *look up* exact values (reviewers do), or when you report many models/specifications.
+- **Coefficient plot**: when readers should *compare* magnitudes and see which intervals cross zero — presentations, blog posts, and the main text of a paper.
+
+Many papers now do both: plot in the text, full table in the appendix. Since both come from the same model object, this costs you two chunks, not an afternoon.
+
+## Further tools
+
+- [`gtsummary`](https://www.danieldsjoberg.com/gtsummary/) — publication-ready descriptive and regression tables with sensible medical/social-science defaults.
+- [`kableExtra`](https://haozhu233.github.io/kableExtra/) — lighter-weight alternative to `gt`, good for PDF output.
+- `gt::gtsave()` exports any gt table to .png, .html, .rtf, or .tex.

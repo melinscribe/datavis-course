@@ -1,0 +1,103 @@
+---
+title: "Exercises"
+execute:
+  eval: false
+---
+
+Download this [`quarto`](https://github.com/melinscribe/Workshop/blob/main/exercises/exercises_R.qmd) file with exercises. Solutions are on the [Solutions](solutions.html) page (released after the session).
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gapminder)
+
+gap2007 <- gapminder %>% filter(year == 2007)
+```
+
+## 🎨 Colors
+
+**1.1** Take this plot and give it (a) a monochromatic color scheme, (b) a complementary two-color scheme for highlighting Europe vs. all other continents. Use [coolors.co](https://coolors.co) or [paletton.com](http://paletton.com) to pick the values, and `scale_color_manual()` to apply them.
+
+```{r}
+ggplot(gap2007, aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() +
+  scale_x_log10()
+```
+
+**1.2** Run `colorblindr::cvd_grid()` on your version of the plot from 1.1(b). Is your highlight still visible under deuteranopia? If not, fix it *without* changing the colors (hint: redundant encoding).
+
+**1.3** You want to map unemployment rates (0–25%) across German districts. Should the fill scale be sequential, diverging, or qualitative? What if you instead map *change* in unemployment (-5 to +5 percentage points)? Write down your answer, then create both scales with `scale_fill_viridis_c()` and `scale_fill_gradient2()` on any choropleth from the course.
+
+## 📊 Chart Choice
+
+**2.1** For each question, name the most suitable chart type and the aesthetic mappings (x, y, color, size, facet), no code needed:
+
+a. How is population distributed across countries in 2007?
+b. Did the gap in life expectancy between Africa and Europe narrow between 1952 and 2007?
+c. Which continent has the most within-continent inequality in GDP per capita?
+d. Is there a relationship between population size and life expectancy?
+
+**2.2** Now implement two of your answers from 2.1 in ggplot2.
+
+**2.3** A colleague presents the market shares of 12 toothpaste brands as a pie chart. Explain, using the Cleveland & McGill results from the Data Visualization page, why this is hard to read and produce a better alternative with fake data (`tibble(brand = LETTERS[1:12], share = ...)`).
+
+## ✍️ Exploring Gapminder
+
+**3.1** Create a histogram of `gdpPercap` for 2007. It will look skewed. Fix this with a log scale and explain in one sentence what a reader must now keep in mind.
+
+**3.2** Build a line plot of population over time for the five most populous countries of 2007. Replace the legend with direct labels at the end of each line (`ggrepel`).
+
+**3.3** Compute mean life expectancy per continent per year, and plot it as a line chart. Annotate the most striking feature of the plot with `annotate()`.
+
+## 🧠 Challenge: Explore a Development Pattern
+
+Before seeing any example plots, try to visualize the following:
+
+> **How does a country's population size relate to life expectancy and income level?**
+
+**Your task**: Create a visualization using the `gapminder` dataset for the year **2007** that captures the relationship between:
+
+- `lifeExp`: Life expectancy
+- `gdpPercap`: GDP per capita
+- `pop`: Population
+
+You may use any type of plot or mapping of variables (e.g. color, size), but **aim to show all three variables clearly**. Then annotate it so it works without any accompanying text: a title that states the finding, direct labels for at least three notable countries, and a source caption.
+
+## 🔧 Redesign Gallery
+
+Bad charts are the best teachers. For each of the following, (a) list what is wrong, (b) rebuild it properly.
+
+**4.1** The chartjunk special:
+
+```{r}
+gap2007 %>%
+  arrange(desc(pop)) %>%
+  slice(1:10) %>%
+  ggplot(aes(x = country, y = pop, fill = country)) +
+  geom_bar(stat = "identity", color = "black", linewidth = 1.5) +
+  labs(title = "population of Countries in year 2007",
+       x = "This is the X Axis", y = "Some Very Large Numbers") +
+  theme(panel.grid.major = element_line(color = "purple", linewidth = 1),
+        plot.background = element_rect(fill = "lightyellow"))
+```
+
+**4.2** The dynamite plot:
+
+```{r}
+gap2007 %>%
+  group_by(continent) %>%
+  summarise(m = mean(lifeExp), se = sd(lifeExp) / sqrt(n())) %>%
+  ggplot(aes(x = continent, y = m)) +
+  geom_col(fill = "steelblue") +
+  geom_errorbar(aes(ymin = m - se, ymax = m + se), width = 0.2)
+```
+
+Why is the bar misleading here? What does it hide? (Hint: what is the y-axis origin, and where did the raw data go?)
+
+**4.3** The truncated axis. Recreate any bar chart from the course, then add `coord_cartesian(ylim = c(60, 85))`. Describe the effect on a casual reader, and explain when axis truncation is legitimate (line charts?) and when it is a lie (bar charts?).
+
+**4.4** Find one real published chart (newspaper, report, social media) that violates at least one of Tufte's principles from the Data Visualization page. Bring it to the next session with a one-paragraph critique or redesign it if the data is available. Sarah Leo's [Economist redesigns](https://medium.economist.com/mistakes-weve-drawn-a-few-8cdd8a42d368) show the format.
+
+## 🗺️ Bonus: Spatial
+
+**5.1** Using `rnaturalearth` and the 2007 Gapminder data (see Applied Examples), map *population* instead of GDP. Population is even more skewed than GDP what do you need to change about the fill scale to make the map informative?

@@ -1,0 +1,52 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Advanced Graphics"
+  description: "Workshop Information Visualization for Social Scientists"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: colors.qmd
+        text: Colors
+      - href: fonts.qmd
+        text: Fonts
+      - href: technicalities.qmd
+        text: Technicalities
+      - href: exporting.qmd
+        text: Exporting
+      - href: visualization.qmd
+        text: Data Visualization
+      - href: regressions.qmd
+        text: Applied Examples
+      - href: tables.qmd
+        text: Tables
+      - text: Communicating
+        menu:
+          - href: annotation.qmd
+            text: Annotation & Storytelling
+          - href: uncertainty.qmd
+            text: Visualizing Uncertainty
+          - href: accessibility.qmd
+            text: Accessibility
+      - href: interactive.qmd
+        text: Interactive
+      - href: exercises.qmd
+        text: Exercises
+      - href: resources.qmd
+        text: Resources
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    link-external-newwindow: true
+
+
+editor: visual
+

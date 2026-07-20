@@ -1,0 +1,35 @@
+---
+title: "Technicalities"
+---
+
+### Pixel vs. Vector
+
+The key difference between pixel and vector based graphics is how the image is structured. Pixel based graphics are made up from lots of tiny physical squares (or ‘pixels’) where as vector graphics are mapped out using mathematical equations which calculate where the edges of the shapes sit in relation to one another.
+
+As an example; fonts are always created using vectors so that the colours can be changed efficiently and the symbol can be easily scaled up to any size without losing quality. In contrast, digital photographs are always made up of pixels, which allows for a much more efficient blending of the colours as each physical pixel block can be coloured individually – rather than each shape being mapped out and filled with a gradient, as it would have to be if it were made up using vectors.
+
+![Vector vs. Pixel Image](vectore.jpg){width="50%"}
+
+Pixel graphics use a grid of small, square picture elements (pixels) for displaying graphics. Each pixel has a particular position and a particular colour value. The total number of pixels in an image is always the same. If the image is enlarged, the resolution is reduced. Then the image often looks “jagged“. If an interpolation is used the image looks smooth but not as sharp. Dataforms: JPG, PNG, TIFF, GIF, PSD, BMP
+
+Vector graphics are created from mathematically defined lines (vectors) and curves. Vectors draw pictures on the basis of their geometrical characteristics. Vector graphics are not defined by a fixed number of pixels. Therefore they are not dependent on resolution. During expansion the contours are scaled without affecting the quality of the pictures or increasing the quantity of data. Vector graphics are always displayed or printed in the resolution of the relevant output device. Therefore they are suitable for showing sharp contours and details. Dataforms: PDF, EPS, AI, CDR, WMF,
+
+
+### Dataforms
+
+<small>
+
+|   | EPS | GIF | JPEG | PDF | TIFF | PNG |
+|------------|------------|------------|------------|------------|------------|------------|
+| Description | EPS (Encapsulated PostScript) is actually a page description language but is also used for describing images, and especially vector graphics. | GIF is in most cases used for screen presentations and animations. | JPEG (Joint Photographics Experts Group) is the most common format on the Internet because it allows to compress images a lot without limiting the color range such as in GIFs . | PDF (Portable Document Format) is produced by Adobe Acrobat and the format is based on PostScript (PS) format. | TIFF (Tagged Image File Format) is one of the most common formats. | PNG (Portable Network Graphics) is a raster image format developed as a lossless alternative to GIF. |
+| Purpose | A platform-independent printing format. | GIF (Graphic Interchange Format) is the perfect dataform for Internet figures that only requires up to 256 indexed colours. | Internet publications, presentations, never for print! | A cross application/platform description and publishing format. | Platform independent format for photos etc. TIFF has become a defacto standard for pixel images. | Ideal for web graphics requiring transparency or lossless compression. |
+| Advantages | EPS has been a de facto standard within the graphic industry during the last fifteen years. It offers a very good printing quality on PS-printers. EPS is mostly used for storing vector information. | Most image software can import and export GIF-files. The file format offers extremely small files which is ideal for internet publications. | The format offers a very good compression, especially for photos. The compression will reduce the file size by approximately 5 to 20 times. | Very good printing quality. A standard in desktop publishing. All information will be stored inside a PDF. | The format is supported in almost every image and word processing software, and it does not compress the data. Ideal for printing. | Lossless compression with support for millions of colors and transparency; widely supported in browsers. |
+| Disadvantages | There are sometimes problems when printing these files on printers that don’t support the Postscript format. | Maximum 256 colours can be stored in the file. That means that there is always a quality loss when you use it for photos. | The format uses a lossy compression. This means that you will lose information every time you save the image. You should not use JPEG as a master copy of your images. | Only limited options to edit a PDF-file. | Large images require large storage space. Not the best format for online publications. | Larger file sizes than JPEG for photographs; no animation support. |
+
+</small>
+
+### Image Resolutions
+
+To determine whether your raster images are a suitable resolution for a specific application, you need to check their pixel density. Units of measurement such as dots per inch (DPI) or pixels per inch (PPI) refer to the number of pixels in one inch of the image. These measurements become important when you attempt to use raster images in specific places, such as on the web or in print publications.
+
+The web, historically, displays 72dpi (72 dots or pixels per inch) – a relatively low pixel density however most modern displays are now much higher. That said many images on the web are still in that 72-100 dpi range. While monitors can display higher resolution the web also needs to optimize for speed so images around 100 dpi hit the sweet spot for looking great on a screen but also loading quickly. Raster images with a low DPI in the 72-100 look nice and crisp on the web. But this same low DPI image may not be suitable for printing. To correctly print an image, it should be at least 300dpi, a much higher pixel density than the web displays. Resizing a low DPI image pulled from the web to fit the dimensions of your print project won’t work because the same finite number of pixels only get bigger and begin to distort. For example, let’s say you want to print your logo at 2″x3″ on a brochure. If have a 72dpi jpg of your logo and it’s 2-inches by 3-inches, it will need to be “stretched” to more than 3 times the size to get it up to 300dpi. That 72dpi logo may look great on your computer monitor, but when it prints at 300dpi it will look pixilated. Instead you should use a vector version of your logo (.EPS or .AI) or create a raster (JPG) with the exact dimensions desired and at 300dpi.

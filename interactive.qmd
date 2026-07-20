@@ -1,0 +1,105 @@
+---
+title: "Interactive Graphics"
+execute:
+  warning: false
+  message: false
+---
+
+Static graphs are ideal for print and papers. On the web, you can let readers hover, zoom, and filter. Interactivity lets you show detail on demand instead of cluttering the plot with labels.
+
+**When to use interactivity:** exploratory analysis, dashboards, teaching, supplementary online material. **When not to:** anything that must also work on paper. Always design the static version first, an interactive chart that only works when hovered is a bad chart.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gapminder)
+
+gap2007 <- gapminder %>% filter(year == 2007)
+```
+
+## From ggplot2 to plotly: `ggplotly()`
+
+The fastest route to interactivity: build a normal `ggplot`, then wrap it in `plotly::ggplotly()`. Hover, zoom, and pan come for free.
+
+```{r}
+library(plotly)
+
+p <- ggplot(gap2007, aes(
+  x = gdpPercap, y = lifeExp,
+  color = continent, size = pop,
+  # 'text' is not a ggplot2 aesthetic; plotly picks it up for the tooltip
+  text = paste0(country, "\nLife exp: ", round(lifeExp, 1))
+)) +
+  geom_point(alpha = 0.7) +
+  scale_x_log10() +
+  scale_color_viridis_d(end = 0.95) +
+  scale_size(range = c(1, 12), guide = "none") +
+  labs(x = "GDP per Capita (log scale)", y = "Life Expectancy",
+       color = "Continent") +
+  theme_minimal()
+
+ggplotly(p, tooltip = "text")
+```
+
+**Tip**: `ggplotly()` translates most, but not all, ggplot2 features. Facets and simple geoms work well; complex annotations and some themes get lost in translation. Check the result before publishing.
+
+## ggiraph: interactive ggplots with full styling control
+
+[`ggiraph`](https://davidgohel.github.io/ggiraph/) replaces geoms with `_interactive` versions (`geom_point_interactive()`, `geom_sf_interactive()`, …). It stays closer to your ggplot2 styling than plotly and supports linked hovering between panels.
+
+```{r}
+library(ggiraph)
+
+gg <- ggplot(gap2007, aes(
+  x = gdpPercap, y = lifeExp,
+  tooltip = country, data_id = country   # ggiraph aesthetics
+)) +
+  geom_point_interactive(aes(color = continent), size = 3, alpha = 0.7) +
+  scale_x_log10() +
+  scale_color_viridis_d(end = 0.95) +
+  labs(x = "GDP per Capita (log scale)", y = "Life Expectancy") +
+  theme_minimal()
+
+girafe(ggobj = gg,
+       options = list(opts_hover(css = "fill:red;stroke:black;")))
+```
+
+## Animation: `gganimate`
+
+Animation adds time as a display dimension: the famous Hans Rosling bubble chart is exactly this.
+
+```{r}
+#| eval: false
+library(gganimate)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
+  geom_point(alpha = 0.7) +
+  scale_x_log10() +
+  scale_color_viridis_d(end = 0.95) +
+  scale_size(range = c(2, 12), guide = "none") +
+  labs(title = "Year: {frame_time}", x = "GDP per Capita", y = "Life Expectancy") +
+  theme_minimal() +
+  transition_time(year) +
+  ease_aes("linear")
+
+# anim_save("gapminder.gif") to export
+```
+
+Use animation only when time (or another ordered variable) is central to the story. A faceted static plot is often easier to compare across.
+
+## Interactive maps
+
+You already know `mapview` from the spatial examples. For more control, `leaflet` is the standard:
+
+```{r}
+library(leaflet)
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng = 8.46, lat = 49.49, zoom = 12) %>%
+  addMarkers(lng = 8.4622, lat = 49.4875, popup = "University of Mannheim")
+```
+
+## Caveats
+
+Interactive output is HTML + JavaScript. It works on websites and in HTML slides, but not in PDF or Word output. If your Quarto project renders to multiple formats, guard interactive chunks with `#| eval: !expr knitr::is_html_output()`. Interactive charts also carry accessibility costs: tooltips are invisible to screen readers, so never put essential information *only* in a tooltip.

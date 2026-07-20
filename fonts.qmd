@@ -1,0 +1,95 @@
+---
+title: "Fonts"
+---
+
+
+## What is Typography?
+
+Typography is the style, arrangement, or appearance of typeset matter The main goal of typography is presenting information in a way that is readable and easy to consume.
+
+### Classifications
+
+
+::::: columns
+::: {.column width="50%"}
+
+**Serif**:\ 
+these typefaces are the more traditional ones. “Serifs” are the little feet or arms that hang off the end of letter strokes, and typically add a thick/thin look to the letter. Serif fonts are considered the easiest fonts to read so they are most often used as text or “body” copy
+:::
+
+::: {.column width="50%"}
+**Sans-Serif**:\ 
+As the name suggests, sans-serif fonts are 'without serifs' and usually have an overall even stroke weight. Sans serif fonts can evoke a more modern look because they were not created until the 19th century. While they can also be harder to read, they are often used only for small amounts of copy, subheadings, or large headlines. Helvetica is the most universal sans serif font as it is used around the world.
+
+:::
+:::::
+
+
+<br>
+
+For large amounts of text, serif fonts are generally thought to move the eye along more effectively and increase reading speed, especially in print (though this obviously depends the characteristics of the specific font used). On the other hand, sans-serif fonts are often favored for online/on-screen text due to their simplified letterforms that display more clearly at various screen resolutions.
+
+
+### Anatomy
+
+![Anatomy of Type](typography.jpg)
+
+### Basic Typography rules
+
+point size should be 10–12 points in printed documents, 15-25 pixels on the web.
+
+line spacing should be 120–145% of the point size.
+
+The average line length should be 45–90 characters (including spaces).
+
+Never use underlining, except perhaps for web links.
+
+Use centered text sparingly.
+
+Use bold or italic as little as possible.
+
+### Alignment
+
+-   align left
+
+-   align right
+
+-   align center
+
+-   justified
+
+### Widows & Orphans
+
+If a single word or very short line is left at the end of a column it is called a Widow. Likewise if the same is left at the top of the following column this is called an Orphan. Both of these are considered bad typography as they cause distracting shapes in a block of type. They can usually be fixed easily in the same way as the rag, by reworking the line breaks in the column or by editing the copy.
+
+::::: row
+::: col-md-6
+![Widow: They have a past but no future](widow.jpg)
+:::
+
+::: col-md-6
+![Orphan: They have no past but a future](orphan.jpg)
+:::
+:::::
+
+
+### How to combine fonts
+
+Before we start looking for a font to add to our design and combine it with our body text font, we need to ask ourselves: do we really need more than one font? Don’t just add one for the sake of it. There’s no rule in typography that says the more fonts used the better (the contrary is probably more true).
+
+One of the main reasons that pairing serif and sans-serif fonts works so well is that it creates contrast. This idea of contrast brings together multiple concepts that you should be considering, including hierarchy and how fonts complement each other.
+
+Contrast can be achieved in a number of ways, including through style, size, weight, spacing, and color, among others. In the example below, a bold, chunky font is paired with a tall, thin one and although they’re almost complete opposites, they work nicely together in large part because they are so different. The differences help create distinct roles for each font, allowing them to stand out as individual pieces of information.
+
+When combining fonts, you do want contrast, but you don’t want conflict. Just because fonts are different doesn’t mean they will automatically work well together. Generally speaking, typefaces that share a couple qualities, maybe they have similar proportions, or the lowercase letters have the same height (known as “x-height”), are more likely to look harmonious together, even if the overall appearance differs.
+
+choosing fonts that are too similar (i.e., don’t have enough contrast) becomes problematic. You’ll have trouble establishing a hierarchy because the fonts aren’t visually distinguishable from each other. And any differences that are discernible may look more like a mistake than a purposeful choice.
+
+### Tools for Typography
+
+- [https://medium.muz.li/typography-that-sacred-cow-ea7a5909ca70](https://medium.muz.li/typography-that-sacred-cow-ea7a5909ca70)
+
+- [Font Combinations](https://fontjoy.com)
+
+
+

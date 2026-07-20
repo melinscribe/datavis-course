@@ -1,0 +1,109 @@
+---
+title: "Visualizing Uncertainty"
+execute:
+  warning: false
+  message: false
+---
+
+Every estimate you plot has uncertainty attached. Hiding it makes graphs look more precise than the analysis warrants; showing it badly makes graphs unreadable. Since much of social science communication consists of plotting model estimates, this deserves its own section.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gapminder)
+
+gap2007 <- gapminder %>% filter(year == 2007)
+```
+
+## Error bars: the workhorse
+
+You have seen coefficient plots with `geom_errorbar()` in the Applied Examples. Two rules:
+
+1. **Say what the interval is.** A bar could be a standard error, a 90% CI, or a 95% CI. The reader cannot tell. Put it in the caption.
+2. **Beware the "cliff edge" effect.** Readers treat values inside the interval as certain and values outside as impossible. Neither is true.
+
+```{r}
+cont_summary <- gap2007 %>%
+  group_by(continent) %>%
+  summarise(mean_le = mean(lifeExp),
+            se = sd(lifeExp) / sqrt(n()))
+
+ggplot(cont_summary, aes(x = reorder(continent, mean_le), y = mean_le)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = mean_le - 1.96 * se, ymax = mean_le + 1.96 * se),
+                width = 0.15) +
+  coord_flip() +
+  labs(x = NULL, y = "Mean Life Expectancy",
+       caption = "Error bars show 95% confidence intervals.") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 14),
+        axis.title = element_text(size = 15))
+```
+
+**Do not** put error bars on top of bar charts ("dynamite plots"). The bar's length encodes the mean, but the filled area below carries no information and the interval below the mean is hidden. Use a point range instead, as above.
+
+## Ribbons for continuous predictions
+
+For predicted values across a continuous variable, use `geom_ribbon()`, you have seen this pattern with `ggeffects`:
+
+```{r}
+ggplot(gap2007, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.3) +
+  scale_x_log10() +
+  labs(x = "GDP per Capita (log scale)", y = "Life Expectancy",
+       caption = "Shaded band: 95% confidence interval of the LOESS fit.") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 14),
+        axis.title = element_text(size = 15))
+```
+
+## Beyond intervals: `ggdist`
+
+The [`ggdist`](https://mjskay.github.io/ggdist/) package provides geoms that show *whole distributions* of uncertainty instead of a single interval, half-eyes, gradient intervals, and quantile dotplots.
+
+```{r}
+library(ggdist)
+
+ggplot(gap2007, aes(x = lifeExp, y = continent)) +
+  stat_halfeye(aes(fill = continent), alpha = 0.7,
+               .width = c(0.66, 0.95)) +
+  scale_fill_viridis_d(end = 0.95, guide = "none") +
+  labs(x = "Life Expectancy", y = NULL,
+       caption = "Points: medians. Bars: 66% and 95% intervals. Curves: distributions.") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 14),
+        axis.title = element_text(size = 15))
+```
+
+The **gradient interval** avoids the cliff-edge problem entirely, certainty fades out gradually:
+
+```{r}
+ggplot(gap2007, aes(x = lifeExp, y = continent)) +
+  stat_gradientinterval(aes(fill = continent)) +
+  scale_fill_viridis_d(end = 0.95, guide = "none") +
+  labs(x = "Life Expectancy", y = NULL) +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 14),
+        axis.title = element_text(size = 15))
+```
+
+**Quantile dotplots** show uncertainty as a countable number of dots, lay audiences read frequencies ("18 of 20 dots are above 60") far better than probability densities:
+
+```{r}
+ggplot(gap2007, aes(x = lifeExp)) +
+  stat_dots(quantiles = 50, fill = "darkred", color = NA) +
+  labs(x = "Life Expectancy",
+       caption = "Each dot represents 2% of countries.") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 14),
+        axis.title = element_text(size = 15))
+```
+
+## Guidelines
+
+- Always show uncertainty when plotting estimates; always say what the interval is.
+- Prefer point ranges over bars + error bars.
+- Two interval widths (66% + 95%) communicate more than one.
+- For general audiences, frequency framings (dotplots, "1 in 5") beat densities and CIs.
+- Uncertainty visualization is an active research area, see Padilla, Kay & Hullman (2021), *Uncertainty Visualization*, for an overview.

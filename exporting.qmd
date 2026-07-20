@@ -1,0 +1,95 @@
+---
+title: "Exporting Graphs"
+execute:
+  warning: false
+  message: false
+---
+
+How do you get graphs out of R in the right size and resolutation? 
+
+## `ggsave()`: the essentials
+
+```{r}
+#| eval: false
+library(ggplot2)
+
+p <- ggplot(mpg, aes(displ, hwy)) + geom_point() + theme_minimal()
+
+# Vector: for papers (scales without quality loss)
+ggsave("figure1.pdf", plot = p, width = 16, height = 10, units = "cm")
+
+# Pixel: for the web and slides
+ggsave("figure1.png", plot = p, width = 16, height = 10, units = "cm", dpi = 300)
+```
+
+Three parameters matter:
+
+- **`width` / `height`** — the *physical* size. This is what controls how large text appears relative to the plot. Always set these explicitly; the default is "whatever your plotting window happened to be", which is not reproducible.
+- **`dpi`** — pixel density, for raster formats only. 300 for print, ~150 for screens.
+- **format** — chosen by the file extension. `.pdf` and `.svg` are vector; `.png` and `.jpg` are pixel. Never export a chart as `.jpg`: JPEG compression is designed for photos and puts artifacts around sharp lines and text.
+
+## The most common mistake: fixing size by scaling
+
+If your exported plot has tiny unreadable text, the wrong fix is exporting bigger and scaling down in Word, which shrinks the text further. The right fix: keep the *physical* size close to how it will be printed (a journal text column is ~8–16 cm wide) and increase `base_size` in the theme:
+
+```{r}
+#| eval: false
+p + theme_minimal(base_size = 14)   # bigger text, same physical size
+```
+
+Rule of thumb: text in a figure should end up roughly the same size as the caption text below it.
+
+## Which format for which destination?
+
+| Destination | Format | Settings |
+|---|---|---|
+| Journal submission | PDF (or EPS if required) | exact column width in cm |
+| Word document | PNG | 300 dpi, final physical size |
+| Website / blog | PNG or SVG | ~150 dpi, or SVG for sharpness |
+| Slides | PNG | 150–200 dpi, 16:9-friendly size |
+| Poster (professional print) | PDF | vector; check CMYK requirements |
+| Twitter/Bluesky/LinkedIn | PNG | 1200×675 px works well |
+
+## Better rendering: `ragg` and `svglite`
+
+The default PNG device varies across operating systems (different fonts, different anti-aliasing). The [`ragg`](https://ragg.r-lib.org/) package renders identically everywhere and handles custom fonts properly:
+
+```{r}
+#| eval: false
+library(ragg)
+ggsave("figure1.png", plot = p, device = agg_png,
+       width = 16, height = 10, units = "cm", dpi = 300)
+```
+
+For SVG output use `svglite::svglite` — SVGs stay sharp at any zoom level and are small for line-based graphics, making them ideal for the web.
+
+In a Quarto project you can set this once in `_quarto.yml` instead of per chunk:
+
+```yaml
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+    dpi: 300
+    fig-width: 7
+    fig-height: 4.5
+```
+
+## Fonts in exported figures
+
+If you use a custom font (see the Fonts page), PDF export may silently substitute it. Two solutions: use `ragg` devices (they find system fonts automatically), or embed fonts in PDFs with `cairo_pdf` as the device. Always check the exported file and not the RStudio preview before submitting anywhere.
+
+```{r}
+cairo_pdf(
+  filename = "figure.pdf",
+  width = 8,
+  height = 5.5,
+  family = "Arial",
+  onefile = TRUE
+)
+```
+## Reproducibility checklist
+
+1. Export with code (`ggsave()`), never with the RStudio Export button. Clicks are not reproducible.
+2. Fix `width`, `height`, and `dpi` explicitly.
+3. Keep an R script or Quarto document that regenerates every figure in the paper from raw data.
+4. Name files after the figure they are (`fig1_coefplot.pdf`), and regenerate them all before each submission.

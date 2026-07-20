@@ -1,0 +1,747 @@
+---
+title: "Applied Examples"
+---
+
+First, load the packages required for the examples. 
+
+```{r, output=F, message=F}
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(margins)
+library(ggeffects)
+library(patchwork)
+library(viridis)
+
+#devtools::install_github("vdeminstitute/vdemdata")
+library(vdemdata)
+```
+
+# 📊 Introduction to `ggplot2`
+
+`ggplot2` is one of the most powerful and flexible packages in R for creating data visualizations. It follows the **Grammar of Graphics**, meaning it builds plots in layers.
+
+We’ll use the built-in `mpg` dataset for the basic examples.
+
+------------------------------------------------------------------------
+
+## 1. Basic Plot Structure
+
+Every `ggplot2` plot starts with the `ggplot()` function, where you specify:
+
+-   The data frame
+-   The aesthetic mappings: `aes()`
+
+```{r}
+library(ggplot2)
+
+ggplot(data = mpg, aes(x = displ, y = hwy))
+```
+
+This creates a plot object, but it won’t render a chart until you add a layer.
+
+## 2. Add Geometries
+
+You must add a geometry layer (`geom_*()`) to display the data.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+Common geometries:
+
+-   `geom_point()` – scatterplot
+-   `geom_line()` – line plot
+-   `geom_col()` – bar chart (with values)
+-   `geom_bar()` – bar chart (with counts)
+-   `geom_boxplot()` – boxplot
+-   `geom_histogram()` – histogram
+
+------------------------------------------------------------------------
+
+## 3. Aesthetic Mappings
+
+You can map variables to color, size, shape, or linetype inside `aes()`.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+```
+
+------------------------------------------------------------------------
+
+## 4. Labels and Titles
+
+Use `labs()` to customize the title, subtitle, and axis labels.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  labs(
+    title = "Fuel Efficiency by Engine Size",
+    subtitle = "Colored by Vehicle Class",
+    x = "Displacement (L)",
+    y = "Highway MPG",
+    color = "Class"
+  )
+```
+
+------------------------------------------------------------------------
+
+## 5. Facets (Small Multiples)
+
+Use `facet_wrap()` to split the data into multiple panels by category.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class)
+```
+
+------------------------------------------------------------------------
+
+## 6. Themes
+
+Themes control the look of the plot: grid, font, background.
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  theme_minimal()
+```
+
+Popular themes:
+
+-   `theme_minimal()`
+-   `theme_classic()`
+-   `theme_light()`
+-   `theme_bw()`
+-   `theme_void()`
+
+------------------------------------------------------------------------
+
+## 7. Scales
+
+Use `scale_*()` functions to adjust axes, colors, or sizes.
+
+```{r}
+ggplot(mpg, aes(displ, hwy, color = class)) +
+  geom_point() +
+  scale_color_viridis_d()
+```
+
+------------------------------------------------------------------------
+
+## 8. Full Example
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3, alpha = 0.8) +
+  labs(
+    title = "Fuel Efficiency vs. Engine Size",
+    subtitle = "Vehicle class shown by color",
+    x = "Engine Displacement (L)",
+    y = "Highway MPG",
+    color = "Class"
+  ) +
+  theme_minimal() +
+  scale_color_viridis_d()
+```
+
+------------------------------------------------------------------------
+
+# Applied Examples for Statistical Models
+
+For the following examples, we use the Varities of Democracy [`(V-Dem)`](https://v-dem.net) dataset.
+
+**Outcomes:**
+
+-   Continuous: `e_gdppc` GDP per Capita
+
+-   Binary: `democracy_binary` (recoded from `v2x_regime`)
+
+**Predictors:**
+
+-   `v2x_jucon` (judicial constraints)
+
+-   `v2x_corr` (control of corruption)
+
+-   `v2x_libdem` Liberal Democracy Index
+
+-   `e_regionpol_6C` (region)
+
+**Get Data:**
+
+```{r}
+vdem <- vdemdata::vdem
+vdem <- vdem %>%
+  mutate(democracy_binary = ifelse(v2x_regime >= 2, 1, 0))
+```
+
+## OLS Model
+
+What is the effect of liberal democracy on GDP?
+
+```{r}
+
+ols <- lm(e_gdppc ~ v2x_libdem+v2x_corr+ as.factor(e_regionpol_6C), data = vdem)
+
+broom::tidy(ols, conf.int = TRUE) %>%
+  mutate(term = recode(term,
+    "v2x_libdem" = "Liberal Democracy",
+    "v2x_corr" = "Corruption Control",
+    "as.factor(e_regionpol_6C)2" = "Latin America & Caribbean",
+    "as.factor(e_regionpol_6C)3" = "Middle East & North Africa",
+    "as.factor(e_regionpol_6C)4" = "Sub-Saharan Africa",
+    "as.factor(e_regionpol_6C)5" = "Western Europe & North America",
+    "as.factor(e_regionpol_6C)6" = "Asia & Pacific"
+    # Region 1 is the reference category, not shown in output
+  ))%>%
+  mutate(term = factor(term, levels = rev(c(
+    "Liberal Democracy",
+    "Corruption Control",
+    "Latin America & Caribbean",
+    "Middle East & North Africa",
+    "Sub-Saharan Africa",
+    "Western Europe & North America",
+        "Asia & Pacific",
+        "(Intercept)"
+  )))) %>%
+  ggplot(aes(x = estimate, y = term)) +
+  geom_point() +
+  geom_errorbar(aes(xmin = conf.low, xmax = conf.high), width = 0.2) +
+  labs(
+    title = "OLS Coefficient Plot: GDP",
+    x = "Estimate", y = NULL
+  ) +
+  theme_minimal()
+
+```
+
+- In `ggplot2`, the order of categorical variables on axes follows the factor level order.
+- `recode()` changes the labels; `factor(..., levels = ...)` sets the plotting order.
+
+
+
+### Predicted Values (OLS)
+
+```{r}
+
+freexp_preds <- predict_response(ols, terms = c("v2x_libdem"))
+
+
+ggplot(freexp_preds, aes(x = x, y = predicted)) +
+  geom_line()+  
+  labs(
+    title = "Predicted GDP by Democracy",
+    x = NULL,
+    y = "Predicted Index Value"
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+-   Computes predicted values based on a regression model you’ve specified.
+
+-   Predictions follow the functional form you impose (e.g., linear relationship, additive terms).
+
+
+Based on estimated coefficients, it calculates:
+
+-   Fitted/predicted values
+
+-   Confidence intervals (e.g., 95% CI)
+
+### Non-Parametric Smoothing (geom_smooth())
+
+```{r}
+vdem_clean <- vdem %>%
+  filter(!is.na(v2x_libdem), !is.na(e_gdppc))
+
+ggplot(vdem_clean, aes(x = v2x_libdem, y =e_gdppc)) +
+  geom_point(alpha = 0.2, size = 1) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.3) +
+  labs(
+    title = "Raw Data Smoothing: GDP by Liberal Democracy",
+    x = "Liberal Democracy Index",
+    y = "Observed GDP per Capita"
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+-   Applies a data-driven local regression (e.g., LOESS) to the actual data points.
+-   Does not assume a global functional form (e.g., linearity).
+-   Captures non-linear patterns and noise that are present in the raw data.
+
+### Predicted Values by Region (OLS)
+
+```{r}
+    
+ggplot(freexp_preds, aes(x = as.factor(x), y = predicted)) +
+  geom_point()+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
+  coord_flip() +
+scale_x_discrete(labels = c(
+    "1" = "Eastern Europe & Central Asia",
+    "2" = "Latin America & Caribbean",
+    "3" = "Middle East & North Africa",
+    "4" = "Sub-Saharan Africa",
+    "5" = "Western Europe & North America",
+    "6" = "Asia & Pacific"
+  )) +   scale_y_continuous(limits = c(0, 60)) +
+  labs(
+    title = "Predicted GDP by Region",
+    subtitle ="Mean Democracy Index = 0.24",
+    x = NULL,
+    y = "Predicted Index Value"
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+### Split by Region
+
+```{r}
+
+freexp_preds <- predict_response(ols, terms = c("v2x_libdem", "e_regionpol_6C"))
+
+region_labels <- c(
+  "1" = "Eastern Europe & Central Asia",
+  "2" = "Latin America & Caribbean",
+  "3" = "Middle East & North Africa",
+  "4" = "Sub-Saharan Africa",
+  "5" = "Western Europe & North America",
+  "6" = "Asia & Pacific"
+)
+
+
+ggplot(freexp_preds, aes(x = x, y = predicted, color=group)) +
+  geom_line(linewidth=1.1)+  
+  labs(
+    title = "Predicted GDP by Democracy",
+    x = "Democracy Index",
+    y = "Predicted GDP Value"
+  ) +  scale_color_viridis_d(labels = region_labels, name = "Region") +
+  theme_minimal(base_size = 13)
+
+```
+
+## Logit Model: Binary Democracy Outcome
+
+What is the effect of Judicial Constraints on Executive on Democracy?
+
+```{r}
+logit_model <- glm(democracy_binary ~ v2x_jucon + v2x_corr  + as.factor(e_regionpol_6C),
+                   data = vdem, family = binomial)
+
+
+broom::tidy(logit_model, conf.int = TRUE)%>%
+  mutate(term = recode(term,
+    "v2x_jucon" = "Judicial Constraints",
+    "v2x_corr" = "Corruption Control",
+    "as.factor(e_regionpol_6C)2" = "Latin America & Caribbean",
+    "as.factor(e_regionpol_6C)3" = "Middle East & North Africa",
+    "as.factor(e_regionpol_6C)4" = "Sub-Saharan Africa",
+    "as.factor(e_regionpol_6C)5" = "Western Europe & North America",
+    "as.factor(e_regionpol_6C)6" = "Asia & Pacific"
+    # Region 1 is the reference category, not shown in output
+  )) %>%
+  mutate(term = factor(term, levels = rev(c(
+    "Judicial Constraints",
+    "Corruption Control",
+    "Latin America & Caribbean",
+    "Middle East & North Africa",
+    "Sub-Saharan Africa",
+    "Western Europe & North America",
+    "Asia & Pacific",
+    "(Intercept)"
+  )))) %>%
+  ggplot(aes(x = estimate, y = term)) +
+  geom_point() +
+  geom_errorbar(aes(xmin = conf.low, xmax = conf.high), width = 0.2) +
+  labs(
+    title = "Logit Coefficient Plot: Democracy (Binary)",
+    x = "Estimate (Log Odds)", y = NULL
+  ) +
+  theme_minimal()
+```
+
+```{r}
+dem_preds <- ggpredict(logit_model, terms = c("v2x_jucon [all]", "e_regionpol_6C"))
+
+
+# Plot using ggplot and viridis color scale
+ggplot(dem_preds, aes(x = x, y = predicted, color = group)) +
+  geom_line(linewidth = 1) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = group), alpha = 0.15, color = NA) +
+  scale_color_viridis_d(labels = region_labels, name = "Region", end = 0.9) +
+  scale_fill_viridis_d(labels = region_labels, name = "Region", end = 0.9) +
+  labs(
+    title = "Predicted Probability of Democracy by Region",
+    x = "Judicial Constraints on Executive (1=No Constraints)",
+    y = "Pr(Democracy)"
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+## Interaction
+
+```{r}
+interact <- lm(e_gdppc  ~ v2x_corr * democracy_binary,
+                      data = vdem)
+
+corr_region_pred <- ggpredict(interact,
+                              terms = c("v2x_corr", "democracy_binary"))
+
+# Relabel group variable (0/1) to "Autocracy"/"Democracy"
+corr_region_pred$group <- factor(corr_region_pred$group,
+  levels = c("0", "1"),
+  labels = c("Autocracy", "Democracy")
+)
+
+ggplot(corr_region_pred, aes(x = x, y = predicted, color = group, fill = group)) +
+  geom_line(linewidth = 1) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2, color = NA) +
+  scale_color_viridis_d(name = "Regime Type", end = 0.8) +
+  scale_fill_viridis_d(name = "Regime Type", end = 0.8) +
+  labs(
+    title = "Interaction: Corruption × Regime Type on GDP per Capita",
+        subtitle = "0 = less corrupt, 1 = more corrupt",
+    x = "Corruption",
+    y = "Predicted GDP per Capita"
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+# Marginal Effects
+
+For more details and help interpreting regression models in more depth, I highly recommend the [`marginaleffects`](https://marginaleffects.com) package.
+
+It allows you to:
+
+-   Compute marginal effects, slopes, and predicted probabilities
+-   Easily visualize effects, including interactions and uncertainty
+-   Supports GLMs, mixed models, multinomials, and more
+-   Handles robust standard errors, grouping, and subsets
+
+# Spatial Data
+
+Spatial data in R comes in two main forms:
+
+### 1. **Vector Data**
+
+Represents features as **points, lines, or polygons**.\
+Used for things like cities or geocoded events (points), roads (lines), or countries (polygons).
+
+-   **Object class:** `sf` (Simple Features) — modern and tidy-friendly\
+-   **Package:** `{sf}`\
+-   🛠️ Replaces older `sp` and integrates well with `dplyr`, `ggplot2`, and `tidyverse`
+
+### 2. **Raster Data**
+
+Stores data in **grids/cells**, such as satellite imagery, elevation, or temperature.
+
+-   **Object class:** `SpatRaster` (in {terra}) or RasterLayer (older {raster})
+-   **Package:** {terra} (modern), {raster} (legacy)
+
+
+Extract world map
+
+```{r, message=F}
+library(sf)
+library(rnaturalearth)
+library(mapview)
+library(osmdata)
+
+
+# Load country geometries
+world <- ne_countries(scale = "medium", returnclass = "sf")
+```
+
+
+
+ggplot vs. base plot 
+
+::::: columns
+::: {.column width="50%"}
+
+
+```{r, message=F}
+# Plot base map
+ggplot(world) +
+  geom_sf() +
+  labs(title = "World Countries Map") +
+  theme_minimal()
+```
+
+
+:::
+
+::: {.column width="50%"}
+
+
+```{r, message=F}
+plot(world$geometry)
+```
+
+:::
+:::::
+
+ Map a Continuous Variable (GDP per Capita)
+
+```{r, message=F}
+
+# Use Gapminder data (filter for latest year)
+gap2007 <- gapminder::gapminder %>%
+  filter(year == 2007)
+
+# Join with spatial data
+world_gap <- world %>%
+  left_join(gap2007, by = c("name" = "country"))
+
+# Plot map
+ggplot(world_gap) +
+  geom_sf(aes(fill = gdpPercap)) +
+  scale_fill_viridis_c(option = "C", na.value = "grey80") +
+  labs(title = "GDP per Capita (2007)", fill = "GDP per Capita") +
+  theme_minimal()
+```
+
+Map a Categorical Variable (Continent)
+
+```{r}
+ggplot(world) +
+  geom_sf(aes(fill = continent)) +
+  labs(title = "Continent Classification", fill = "Continent") +
+    scale_fill_viridis_d(option = "D") +
+  theme_minimal()
+```
+
+Extract a country
+
+```{r}
+germany <- world[world$name == "Germany", ]
+plot(st_geometry(germany))
+
+```
+
+### Interactive viewing of spatial objects in R
+
+Map population estimates per country
+
+```{r}
+mapview(world, zcol ="pop_est")
+```
+
+### Mapping of geocoded data
+
+Map geocoded event locations on U.S. Map
+
+```{r, message=F}
+### 🧪 Simulate and Map Protest Events Inside U.S. State Borders
+us <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf") %>%
+  filter(admin == "United States of America")
+
+
+# Simulate random points inside bounding box
+set.seed(123)
+n_events <- 1000
+raw_points <- tibble(
+  long = runif(n_events, min = -125, max = -66),
+  lat = runif(n_events, min = 25, max = 49),
+  protest_mass = sample(50:5000, n_events, replace = TRUE)
+)
+
+# Convert to sf points and intersect with US shape
+points_sf <- st_as_sf(raw_points, coords = c("long", "lat"), crs = 4326)
+
+points_us <- points_sf[st_intersects(points_sf, us, sparse = FALSE), ]
+
+
+
+# Plot result
+ggplot() +
+  geom_sf(data = us, fill = "grey90", color = "white") +
+  geom_sf(data = points_us, aes(size = protest_mass), color = "red", alpha = 0.6) +
+  scale_size(range = c(0.25, 3), name = "Protesters") +
+  labs(
+    title = "Simulated Protest Events in the U.S.",
+    x = NULL, y = NULL
+  ) +
+  coord_sf(xlim = c(-125, -66), ylim = c(25, 50)) +
+  theme_minimal()
+
+```
+
+## Overlay on OpenStreetMaps (OSM)
+
+In this example, we scrape prison locations from OSM and map den on an interactive map.
+
+First, get and prepare the data.
+
+```{r, eval=F}
+# bounding box of where we want to query data
+q <- opq(bbox = st_bbox(st_transform(germany, 4326)))
+ger <- opq(bbox = "Germany")
+
+# Build the query of location of prisons
+#osmq <- add_osm_feature(q, key = "amenity", value = "prison")
+osmq <- add_osm_feature(ger, key = "amenity", value = "prison")
+
+# And then query the data
+pris.osm <- osmdata_sf(osmq)
+
+# Make unique points / polygons
+pris.osm <- unique_osmdata(pris.osm)
+
+# Get points and polygons 
+pris.points <- pris.osm$osm_points
+# filter only points within Germany
+pris.points <- pris.osm$osm_points |> 
+  st_as_sf() |> 
+  st_filter(germany)
+# Get polygons 
+poly <- pris.osm$osm_polygons |> 
+  st_as_sf() |> 
+  st_filter(germany)
+multipoly <- pris.osm$osm_multipolygons |> 
+  st_as_sf() |>   st_make_valid() |>
+  st_filter(germany)
+# Harmonize columns (keep only common ones, or add missing if needed)
+common_cols <- intersect(names(pris.points), names(poly)) |> 
+  intersect(names(multipoly))
+
+pris.points <- pris.points[, common_cols]
+poly <- poly[, common_cols]
+multipoly <- multipoly[, common_cols]
+
+# Convert polygons and multipolygons to centroids
+poly_pts <- st_centroid(poly)
+multipoly_pts <- st_centroid(multipoly)
+# Combine all as point geometries
+pris_all <- bind_rows(pris.points, poly_pts, multipoly_pts)
+
+```
+```{r, echo=FALSE}
+# I saved the previous chunk as RDS for faster rendering
+#saveRDS(pris_all, "data/prisons.rds")
+
+pris_all <- readRDS("data/prisons.rds")
+```
+
+Map the data. Specify the indicator with `zcol = " "`
+
+```{r}
+mapview(pris_all, zcol = "name", legend = FALSE)
+```
+
+
+# Nighttime lights
+
+[`BlackMarbleR`](https://worldbank.github.io/blackmarbler/) provides a simple way to use nighttime lights data from NASA’s Black Marble. Black Marble is a NASA Earth Science Data Systems (ESDS) project that provides a product suite of daily, monthly and yearly global nighttime lights.
+
+Prior to using it, you need to register an account [here](https://ladsweb.modaps.eosdis.nasa.gov/) and generate a token.
+
+```{r,output=F, message=F, echo=F}
+
+bearer <- "eyJ0eXAiOiJKV1QiLCJvcmlnaW4iOiJFYXJ0aGRhdGEgTG9naW4iLCJzaWciOiJlZGxqd3RwdWJrZXlfb3BzIiwiYWxnIjoiUlMyNTYifQ.eyJ0eXBlIjoiVXNlciIsInVpZCI6Im1lc2F1dCIsImV4cCI6MTc1Nzg2NTUwOCwiaWF0IjoxNzUyNjgxNTA4LCJpc3MiOiJodHRwczovL3Vycy5lYXJ0aGRhdGEubmFzYS5nb3YiLCJpZGVudGl0eV9wcm92aWRlciI6ImVkbF9vcHMiLCJhY3IiOiJlZGwiLCJhc3N1cmFuY2VfbGV2ZWwiOjN9.C8FLYh6xktgtmWw8Vt15IdYWhs8ew2jF8ei3JbCP8TJX81hLJ9EQHwMWF7upBvwZzvHflga5TnxUsNpBV4owJiMH5MS8MFLSmX_fb7hu7LQfqsyrgjAaMsrQARsD8XVh-bQqYn_YLYSYMIyHpaCcuH0djH2dt491x_aSOAM9wlI0JY8dTm30LrMg0ZBUeR1qh1whmQDK2ZgVgwLXSonRT6Bvb6Lw3NQHVg9rfytUacej6TQV1iRGOaoV3Qdo9KFfcULu0_W3k3T7ULwEqtl4WLL2l8bYd1ZlTtQ6yECG1yIDAWKeSZcX_yjEmotWvaI1AflNP2PTO3hF31D4GgNYug"
+
+```
+
+We are interested in Nighttime Light in Germany. For that, we first need to load a shapefile with the countryborder.
+
+```{r, message=F}
+library(blackmarbler)
+library(geodata)
+library(terra)
+library(tidyterra)
+library(lubridate)
+
+#### Define NASA bearer token
+#bearer <- "BEARER-TOKEN-HERE"
+# Get token via account on https://ladsweb.modaps.eosdis.nasa.gov/ 
+
+roi_sf <- gadm(country = "DEU", level=1, path = tempdir()) 
+
+```
+
+```{r, echo=FALSE}
+r <- readRDS("data/r.rds")
+```
+
+Second, we load the raster data and clip it to the country border. Choose your own date.
+
+```{r, message=F, warning=F}
+#### Make raster
+#r <- bm_raster(roi_sf = roi_sf,
+          #    product_id = "VNP46A3",
+            #  date = "2021-10-01",
+            #  bearer = bearer, check_all_tiles_exist = FALSE)
+
+
+#### Prep data
+r <- r |> terra::mask(roi_sf)
+
+## Distribution is skewed, so log
+r[] <- log(r[] + 1)
+
+##### Map
+ggplot() +
+  geom_spatraster(data = r) +
+  scale_fill_gradient2(low = "black",
+                       mid = "yellow",
+                       high = "red",
+                       midpoint = 4.5,
+                       na.value = "transparent") +
+  labs(title = "Germany Nighttime Lights: October 2021") +
+  coord_sf() +
+  theme_void() +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+  legend.position = "none")
+```
+
+### Trends over time
+
+We can also load yearly or monthly data and show e.g. the trend in different states.
+
+```{r, echo=FALSE}
+ntl_df <- readRDS("data/germany_ntl.rds")
+```
+
+```{r, message=F,  warning=F}
+#ntl_df <- bm_extract(roi_sf = roi_sf,
+                 #    product_id = "VNP46A4",
+                     #date = 2019:2022,
+                     #bearer = bearer, check_all_tiles_exist = FALSE)
+
+
+ntl_df |>
+  ggplot() +
+  geom_col(aes(x = date,
+  y = ntl_mean),
+  fill = "darkorange") +
+  facet_wrap(~NAME_1) +
+  labs(x = NULL,
+       y = "NTL Luminosity",
+       title = "Germany Admin Level 1: Annual Average Nighttime Lights") +
+  scale_x_continuous(labels = seq(2019, 2022, 2),
+                     breaks = seq(2019, 2022, 2)) +
+  theme_minimal() +
+  theme(strip.text = element_text(face = "bold"))
+```
+
+### Resources for Spatial Data
+
+-   [Global administrative boundaries (GADM)](https://www.gadm.org/)
+
+-   [Simple Features (SF) Package Description](https://r-spatial.github.io/sf/)
+
+-   [Humanitarian Data Exchange](https://data.humdata.org)
+
+-   [Spatial Data Science](https://r-spatial.org/book/)
+
+-   [BlackmarbleR](https://worldbank.github.io/blackmarbler/)
