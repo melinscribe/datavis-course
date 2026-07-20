@@ -468,7 +468,7 @@ A <strong>scatter plot</strong> is ideal for visualizing the relationship betwee
 - <code>pop</code>: <em>Population</em> (bubble size)<br>
 - <code>continent</code>: <em>Continent</em> (bubble color)</p>
 <p><strong>Why this plot</strong>:<br>
-This <strong>bubble chart</strong> shows how income and health outcomes vary across continents and populations — similar to the famous Gapminder visuals by Hans Rosling.</p>
+This <strong>bubble chart</strong> shows how income and health outcomes vary across continents and populations, similar to the famous Gapminder visuals by Hans Rosling.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -1230,7 +1230,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/melinscribe\.github\.io\/datavis-course\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
