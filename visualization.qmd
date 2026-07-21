@@ -69,6 +69,8 @@ Packages needed
 library(gapminder)
 library(ggplot2)
 library(dplyr)
+library(tidyverse)
+library(scales)
 
 # Focus on one year
 gap2007 <- gapminder %>% filter(year == 2007) 
@@ -501,8 +503,6 @@ gap2007 %>%
 
 
 ```{r}
-library(tidyverse)
-library(scales)
 
 gap2007 %>%
   arrange(desc(pop)) %>%
