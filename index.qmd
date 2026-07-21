@@ -41,9 +41,9 @@ Please bring a laptop with a recent [R](https://cran.r-project.org/) (≥ 4.3) a
 #| eval: false
 install.packages(c(
   # core
-  "ggplot2", "dplyr", "tidyr", "broom", "patchwork",
+  "ggplot2", "dplyr", "tidyr", "broom", "patchwork", "tidyverse",
   # colors & themes
-  "viridis", "ggthemes", "colorspace", "cowplot",
+  "viridis", "ggthemes", "colorspace", "cowplot", "scales",
   # annotation & uncertainty
   "ggrepel", "gghighlight", "ggdist", "ggeffects", "marginaleffects",
   # tables
