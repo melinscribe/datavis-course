@@ -501,6 +501,8 @@ gap2007 %>%
 
 
 ```{r}
+library(tidyverse)
+library(scales)
 
 gap2007 %>%
   arrange(desc(pop)) %>%
