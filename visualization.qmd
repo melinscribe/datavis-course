@@ -499,6 +499,35 @@ gap2007 %>%
 :::
 :::::
 
+
+```{r}
+
+gap2007 %>%
+  arrange(desc(pop)) %>%
+  slice(1:10) %>%
+  mutate(country = forcats::fct_reorder(country, pop)) %>%
+  ggplot(aes(x = country, y = pop)) +
+  geom_col(fill = "grey30", width = 0.6) +
+  coord_flip() +
+  scale_y_continuous(labels = label_number(scale = 1e-6, suffix = "M")) +
+  labs(
+    title = "Population of the 10 Largest Countries (2007)",
+    x = NULL,
+    y = "Population"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(color = "grey90"),
+    axis.ticks = element_blank(),
+    axis.line = element_blank(),
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot"
+  )
+```
+
+
 The following example is adapted from Tufte (1983). He shows how data out of context can present untruthful results. When presenting results or effects, you should always show the answer to the question 'compared to what', such as time before/after or other units.
 
 ![*Adapted from Tufte (1983)*](traffic1.jpg){width="60%"}
