@@ -57,7 +57,7 @@ install.packages(c(
 ))
 
 # From GitHub (needs the 'remotes' package)
-install.packages("devtools")
+install.packages("remotes")
 remotes::install_github("clauswilke/colorblindr")
 remotes::install_github("vdeminstitute/vdemdata")
 ```
